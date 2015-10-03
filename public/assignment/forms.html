@@ -23,9 +23,9 @@
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="assets/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -82,8 +82,8 @@
             <table class="table table-striped" data-sortable="true" data-sort-name="name" data-sort-order="desc">
               <thead>
                 <tr>
-                  <th data-field="name" data-sortable="true">Form Name</th>
-                    <th data-field="password" data-sortable="true">Action</th>
+                  <th data-field="name" data-sortable="true"><i class="fa fa-fw fa-sort"></i>Form Name</th>
+                    <th data-field="password" data-sortable="true"><i class="fa fa-fw fa-sort"></i>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -92,15 +92,15 @@
                   <td><span class="glyphicon glyphicon-plus">&nbsp;</span><span class="glyphicon glyphicon-ok"></span></td>
                 </tr>
                 <tr>
-                  <td>Registration Form</td>
+                  <td onclick="location.href='form-fields.html'">Registration Form</td>
                   <td><span class="glyphicon glyphicon-remove">&nbsp;</span><span class="glyphicon glyphicon-pencil"></span></td>
                 </tr>
                 <tr>
-                  <td>Contact List</td>
+                  <td onclick="location.href='form-fields.html'">Contact List</td>
                   <td><span class="glyphicon glyphicon-remove">&nbsp;</span><span class="glyphicon glyphicon-pencil"></span></td>
                 </tr>
                 <tr>
-                  <td>To Do List</td>
+                  <td onclick="location.href='form-fields.html'">To Do List</td>
                   <td><span class="glyphicon glyphicon-remove">&nbsp;</span><span class="glyphicon glyphicon-pencil"></span></td>
                 </tr>
               </tbody>
@@ -116,9 +116,5 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="assets/js/vendor/holder.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
