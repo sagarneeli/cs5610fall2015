@@ -5,14 +5,15 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    UserService.$inject = ['$timeout', '$filter', '$q'];
+    //UserService.$inject = ['$timeout', '$filter', '$q'];
 
-    function UserService($timeout, $filter, $q)
+    //function UserService($timeout, $filter, $q)
+    function UserService()
     {
         var users = [
-            {username: "Alex"},
-            {username: "Bob"},
-            {username: "Charlie"},
+            {id: "", username: "Alex", password: "xxx"},
+            {id: "", username: "Bob", password: "yyy"},
+            {id: "", username: "Charlie", password: "zzz"},
         ];
 
         var userService = {
@@ -26,87 +27,50 @@
         return userService;
 
 
-        function findUserByUsernameAndPassword(username, password) {
-            var deferred = $q.defer();
-            var filtered = $filter('filter')(getUsers(), { username: username });
-            var user = filtered.length ? filtered[0] : null;
-            deferred.resolve(user);
-            return deferred.promise;
-        }
-
-        function findAllUsers()
-        {
-            return users;
-        }
-
-        function GetAll() {
-            var deferred = $q.defer();
-            deferred.resolve(getUsers());
-            return deferred.promise;
-        }
-
-        function GetById(id) {
-            var deferred = $q.defer();
-            var filtered = $filter('filter')(getUsers(), { id: id });
-            var user = filtered.length ? filtered[0] : null;
-            deferred.resolve(user);
-            return deferred.promise;
-        }
-
-        function GetByUsername(username) {
-            var deferred = $q.defer();
-            var filtered = $filter('filter')(getUsers(), { username: username });
-            var user = filtered.length ? filtered[0] : null;
-            deferred.resolve(user);
-            return deferred.promise;
-        }
-
-        function Create(user) {
-            var deferred = $q.defer();
-
-            // simulate api call with $timeout
-            $timeout(function () {
-                GetByUsername(user.username)
-                    .then(function (duplicateUser) {
-                        if (duplicateUser !== null) {
-                            deferred.resolve({ success: false, message: 'Username "' + user.username + '" is already taken' });
-                        } else {
-                            var users = getUsers();
-
-                            // assign id
-                            var lastUser = users[users.length - 1] || { id: 0 };
-                            user.id = lastUser.id + 1;
-
-                            // save to local storage
-                            users.push(user);
-                            setUsers(users);
-
-                            deferred.resolve({ success: true });
-                        }
-                    });
-            }, 1000);
-
-            return deferred.promise;
-        }
-
-        function Update(user) {
-            var deferred = $q.defer();
-
-            var users = getUsers();
-            for (var i = 0; i < users.length; i++) {
-                if (users[i].id === user.id) {
-                    users[i] = user;
-                    break;
+        function findUserByUsernameAndPassword(username, password, callback) {
+            var response;
+            for (var x = 0; x < users.length; x++) {
+                var current = users[x];
+                if (current.username === username && current.password === password) {
+                    response = { success: true , message: 'Username found'};
+                } else {
+                    response = { success: false, message: 'Username or password is incorrect' };
                 }
             }
-            setUsers(users);
-            deferred.resolve();
-
-            return deferred.promise;
+            callback(response);
         }
 
-        function Delete(id) {
-            var deferred = $q.defer();
+        function findAllUsers(callback)
+        {
+            var users = getUsers();
+            callback(users);
+        }
+
+        function createUser(user, callback) {
+            var response;
+
+            GetByUsername(user.username)
+                .then(function (duplicateUser) {
+                    if (duplicateUser !== null) {
+                        deferred.resolve({ success: false, message: 'Username "' + user.username + '" is already taken' });
+                    } else {
+                        var users = getUsers();
+
+                        // assign id
+                        //var lastUser = users[users.length - 1] || { id: 0 };
+                        //user.id = lastUser.id + 1;
+
+                        user.id = guid();
+                        // save to local storage
+                        users.push(user);
+                        setUsers(users);
+                    }
+                });
+
+            callback(user);
+        }
+
+        function deleteUserById(id, callback) {
 
             var users = getUsers();
             for (var i = 0; i < users.length; i++) {
@@ -117,24 +81,43 @@
                 }
             }
             setUsers(users);
-            deferred.resolve();
 
-            return deferred.promise;
+            callback(users);
+        }
+
+
+        function Update(id, user, callback) {
+
+            var users = getUsers();
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id === user.id) {
+                    users[i] = user;
+                    break;
+                }
+            }
+            setUsers(users);
+
+            callback(user);
         }
 
         // private functions
 
         function getUsers() {
-            if(!localStorage.users){
-                localStorage.users = JSON.stringify([]);
-            }
-
-            return JSON.parse(localStorage.users);
+            return users;
         }
 
         function setUsers(users) {
-            localStorage.users = JSON.stringify(users);
+            this.users = users;
         }
 
+        function guid() {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                    .toString(16)
+                    .substring(1);
+            }
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                s4() + '-' + s4() + s4() + s4();
+        }
     }
 })();
