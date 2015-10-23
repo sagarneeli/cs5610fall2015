@@ -7,26 +7,20 @@
 
     LoginController.$inject = ['UserService', '$location', '$rootScope', 'FlashService'];
 
-    function LoginController(UserService, $location, $rootScope, FlashService)
+    function LoginController(UserService, $location, $rootScope, $scope)
     {
-        var vm = this;
+        $scope.login = login;
 
-        vm.login = login;
-
-        (function initController() {
-            // reset login status
-            AuthenticationService.ClearCredentials();
-        })();
+        //(function initController() {
+        //    // reset login status
+        //    AuthenticationService.ClearCredentials();
+        //})();
 
         function login() {
-            vm.dataLoading = true;
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
+            UserService.findUserByUsernameAndPassword($scope.username, $scope.password, function (response) {
                 if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
-                    $location.path('/');
-                } else {
-                    FlashService.Error(response.message);
-                    vm.dataLoading = false;
+                    $rootScope.loggedInUser = $scope.username;
+                    $location.path('/profile');
                 }
             });
         };
