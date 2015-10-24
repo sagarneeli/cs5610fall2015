@@ -1,0 +1,42 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Forms</h1>
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#Forms">Forms</a></li>
+        <li role="presentation"><a href="form-fields.html">Fields</a></li>
+    </ul>
+    <br/> <br/>
+    <div id="Forms" class="table-responsive">
+        <table class="table table-striped" data-sortable="true" data-sort-name="name" data-sort-order="desc">
+            <thead>
+            <tr>
+                <th data-field="name" data-sortable="true"><i class="fa fa-fw fa-sort"></i>Form Name</th>
+                <th data-field="password" data-sortable="true"><i class="fa fa-fw fa-sort"></i>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="text" class="form-control" placeholder="name" ng-model="newForm.name"></td>
+                <td>
+                    <a ng-click="addForm()">
+                        <span class="glyphicon glyphicon-plus">&nbsp;</span>
+                    </a>
+                    <a ng-click="updateForm()">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                </td>
+            </tr>
+            <tr ng-repeat="form in forms">
+                <td onclick="location.href='form-fields.html'"> {{form.name}} </td>
+                <td>
+                    <a ng-click="deleteForm($index)">
+                        <span class="glyphicon glyphicon-remove">&nbsp;</span>
+                    </a>
+                    <a ng-click="selectForm($index)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

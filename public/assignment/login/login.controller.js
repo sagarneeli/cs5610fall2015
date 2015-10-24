@@ -5,24 +5,34 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    LoginController.$inject = ['UserService', '$location', '$rootScope', 'FlashService'];
+    //LoginController.$inject = ['UserService', '$location', '$rootScope'];
 
     function LoginController(UserService, $location, $rootScope, $scope)
     {
-        $scope.login = login;
+        console.log("Attempting to login");
+        $scope.location = $location;
+
+        $scope.login = function () {
+            UserService.findUserByUsernameAndPassword($scope.user.username, $scope.user.password, function (user) {
+                $rootScope.loggedInUser = user;
+                $location.url('/profile');
+            });
+        };
 
         //(function initController() {
         //    // reset login status
         //    AuthenticationService.ClearCredentials();
         //})();
 
-        function login() {
-            UserService.findUserByUsernameAndPassword($scope.username, $scope.password, function (response) {
-                if (response.success) {
-                    $rootScope.loggedInUser = $scope.username;
-                    $location.path('/profile');
-                }
-            });
-        };
+        //$scope.login = function() {
+        //    UserService.findUserByUsernameAndPassword(
+        //        $scope.username,
+        //        $scope.password,
+        //        function(user) {
+        //            $rootScope.loggedInUser = user;
+        //            $location.url('/profile');
+        //        });
+        //}
+
     }
 })();

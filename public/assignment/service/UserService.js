@@ -84,7 +84,7 @@
         }
 
 
-        function Update(userId, user, callback) {
+        function updateUser(userId, user, callback) {
 
             var users = getUsers();
             var updatedUser;
@@ -102,7 +102,7 @@
                 }
             }
             setUsers(users);
-            return callback(updatedUser);
+            callback(updatedUser);
 
         }
 

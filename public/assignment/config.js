@@ -23,17 +23,17 @@
                     templateUrl: "profile/profile.view.html",
                     controller: "ProfileController"
                 })
-                .when("/form",
+                .when("/forms",
                 {
                     templateUrl: "form/form.view.html",
                     controller: "FormController"
                 })
-                .when("/admin", {
-                    templateUrl: "admin.html"
-                })
-                .when("/forms", {
-                    templateUrl: "forms.html"
-                })
+                //.when("/admin", {
+                //    templateUrl: "admin.html"
+                //})
+                //.when("/forms", {
+                //    templateUrl: "forms.html"
+                //})
                 .otherwise({
                     redirectTo: "/"
                 });
