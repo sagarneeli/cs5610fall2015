@@ -10,11 +10,7 @@
     //function UserService($timeout, $filter, $q)
     function UserService()
     {
-        var users = [
-            {id: "", username: "Alex", password: "xxx"},
-            {id: "", username: "Bob", password: "yyy"},
-            {id: "", username: "Charlie", password: "zzz"},
-        ];
+        var users = [];
 
         var userService = {
             findUserByUsernameAndPassword : findUserByUsernameAndPassword,
@@ -30,15 +26,18 @@
         function findUserByUsernameAndPassword(username, password, callback) {
             var response;
             for (var x = 0; x < users.length; x++) {
-                var current = users[x];
-                if (current.username === username && current.password === password) {
-                    response = { success: true , message: 'Username found'};
+                var currentUser = users[x];
+                if (currentUser.username === username && currentUser.password === password) {
+                    //response = { success: currentUser , message: 'Username found'};
+                    response = currentUser;
                 } else {
-                    response = { success: false, message: 'Username or password is incorrect' };
+                    //response = { success: null, message: 'Username or password is incorrect' };
+                    response = null;
                 }
             }
             callback(response);
         }
+
 
         function findAllUsers(callback)
         {
@@ -46,58 +45,65 @@
             callback(users);
         }
 
+
         function createUser(user, callback) {
-            var response;
 
-            GetByUsername(user.username)
-                .then(function (duplicateUser) {
-                    if (duplicateUser !== null) {
-                        deferred.resolve({ success: false, message: 'Username "' + user.username + '" is already taken' });
-                    } else {
-                        var users = getUsers();
+            var users = getUsers();
+            user.id = guid();
+            users.push(user);
 
-                        // assign id
-                        //var lastUser = users[users.length - 1] || { id: 0 };
-                        //user.id = lastUser.id + 1;
-
-                        user.id = guid();
-                        // save to local storage
-                        users.push(user);
-                        setUsers(users);
-                    }
-                });
+            //GetByUsername(user.username)
+            //    .then(function (duplicateUser) {
+            //        if (duplicateUser !== null) {
+            //            deferred.resolve({ success: false, message: 'Username "' + user.username + '" is already taken' });
+            //        } else {
+            //            var users = getUsers();
+            //            user.id = guid();
+            //            // save to local storage
+            //            users.push(user);
+            //            setUsers(users);
+            //        }
+            //    });
 
             callback(user);
         }
 
-        function deleteUserById(id, callback) {
+        function deleteUserById(userId, callback) {
 
             var users = getUsers();
             for (var i = 0; i < users.length; i++) {
                 var user = users[i];
-                if (user.id === id) {
+                if (user.id === userId) {
                     users.splice(i, 1);
                     break;
                 }
             }
             setUsers(users);
-
             callback(users);
+
         }
 
 
-        function Update(id, user, callback) {
+        function Update(userId, user, callback) {
 
             var users = getUsers();
+            var updatedUser;
             for (var i = 0; i < users.length; i++) {
-                if (users[i].id === user.id) {
-                    users[i] = user;
+                var currentUser = users[i];
+                if (currentUser.id === userId) {
+                    for (var property in currentUser) {
+                        if (currentUser[property]) {
+                            currentUser[property] = user[property];
+                        }
+                    }
+                    currentUser.id = userId;
+                    updatedUser = currentUser;
                     break;
                 }
             }
             setUsers(users);
+            return callback(updatedUser);
 
-            callback(user);
         }
 
         // private functions

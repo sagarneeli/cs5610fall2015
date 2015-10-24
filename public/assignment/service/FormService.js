@@ -35,17 +35,20 @@
         function findAllFormsForUser(userId, callback) {
 
             var response;
+            var allForms = [];
+
             for (var x = 0; x < forms.length; x++) {
-                var current = form[x];
-                if (current.userId === userId) {
-                    response = forms;
+                var currentForm = forms[x];
+                if (currentForm.userId === userId) {
+                    allForms.push(currentForm);
                 } else {
-                    response = [];
+                    allForms = [];
                 }
             }
-            callback(response);
+            callback(allForms);
 
         }
+
 
         function deleteFormById(formId, callback) {
 
@@ -62,18 +65,25 @@
 
         }
 
+
         function updateFormById(formId, newForm, callback) {
 
             var forms = getForms();
             for (var i = 0; i < forms.length; i++) {
-                if (forms[i].id === newForm.id) {
-                    forms[i] = newForm;
+                var currentForm = forms[i];
+                if (currentForm.id === newForm.id) {
+                    for (var property in currentForm) {
+                        if (currentForm[property]) {
+                            currentForm[property] = newForm[property];
+                        }
+                    }
+                    currentForm = newForm;
                     break;
                 }
             }
             setForms(forms);
 
-            callback(newForm);
+            callback(currentForm);
 
         }
 
