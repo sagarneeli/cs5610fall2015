@@ -7,8 +7,9 @@
 
     function RegisterController(UserService, $location, $rootScope, $scope)
     {
+        $scope.$location = $location;
+
         $scope.register = function register() {
-            $scope.$location = $location;
             var newUser = {
                 username : $scope.user.username,
                 password : $scope.user.password,
@@ -20,8 +21,8 @@
                 if (user == null) {
                     return;
                 }
+                $location.path('/profile');
                 $rootScope.loggedInUser = user;
-                $location.url('/profile');
             });
         };
     }
