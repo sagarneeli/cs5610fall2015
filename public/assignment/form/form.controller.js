@@ -5,7 +5,7 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController(FormService, $location, $rootScope, $scope)
+    function FormController(FormService, $rootScope, $scope)
     {
         var userId = $rootScope.loggedInUser.id;
         $scope.newForm = {};
@@ -22,9 +22,20 @@
         }
 
         $scope.updateForm = function () {
-            FormService.updateFormById($scope.currentForm.id, $scope.newForm, function (form) {
+            FormService.updateFormById($scope.selectedForm.id, $scope.newForm, function (form) {
                 
             });
+        }
+        
+        $scope.deleteForm = function (index) {
+            FormService.deleteFormById($scope.forms[index].id, function (forms) {
+                $scope.forms.splice(index, 1);
+            });
+        }
+
+        $scope.selectForm = function (index) {
+            $scope.selectedForm = $scope.forms[index];
+            $scope.newForm = $scope.selectedForm;
         }
 
     }

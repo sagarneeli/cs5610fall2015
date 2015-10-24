@@ -51,21 +51,8 @@
             var users = getUsers();
             user.id = guid();
             users.push(user);
-
-            //GetByUsername(user.username)
-            //    .then(function (duplicateUser) {
-            //        if (duplicateUser !== null) {
-            //            deferred.resolve({ success: false, message: 'Username "' + user.username + '" is already taken' });
-            //        } else {
-            //            var users = getUsers();
-            //            user.id = guid();
-            //            // save to local storage
-            //            users.push(user);
-            //            setUsers(users);
-            //        }
-            //    });
-
             callback(user);
+
         }
 
         function deleteUserById(userId, callback) {
@@ -78,7 +65,7 @@
                     break;
                 }
             }
-            setUsers(users);
+            //setUsers(users);
             callback(users);
 
         }
@@ -101,7 +88,7 @@
                     break;
                 }
             }
-            setUsers(users);
+            //setUsers(users);
             callback(updatedUser);
 
         }

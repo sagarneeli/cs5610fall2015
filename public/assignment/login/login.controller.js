@@ -18,21 +18,5 @@
                 $location.url('/profile');
             });
         };
-
-        //(function initController() {
-        //    // reset login status
-        //    AuthenticationService.ClearCredentials();
-        //})();
-
-        //$scope.login = function() {
-        //    UserService.findUserByUsernameAndPassword(
-        //        $scope.username,
-        //        $scope.password,
-        //        function(user) {
-        //            $rootScope.loggedInUser = user;
-        //            $location.url('/profile');
-        //        });
-        //}
-
     }
 })();

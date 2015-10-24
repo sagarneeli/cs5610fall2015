@@ -15,12 +15,5 @@
                 $scope.user = updatedUser;
             });
         };
-
-        //$scope.location = $location;
-        //(function initController() {
-        //    // reset login status
-        //    AuthenticationService.ClearCredentials();
-        //})();
-
     }
 })();

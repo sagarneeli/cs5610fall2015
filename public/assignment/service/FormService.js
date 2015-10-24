@@ -34,7 +34,6 @@
 
         function findAllFormsForUser(userId, callback) {
 
-            var response;
             var allForms = [];
 
             for (var x = 0; x < forms.length; x++) {
@@ -60,7 +59,7 @@
                     break;
                 }
             }
-            setForms(forms);
+            //setForms(forms);
             callback(forms);
 
         }
@@ -81,7 +80,7 @@
                     break;
                 }
             }
-            setForms(forms);
+            //setForms(forms);
 
             callback(currentForm);
 
