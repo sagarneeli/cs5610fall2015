@@ -7,24 +7,43 @@
 
     function FormController(FormService, $rootScope, $scope)
     {
-        var userId = $rootScope.loggedInUser.id;
-        $scope.newForm = {};
+        var user = $rootScope.loggedInUser;
+        var selectedForm = {};
+        var isSelected = false;
+        $scope.forms = [];
 
-        FormService.findAllFormsForUser(userId, function (forms) {
-            $scope.forms = forms;
-        });
+        function init() {
+            if (user == null) {
+                user = {
+                    id : '12345'
+                };
+            }
+            FormService.findAllFormsForUser(user.id, function (forms) {
+                $scope.forms = forms;
+            });
+        }
+
+        //$scope.newForm = {};
+
+        init();
 
         $scope.addForm = function () {
-            FormService.createFormForUser(userId, $scope.newForm, function(form) {
+            //var form = {
+            //    name : $scope.newForm.name
+            //};
+
+            FormService.createFormForUser(user.id, $scope.newForm, function(form) {
                 $scope.forms.push(form);
-                $scope.newForm = {};
             });
         }
 
         $scope.updateForm = function () {
-            FormService.updateFormById($scope.selectedForm.id, $scope.newForm, function (form) {
-                
-            });
+            if (isSelected == false) {
+                return;
+            }
+            selectedForm.name = $scope.newForm.name;
+            FormService.updateFormById(selectedForm.id, selectedForm, callback);
+            isSelected = false;
         }
         
         $scope.deleteForm = function (index) {
@@ -34,8 +53,8 @@
         }
 
         $scope.selectForm = function (index) {
-            $scope.selectedForm = $scope.forms[index];
-            $scope.newForm = $scope.selectedForm;
+            selectedForm = $scope.forms[index];
+            isSelected = true;
         }
 
     }

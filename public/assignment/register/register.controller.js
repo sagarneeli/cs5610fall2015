@@ -9,9 +9,18 @@
     {
         $scope.register = function register() {
             $scope.$location = $location;
-            $scope.user = {};
-            UserService.createUser($scope.user, function (newUser) {
-                $rootScope.loggedInUser = newUser;
+            var newUser = {
+                username : $scope.user.username,
+                password : $scope.user.password,
+                email : $scope.user.email
+            };
+
+            UserService.createUser(newUser, function (user) {
+                console.log("New User " + user);
+                if (user == null) {
+                    return;
+                }
+                $rootScope.loggedInUser = user;
                 $location.url('/profile');
             });
         };

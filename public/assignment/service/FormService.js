@@ -40,9 +40,10 @@
                 var currentForm = forms[x];
                 if (currentForm.userId === userId) {
                     allForms.push(currentForm);
-                } else {
-                    allForms = [];
                 }
+                //else {
+                //    allForms = [];
+                //}
             }
             callback(allForms);
 
@@ -76,7 +77,7 @@
                             currentForm[property] = newForm[property];
                         }
                     }
-                    currentForm = newForm;
+                    //currentForm = newForm;
                     break;
                 }
             }

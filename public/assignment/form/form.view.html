@@ -2,7 +2,8 @@
     <h1 class="page-header">Forms</h1>
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#Forms">Forms</a></li>
-        <li role="presentation"><a href="form-fields.html">Fields</a></li>
+        <!--<li role="presentation"><a href="form-fields.html">Fields</a>-->
+        <!--<li role="presentation">Fields</li>-->
     </ul>
     <br/> <br/>
     <div id="Forms" class="table-responsive">
@@ -18,21 +19,22 @@
                 <td><input type="text" class="form-control" placeholder="name" ng-model="newForm.name"></td>
                 <td>
                     <a ng-click="addForm()">
-                        <span class="glyphicon glyphicon-plus">&nbsp;</span>
+                        <span class="glyphicon glyphicon-plus btn btn-primary">&nbsp;</span>
                     </a>
                     <a ng-click="updateForm()">
-                        <span class="glyphicon glyphicon-ok"></span>
+                        <span class="glyphicon glyphicon-ok btn btn-success"></span>
                     </a>
                 </td>
             </tr>
             <tr ng-repeat="form in forms">
-                <td onclick="location.href='form-fields.html'"> {{form.name}} </td>
+                <!--<td onclick="location.href='form-fields.html'"> {{form.name}} </td>-->
+                <td> {{form.name}} </td>
                 <td>
                     <a ng-click="deleteForm($index)">
-                        <span class="glyphicon glyphicon-remove">&nbsp;</span>
+                        <span class="glyphicon glyphicon-remove btn btn-danger">&nbsp;</span>
                     </a>
                     <a ng-click="selectForm($index)">
-                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="glyphicon glyphicon-pencil btn btn-success"></span>
                     </a>
                 </td>
             </tr>

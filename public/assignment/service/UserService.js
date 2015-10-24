@@ -48,6 +48,7 @@
 
         function createUser(user, callback) {
 
+            //var newUser = {};
             var users = getUsers();
             user.id = guid();
             users.push(user);
@@ -83,13 +84,13 @@
                             currentUser[property] = user[property];
                         }
                     }
-                    currentUser.id = userId;
-                    updatedUser = currentUser;
+                    //currentUser.id = userId;
+                    //updatedUser = currentUser;
                     break;
                 }
             }
             //setUsers(users);
-            callback(updatedUser);
+            callback(currentUser);
 
         }
 
