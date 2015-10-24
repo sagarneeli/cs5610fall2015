@@ -16,7 +16,7 @@
             };
 
             UserService.createUser(newUser, function (user) {
-                console.log("New User " + user);
+                //console.log("New User " + user);
                 if (user == null) {
                     return;
                 }
