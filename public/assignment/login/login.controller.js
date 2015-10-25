@@ -24,7 +24,6 @@
                     $rootScope.loggedInUser = user;
                     $rootScope.$broadcast('auth', user);
                     $location.path('/profile');
-
                 }
             });
         };
