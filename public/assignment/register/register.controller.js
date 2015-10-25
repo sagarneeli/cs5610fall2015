@@ -21,8 +21,9 @@
                 if (user == null) {
                     return;
                 }
-                $location.path('/profile');
                 $rootScope.loggedInUser = user;
+                $rootScope.$broadcast('auth', user);
+                $location.path('/profile');
             });
         };
     }

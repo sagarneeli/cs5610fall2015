@@ -8,14 +8,12 @@
     function FormController(FormService, $rootScope, $scope)
     {
         var user = $rootScope.loggedInUser;
-        var selectedForm = {};
-        var isSelected = false;
-        $scope.forms = [];
+        $scope.newForm = {};
 
         function init() {
             if (user == null) {
                 user = {
-                    id : '12345'
+                    id: '12345'
                 };
             }
             FormService.findAllFormsForUser(user.id, function (forms) {
@@ -23,39 +21,34 @@
             });
         }
 
-        //$scope.newForm = {};
-
         init();
+        var userId = user.id;
 
-        $scope.addForm = function () {
-            //var form = {
-            //    name : $scope.newForm.name
-            //};
-
-            FormService.createFormForUser(user.id, $scope.newForm, function(form) {
+        $scope.addForm = function() {
+            FormService.createFormForUser(userId, $scope.newForm, function(form) {
                 $scope.forms.push(form);
+                $scope.newForm = {};
             });
         }
 
-        $scope.updateForm = function () {
-            if (isSelected == false) {
-                return;
+        $scope.updateForm = function() {
+            if ($scope.selectedForm) {
+                FormService.updateFormById($scope.selectedForm.id, $scope.newForm, function(form) {
+                    $scope.selectedForm.name = $scope.newForm.name;
+                });
             }
-            selectedForm.name = $scope.newForm.name;
-            FormService.updateFormById(selectedForm.id, selectedForm, callback);
-            isSelected = false;
         }
-        
-        $scope.deleteForm = function (index) {
-            FormService.deleteFormById($scope.forms[index].id, function (forms) {
+
+        $scope.deleteForm = function(index) {
+            FormService.deleteFormById($scope.forms[index].id, function(forms){
                 $scope.forms.splice(index, 1);
+                //$scope.forms = forms;
             });
         }
 
-        $scope.selectForm = function (index) {
-            selectedForm = $scope.forms[index];
-            isSelected = true;
+        $scope.selectForm = function(index) {
+            $scope.selectedForm = $scope.forms[index];
+            $scope.newForm.name = $scope.selectedForm.name;
         }
-
     }
 })();
