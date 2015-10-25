@@ -1,26 +1,11 @@
+// Code for directive taken from this http://plnkr.co/edit/FipgiTUaaymm5Mk6HIfn
+
 (function() {
     'use strict';
 
     angular
         .module("FormBuilderApp")
-        .directive("compareTo", [function () {
-            return {
-                require: "ngModel",
-                scope: {
-                    otherModelValue: "=compareTo"
-                },
-                link: function(scope, element, attributes, ngModel) {
-
-                    ngModel.$validators.compareTo = function(modelValue) {
-                        return modelValue == scope.otherModelValue;
-                    };
-
-                    scope.$watch("otherModelValue", function() {
-                        ngModel.$validate();
-                    });
-                }
-            };
-        }])
+        .directive("compareTo", compareTo)
         .controller("RegisterController", RegisterController);
 
     function RegisterController(UserService, $location, $rootScope, $scope)
@@ -43,6 +28,25 @@
                     $rootScope.loggedInUser = user;
                     $rootScope.$broadcast('auth', user);
                     $location.path('/profile');
+                });
+            }
+        };
+    }
+
+    function compareTo() {
+        return {
+            require: "ngModel",
+            scope: {
+                otherModelValue: "=compareTo"
+            },
+            link: function(scope, element, attributes, ngModel) {
+
+                ngModel.$validators.compareTo = function(modelValue) {
+                    return modelValue == scope.otherModelValue;
+                };
+
+                scope.$watch("otherModelValue", function() {
+                    ngModel.$validate();
                 });
             }
         };
