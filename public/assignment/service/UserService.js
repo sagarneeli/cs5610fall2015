@@ -45,7 +45,7 @@
 
 
         function createUser(user, callback) {
-            
+
             var users = getUsers();
             user.id = guid();
             users.push(user);
