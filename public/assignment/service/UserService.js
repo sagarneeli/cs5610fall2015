@@ -28,10 +28,8 @@
             for (var x = 0; x < users.length; x++) {
                 var currentUser = users[x];
                 if (currentUser.username === username && currentUser.password === password) {
-                    //response = { success: currentUser , message: 'Username found'};
                     response = currentUser;
                 } else {
-                    //response = { success: null, message: 'Username or password is incorrect' };
                     response = null;
                 }
             }
@@ -66,7 +64,6 @@
                     break;
                 }
             }
-            //setUsers(users);
             callback(users);
 
         }
@@ -84,13 +81,12 @@
                             currentUser[property] = user[property];
                         }
                     }
-                    //currentUser.id = userId;
-                    //updatedUser = currentUser;
+                    currentUser.id = userId;
+                    updatedUser = currentUser;
                     break;
                 }
             }
-            //setUsers(users);
-            callback(currentUser);
+            callback(updatedUser);
 
         }
 
@@ -98,10 +94,6 @@
 
         function getUsers() {
             return users;
-        }
-
-        function setUsers(users) {
-            this.users = users;
         }
 
         function guid() {

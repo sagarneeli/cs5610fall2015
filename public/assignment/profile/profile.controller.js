@@ -8,16 +8,14 @@
     function ProfileController(UserService, $location, $rootScope, $scope)
     {
         $scope.$location = $location;
-        var user = $rootScope.loggedInUser;
+        $scope.user = $rootScope.loggedInUser;
 
-        $rootScope.$on("auth", function(event, user){
+        $rootScope.$on("Auth", function(event, user){
             $scope.user = $rootScope.loggedInUser = user;
         });
 
-        //$scope.user = user;
-
         $scope.update = function () {
-            UserService.updateUser(user.id, user, function (updatedUser) {
+            UserService.updateUser($scope.user.id, $scope.user, function (updatedUser) {
                 $rootScope.loggedInUser = updatedUser;
             });
         };

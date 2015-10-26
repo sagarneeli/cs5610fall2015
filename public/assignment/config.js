@@ -28,12 +28,9 @@
                     templateUrl: "form/form.view.html",
                     controller: "FormController"
                 })
-                //.when("/admin", {
-                //    templateUrl: "admin.html"
-                //})
-                //.when("/forms", {
-                //    templateUrl: "forms.html"
-                //})
+                .when("/", {
+                    redirectTo : "/home"
+                })
                 .otherwise({
                     redirectTo: "/"
                 });

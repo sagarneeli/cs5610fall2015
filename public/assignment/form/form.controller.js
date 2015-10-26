@@ -9,7 +9,7 @@
     {
         var user = $rootScope.loggedInUser;
         $scope.newForm = {};
-
+        $scope.user = user;
         function init() {
             if (user == null) {
                 user = {
@@ -22,10 +22,9 @@
         }
 
         init();
-        var userId = user.id;
 
         $scope.addForm = function() {
-            FormService.createFormForUser(userId, $scope.newForm, function(form) {
+            FormService.createFormForUser($scope.user.id, $scope.newForm, function(form) {
                 $scope.forms.push(form);
                 $scope.newForm = {};
             });
@@ -41,8 +40,8 @@
 
         $scope.deleteForm = function(index) {
             FormService.deleteFormById($scope.forms[index].id, function(forms){
-                $scope.forms.splice(index, 1);
-                //$scope.forms = forms;
+                //$scope.forms.splice(index, 1);
+                $scope.forms = forms;
             });
         }
 
@@ -50,5 +49,16 @@
             $scope.selectedForm = $scope.forms[index];
             $scope.newForm.name = $scope.selectedForm.name;
         }
+
+
+        $rootScope.$on("Auth", function(event, user){
+            $scope.user = $rootScope.loggedInUser = user;
+            if ($scope.user){
+                FormService.findAllFormsForUser($scope.user.id, function(forms){
+                        $scope.forms = forms;
+                });
+            }
+        });
+
     }
 })();

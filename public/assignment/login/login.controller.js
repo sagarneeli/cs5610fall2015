@@ -17,7 +17,7 @@
             UserService.findUserByUsernameAndPassword($scope.user.username, $scope.user.password, function (user) {
                 if (user != null) {
                     $rootScope.loggedInUser = user;
-                    $rootScope.$broadcast('auth', user);
+                    $rootScope.$broadcast('Auth', user);
                     $location.path('/profile');
                 }
             });

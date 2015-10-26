@@ -60,7 +60,6 @@
                     break;
                 }
             }
-            //setForms(forms);
             callback(forms);
 
         }
@@ -81,8 +80,6 @@
                     break;
                 }
             }
-            //setForms(forms);
-
             callback(currentForm);
 
         }
@@ -101,10 +98,6 @@
 
         function getForms() {
             return forms;
-        }
-
-        function setForms(forms) {
-            this.forms = forms;
         }
 
     }
