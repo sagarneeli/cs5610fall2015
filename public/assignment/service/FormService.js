@@ -76,7 +76,6 @@
                             currentForm[property] = newForm[property];
                         }
                     }
-                    //currentForm = newForm;
                     break;
                 }
             }

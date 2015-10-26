@@ -1,4 +1,5 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <!-- if user exists -->
     <div ng-if="user">
         <h1 class="page-header">Forms</h1>
         <ul class="nav nav-tabs">
@@ -44,7 +45,10 @@
         </div>
     </div>
 
-    <div ng-if="!user">
-        <h1 class="page-header">Please <a href="#/login">Login</a> to access this page.</h1>
+    <!-- if user doesn't exists -->
+    <div class="container" ng-if="!user">
+        <div class="jumbotron">
+            <p>You must <a href="#/login">login</a> to access this page.</p>
+        </div>
     </div>
 </div>

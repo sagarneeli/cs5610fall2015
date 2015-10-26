@@ -11,8 +11,9 @@
     function RegisterController(UserService, $location, $rootScope, $scope)
     {
         $scope.$location = $location;
+        $scope.register = register;
 
-        $scope.register = function register() {
+        function register() {
             if ($scope.userForm.$valid) {
                 var isUserPresent = false;
                 var isEmailExists = false;
@@ -28,7 +29,10 @@
                         }
                     }
 
-                    if (!(isUserPresent && isEmailExists)) {
+                    if (isUserPresent && isEmailExists) {
+                        console.log("User already present, enter different user name and email id");
+                    }
+                    else {
                         var newUser = {
                             username : $scope.user.username,
                             password : $scope.user.password,
@@ -36,13 +40,12 @@
                         };
 
                         UserService.createUser(newUser, function (user) {
-                            //console.log("New User " + user);
                             if (user == null) {
                                 return;
                             }
                             $rootScope.loggedInUser = user;
                             $rootScope.$broadcast('Auth', user);
-                            $location.path('/profile');
+                            $location.url('/profile');
                         });
                     }
                 });
