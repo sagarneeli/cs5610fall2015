@@ -8,7 +8,7 @@
  * Controller of AniTheme
  */
 angular.module('AniTheme')
-  .controller('DashboardCtrl', function($scope, $state, $translate, $rootScope) {
+  .controller('DashboardCtrl', function($scope, $state, $rootScope) {
 
     $scope.$state = $state;
 
@@ -23,7 +23,7 @@ angular.module('AniTheme')
 
 	$scope.load = (function(){
 		$('#world-map').vectorMap({
-			backgroundColor: '#FFFFFF',	
+			backgroundColor: '#FFFFFF',
 			zoomOnScroll: false,
 			regionStyle: {
 				initial: {
@@ -36,9 +36,9 @@ angular.module('AniTheme')
 		});
 	});
 	$scope.changeLanguage = (function (l) {
-		
-		$translate.use(l);			
-		
+
+		$translate.use(l);
+
 	});
 
-});	
+});

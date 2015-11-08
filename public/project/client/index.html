@@ -7,20 +7,68 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css">
+    <link rel="stylesheet" href="css/angular-chart.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/app-blue.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.0.2/css/hover.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.8.0/loading-bar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.4.6/textAngular.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.7/css/perfect-scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="css/angular-progress-button-styles.css">
+    <link rel="stylesheet" type="text/css" href="css/app-blue.css">
     <!-- build:js scripts/vendor.js -->
-    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/extras/modernizr.custom.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
-    <script src="js/angular-mocks.js"></script>
-    <script src="js/angular-ui-router.min.js"></script>
-    <script src="js/angular-animate.min.js"></script>
+    <script type="text/javascript" src="js/angular-mocks.js"></script>
+    <script type="text/javascript" src="js/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="js/angular-animate.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-calendar/1.0.0/calendar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
+    <script src="js/angular-chart.js"></script>
+    <script src="js/d3.js"></script>
+    <script src="js/c3.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.js"></script>-->
+    <!--<script src="js/c3chart-directive.js"></script>-->
+    <script type="text/javascript" src="js/angular-growl.js"></script>
+    <script type="text/javascript" src="js/loading-bar.js"></script>
+    <script type="text/javascript" src="js/angular-growl-notifications.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-classapplier.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-highlighter.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-selectionsaverestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-serializer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-textrange.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.4.6/textAngular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.4.6/textAngular-sanitize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.4.6/textAngularSetup.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.7/js/perfect-scrollbar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.js"></script>
+    <script type="text/javascript" src="js/angular-progress-button-styles.js"></script>
+    <script type="text/javascript" src="js/angular-translate.js"></script>
+    <script type="text/javascript" src="js/angular-translate-loader-url.js"></script>
+    <script type="text/javascript" src="js/angular-translate-loader-static-files.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.7/js/perfect-scrollbar.jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
     <script src="app.js"></script>
-    <!--<script src="js/extras/map.min.js"></script>-->
-    <!--<script src="js/extras/worldmap.js"></script>-->
-    <!--<script src="js/extras/progressButton.js"></script>-->
+    <script src="js/extras/map.min.js"></script>
+    <script src="js/extras/worldmap.js"></script>
+    <script src="js/extras/progressButton.js"></script>
     <script src="views/login/login.controller.js"></script>
     <script src="views/dashboard/dashboard.controller.js"></script>
+    <script src="views/dashboard/home/home.controller.js"></script>
+    <script src="views/topnav/topnav.controller.js"></script>
+    <script src="views/sidebar/sidebar.controller.js"></script>
+    <script src="views/dashboard/tabs/tabs.controller.js"></script>
+    <script src="views/sidebar/sidebar-widgets/sidebar-widgets.js"></script>
+    <script src="views/sidebar/sidebar-widgets/sidebar-calendar/sidebar-calendar.js"></script>
+    <script src="views/sidebar/sidebar-widgets/sidebar-newsfeed/sidebar-newsfeed.js"></script>
+    <script src="views/sidebar/sidebar-widgets/sidebar-profile/sidebar-profile.js"></script>
+    <script src="views/sidebar/menu-bar/menu-bar.js"></script>
 </head>
 <body ng-app="AniTheme">
 
