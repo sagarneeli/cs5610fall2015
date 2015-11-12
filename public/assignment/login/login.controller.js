@@ -14,10 +14,10 @@
 
         $scope.login = function () {
             console.log("Given username " + $scope.user.username + " Given password " + $scope.user.password);
-            UserService.findUserByUsernameAndPassword($scope.user.username, $scope.user.password, function (user) {
+            UserService.findUserByUsernameAndPassword($scope.user.username, $scope.user.password)
+              .then(function (user) {
                 if (user != null) {
                     $rootScope.loggedInUser = user;
-                    $rootScope.$broadcast('Auth', user);
                     $location.url('/profile');
                 }
             });

@@ -23,8 +23,10 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
+    "body-parser": "^1.14.1",
     "express": "~3.4.4",
-    "mongoose": "^4.2.4"
+    "mongoose": "^4.2.4",
+    "node-uuid": "^1.4.4"
   },
   "devDependencies": {},
   "bundleDependencies": [],
