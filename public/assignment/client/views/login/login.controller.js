@@ -5,8 +5,6 @@
     .module("FormBuilderApp")
     .controller("LoginController", LoginController);
 
-  //LoginController.$inject = ['UserService', '$location', '$rootScope'];
-
   function LoginController(UserService, $location, $rootScope, $scope)
   {
     console.log("Attempting to login");

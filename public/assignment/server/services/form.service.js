@@ -1,34 +1,35 @@
+"use strict"
+
 module.exports = function (app, model) {
 
-  app.get('/api/assignment/form', function (req, res) {
-    res.json(model.findAll());
+  var uuid = require('node-uuid');
+
+  app.get('/api/assignment/user/:userId/form', function(req, res) {
+    res.json(model.FindFormsByUserId(req.params.userId));
   });
 
-  app.get('/api/assignment/user/:userId/form', function (req, res) {
+
+  app.get('/api/assignment/form/:formId', function(req, res) {
+    res.json(model.FindById(req.params.formId));
+  });
+
+
+  app.delete('/api/assignment/form/:formId', function(req, res){
+    res.json(model.Delete(req.params.formId));
+  });
+
+
+  app.post('/api/assignment/user/:userId/form', function(req, res) {
+    var newForm = req.body || {};
     var userId = req.params.userId;
-    res.json(model.findByUserId(userId));
+    newForm.userId = Number(userId);
+    res.json(model.Create(newForm));
   });
 
-  app.get('/api/assignment/form/:formId', function (req, res) {
-    var formId = req.params.formId;
-    res.json(model.findByFormId(formId));
+
+  app.put('/api/assignment/form/:formId', function(req, res) {
+    res.json(model.Update(req.params.formId, req.body));
   });
 
-  app.delete('/api/assignment/form/:formId', function (req, res) {
-    var formId = req.params.formId;
-    res.json(model.deleteForm(formId));
-  });
-
-  app.post('/api/assignment/user/:userId/form', function (req, res) {
-    var userId = req.params.userId;
-    var form = req.body;
-    res.json(model.addForm(form));
-  });
-
-  app.put('/api/assignment/form/:formId', function (req, res) {
-    var formId = req.params.formId;
-    var form = req.body;
-    res.json(model.updateForm(formId, form));
-  });
 
 };

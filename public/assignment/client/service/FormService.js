@@ -19,16 +19,9 @@
         return formService;
 
         function createFormForUser(userId, form) {
-          var request = {
-            method: 'POST',
-            url: '/api/assignment/user/' + userId + '/form',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            data: form
-          };
+          var url = '/api/assignment/user/' + userId + '/form';
           var deferred = $q.defer();
-          $http(request)
+          $http.post(url, form)
             .success(function(response) {
               deferred.resolve(response);
             });
@@ -37,15 +30,9 @@
 
 
         function findAllFormsForUser(userId) {
-          var request = {
-            method: 'GET',
-            url: '/api/assignment/user/' + userId + '/form',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          };
+          var url = '/api/assignment/user/' + userId + '/form';
           var deferred = $q.defer();
-          $http(request)
+          $http.get(url)
             .success(function(response) {
               deferred.resolve(response);
             });
@@ -53,7 +40,7 @@
         }
 
 
-        function deleteFormById(formId, callback) {
+        function deleteFormById(formId) {
           var url = '/api/assignment/form/' + formId;
           var deferred = $q.defer();
           $http.delete(url)
@@ -64,16 +51,9 @@
         }
 
 
-        function updateFormById(formId, newForm, callback) {
-          var request = {
-            method: 'PUT',
-            url: '/api/assignment/form/' + formId,
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            data: newForm
-          };
-          $http(request)
+        function updateFormById(formId, newForm) {
+          var url = '/api/assignment/form/' + formId;
+          $http.put(url, newForm)
             .success(function(response) {
               deferred.resolve(response);
             });

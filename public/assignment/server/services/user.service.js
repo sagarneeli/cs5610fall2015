@@ -1,44 +1,44 @@
+"use strict"
+
 module.exports = function (app, model) {
 
-  app.post('/api/assignment/user', function (req, res) {
-    var user = req.body;
-    model.createUser(user);
-    res.json(model.findAll());
+  app.post("/api/assignment/user", function(req, res) {
+    //res.json(model.Create(req.body));
+    model.Create(req.body)
+      .then(function(newUser) {
+        res.json(newUser);
+      });
   });
 
-  app.get('/api/assignment/user', function (req, res) {
-    var username = req.param('username');
-    var password = req.param('password');
-    if (username && password) {
-      var credential = {'username': username, 'password': password};
-      res.json(model.findUserByCredentials(credential));
-      return;
-    }
-    if (username) {
+  app.get('/api/assignment/user', function(req, res) {
+    //var username = req.param('username');
+    //var password = req.param('password');
+    var username = req.query.username;
+    var password = req.query.password;
+
+    if(username == null && password == null) {
+      res.json(model.FindAll());
+    } else if (password == null) {
       res.json(model.findUserByUsername(username));
-      return;
+    } else {
+      res.json(model.findUserByCredentials({
+        username: username,
+        password: password
+      }));
     }
-    res.json(model.findAll());
   });
 
-  app.get('/api/assignment/user/:id', function (req, res) {
-    var id = req.params.id;
-    var user = model.findUserById(id);
-    if (user)
-      res.json(user);
+  app.get('/api/assignment/user/:id', function(req, res) {
+    res.json(model.FindById(req.params.id));
   });
 
 
-  app.put('/api/assignment/user/:id', function (req, res) {
-    var id = req.params.id;
-    var user = req.body;
-    model.updateUser(id, user);
-    res.json(model.findAll());
+  app.put('/api/assignment/user/:id', function(req, res) {
+    res.json(model.Update(req.params.id, req.body));
   });
 
-  app.delete('/api/assignment/user/:id', function (req, res) {
-    var id = req.params.id;
-    model.deleteUser(id);
-    res.json(model.findAll());
+  app.delete('/api/assignment/user/:id', function(req, res){
+    res.json(model.Delete(req.params.id));
   });
+
 };

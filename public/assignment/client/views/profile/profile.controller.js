@@ -7,23 +7,16 @@
 
   function ProfileController(UserService, $location, $rootScope, $scope)
   {
+    var user = $rootScope.loggedInUser;
     $scope.$location = $location;
-    $scope.user = $rootScope.loggedInUser;
-
-    function filter(users) {
-      var userId = $scope.user.id;
-      for (var i = 0; i < users.length; ++i) {
-        var user = users[i];
-        if (user.id == userId)
-          return user;
-      }
-      return null;
-    }
+    $scope.user = user;
 
     $scope.update = function () {
       UserService.updateUser($scope.user.id, $scope.user)
         .then(function (updatedUser) {
-          $rootScope.loggedInUser = filter(updatedUser);
+          for(var index in updatedUser) {
+            $scope.user[index] = updatedUser[index];
+          }
         });
     };
   }

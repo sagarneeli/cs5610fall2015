@@ -7,8 +7,6 @@
 
   function UserService($http, $q)
   {
-    //var users = [];
-
     var userService = {
       findUserByUsernameAndPassword : findUserByUsernameAndPassword,
       findAllUsers : findAllUsers,
@@ -44,16 +42,9 @@
 
 
     function createUser(user) {
-      var request = {
-        method: 'POST',
-        url: '/api/assignment/user',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: user
-      };
+      var url = '/api/assignment/user';
       var deferred = $q.defer();
-      $http(request)
+      $http.post(url, user)
         .success(function(response) {
           deferred.resolve(response);
         });
@@ -72,16 +63,9 @@
 
 
     function updateUser(userId, user) {
-      var request = {
-        method:'PUT',
-        url:'/api/assignment/user/' + userId,
-        headers:{
-          'Content-Type':'application/json'
-        },
-        data:user
-      };
+      var url = '/api/assignment/user/' + userId;
       var deferred = $q.defer();
-      $http(request)
+      $http.put(url, user)
         .success(function(response) {
           deferred.resolve(response);
         });

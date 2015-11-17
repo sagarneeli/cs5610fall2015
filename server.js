@@ -13,5 +13,7 @@ var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 require("./public/assignment/server/app.js")(app);
 
-app.listen(port, ipaddress);
+app.listen(port, ipaddress, function() {
+  console.log('Form app listening at http://%s:%s', ipaddress, port);
+});
 

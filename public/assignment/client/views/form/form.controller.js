@@ -9,35 +9,27 @@
   {
     var user = $rootScope.loggedInUser;
     $scope.newForm = {};
-    $scope.user = user
-
-    function filter(data) {
-      var result =  data.filter(function (form) {
-        return form.userId == $rootScope.user.id;
-      });
-      console.log(result);
-      return result;
-    }
+    $scope.user = user;
 
     function init() {
-      if (user == null) {
-        user = {
-          id: '12345'
-        };
-      }
+      //if (user == null) {
+      //  user = {
+      //    id: '12345'
+      //  };
+      //}
       FormService.findAllFormsForUser(user.id)
         .then(function (forms) {
-          $scope.forms = filter(forms);
+          $scope.forms = forms;
         });
     }
 
     init();
 
     $scope.addForm = function() {
-      FormService.createFormForUser($scope.user.id, $scope.newForm)
+      FormService.createFormForUser(user.id, $scope.newForm)
         .then(function(form) {
-          $scope.forms = filter(form);
-          $scope.newForm = {};
+          $scope.forms = form;
+          //$scope.newForm = {};
         });
     }
 
@@ -45,8 +37,8 @@
       if ($scope.selectedForm) {
         FormService.updateFormById($scope.selectedForm.id, $scope.newForm)
           .then(function(form) {
-            $scope.selectedForm.name = $scope.newForm.name
-            $scope.forms = filter(form);
+            $scope.selectedForm.name = $scope.newForm.name;
+            $scope.forms = form;
           });
       }
     }
@@ -54,7 +46,7 @@
     $scope.deleteForm = function(index) {
       FormService.deleteFormById($scope.forms[index].id)
         .then(function(form){
-          $scope.forms = filter(form);
+          $scope.forms = form;
         });
     }
 

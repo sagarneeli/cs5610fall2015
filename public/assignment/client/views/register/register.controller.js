@@ -34,15 +34,6 @@
           }
           else {
 
-            //function filter(users) {
-            //  for (var i = 0; i < users.length; ++i) {
-            //    var user = users[i];
-            //    if (user.username == newUser.username && user.password == newUser.password)
-            //      return user;
-            //  }
-            //  return null;
-            //}
-
             var newUser = {
               username : $scope.user.username,
               password : $scope.user.password,
@@ -50,15 +41,9 @@
             };
 
             UserService.createUser(newUser)
-              .then(function (users) {
-                if (users == null) {
+              .then(function (user) {
+                if (user == null) {
                   return;
-                }
-                //$rootScope.loggedInUser = filter(user);
-                for (var i = 0; i < users.length; ++i) {
-                  var user = users[i];
-                  if (user.username == newUser.username && user.password == newUser.password)
-                    break;
                 }
                 $rootScope.loggedInUser = user;
                 $location.url('/profile');

@@ -31,6 +31,9 @@
                 <tr ng-repeat="form in forms">
                     <!--<td onclick="location.href='form-fields.html'"> {{form.name}} </td>-->
                     <td> {{form.name}} </td>
+                    <!--<td>-->
+                        <!--<a href="#/user/{{form.userId}}/form/{{form.id}}/fields">{{form.name}}</a>-->
+                    <!--</td>-->
                     <td>
                         <a ng-click="deleteForm($index)">
                             <span class="glyphicon glyphicon-remove">&nbsp;</span>
