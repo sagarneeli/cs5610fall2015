@@ -65,16 +65,10 @@
         });
     };
 
-    $scope.gotoFormFields = function(form){
-      $scope.error = $scope.success = "";
-      //update rootscope user
+    $scope.formFields = function(form){
       $scope.selectedForm = $rootScope.selectedForm = form;
-      //broadcast login auth event for listeners to update loggedin user
       $rootScope.$broadcast('selectedForm', form);
-      var target = "/user/"+$scope.user.id+"/form/"+form.id+"/fields";
-      //Navigate to profile : user/:userId/form/:formId/fields
-      $location.path( target );
-      //$location.path( "/user" );
+      $location.path("/user/"+$scope.user.id+"/form/"+form.id+"/fields");
     };
 
     $scope.selectForm = function(currentForm) {
