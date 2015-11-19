@@ -3,10 +3,8 @@
     <div ng-if="user">
         <h1 class="page-header">Forms</h1>
         <ul class="nav nav-tabs">
-
-            <li role="presentation" class="active"><a href="#Forms">Forms</a></li>
-                                            '/user/:userId/form/:formId/fields'
-            <li id="fieldsTab" ><a ng-href="#/user/{{user.id}}/form/{{field.id}}/fields" ng->Fields</a></li>
+            <li role="presentation" class="active"><a href="#/forms">Forms</a></li>
+            <li id="fieldsTab" ><a ng-href="#/user/{{user.id}}/form/null/fields" ng->Fields</a></li>
             <!--<li role="presentation"><a href="form-fields.html">Fields</a>-->
             <!--<li role="presentation">Fields</li>-->
         </ul>
@@ -15,8 +13,8 @@
             <table class="table table-striped" data-sortable="true" data-sort-name="name" data-sort-order="desc">
                 <thead>
                 <tr>
-                    <th data-field="name" data-sortable="true"><i class="fa fa-fw fa-sort"></i>Form Name</th>
-                    <th data-field="password" data-sortable="true"><i class="fa fa-fw fa-sort"></i>Action</th>
+                    <th data-field="name" data-sortable="true" aria-hidden="true"><i class="fa fa-fw fa-sort"></i>Form Name</th>
+                    <th data-field="password" data-sortable="true" aria-hidden="true"><i class="fa fa-fw fa-sort"></i>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,10 +24,10 @@
                     </td>
                     <td>
                         <a ng-click="addForm(newForm.name)">
-                            <span class="glyphicon glyphicon-plus">&nbsp;</span>
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>
                         </a>
                         <a ng-click="updateForm(newForm.name)">
-                            <span class="glyphicon glyphicon-ok"></span>
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         </a>
                     </td>
                 </tr>
