@@ -11,6 +11,10 @@
     $scope.$location = $location;
     $scope.user = user;
 
+    $rootScope.$on("auth", function(event, user){
+      $scope.user = $rootScope.loggedInUser = user;
+    });
+
     $scope.update = function () {
       UserService.updateUser($scope.user.id, $scope.user)
         .then(function (updatedUser) {

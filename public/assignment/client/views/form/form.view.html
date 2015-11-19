@@ -3,7 +3,10 @@
     <div ng-if="user">
         <h1 class="page-header">Forms</h1>
         <ul class="nav nav-tabs">
+
             <li role="presentation" class="active"><a href="#Forms">Forms</a></li>
+                                            '/user/:userId/form/:formId/fields'
+            <li id="fieldsTab" ><a ng-href="#/user/{{user.id}}/form/{{field.id}}/fields" ng->Fields</a></li>
             <!--<li role="presentation"><a href="form-fields.html">Fields</a>-->
             <!--<li role="presentation">Fields</li>-->
         </ul>
@@ -18,27 +21,29 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><input type="text" class="form-control" placeholder="name" ng-model="newForm.name"/></td>
                     <td>
-                        <a ng-click="addForm()">
+                        <input type="text" class="form-control" placeholder="name" ng-model="newForm.name"/>
+                    </td>
+                    <td>
+                        <a ng-click="addForm(newForm.name)">
                             <span class="glyphicon glyphicon-plus">&nbsp;</span>
                         </a>
-                        <a ng-click="updateForm()">
+                        <a ng-click="updateForm(newForm.name)">
                             <span class="glyphicon glyphicon-ok"></span>
                         </a>
                     </td>
                 </tr>
                 <tr ng-repeat="form in forms">
                     <!--<td onclick="location.href='form-fields.html'"> {{form.name}} </td>-->
-                    <td> {{form.name}} </td>
-                    <!--<td>-->
-                        <!--<a href="#/user/{{form.userId}}/form/{{form.id}}/fields">{{form.name}}</a>-->
-                    <!--</td>-->
+                    <!--<td> {{form.name}} </td>-->
                     <td>
-                        <a ng-click="deleteForm($index)">
+                    <a ng-click="gotoFormFields(form)">{{form.title}}</a>
+                    </td>
+                    <td>
+                        <a ng-click="deleteForm(form.id)">
                             <span class="glyphicon glyphicon-remove">&nbsp;</span>
                         </a>
-                        <a ng-click="selectForm($index)">
+                        <a ng-click="selectForm(form)">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
                     </td>

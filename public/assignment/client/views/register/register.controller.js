@@ -18,7 +18,9 @@
         var isUserPresent = false;
         var isEmailExists = false;
 
-        UserService.findAllUsers(function(users){
+        console.log("In Register function");
+
+        UserService.findAllUsers().then(function(users){
           for (var x = 0; x < users.length; x++) {
             var user = users[x];
             if (user && user.username===$scope.user.username && user.password===$scope.user.password){
@@ -28,7 +30,7 @@
               isEmailExists = true;
             }
           }
-
+          console.log("Finding all users");
           if (isUserPresent && isEmailExists) {
             console.log("User already present, enter different user name and email id");
           }
@@ -40,12 +42,15 @@
               email : $scope.user.email
             };
 
+            console.log("Creating new user " + newUser.username + " " + newUser.password);
             UserService.createUser(newUser)
               .then(function (user) {
                 if (user == null) {
                   return;
                 }
+                console.log("Creating user");
                 $rootScope.loggedInUser = user;
+                $rootScope.$broadcast('auth', user);
                 $location.url('/profile');
               });
           }

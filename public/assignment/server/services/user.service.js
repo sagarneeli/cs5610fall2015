@@ -3,16 +3,10 @@
 module.exports = function (app, model) {
 
   app.post("/api/assignment/user", function(req, res) {
-    //res.json(model.Create(req.body));
-    model.Create(req.body)
-      .then(function(newUser) {
-        res.json(newUser);
-      });
+    res.json(model.Create(req.body));
   });
 
   app.get('/api/assignment/user', function(req, res) {
-    //var username = req.param('username');
-    //var password = req.param('password');
     var username = req.query.username;
     var password = req.query.password;
 

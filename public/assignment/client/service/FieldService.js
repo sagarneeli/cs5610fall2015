@@ -1,6 +1,6 @@
 (function () {
   angular
-    .module("FormBuilderAppNew")
+    .module("FormBuilderApp")
     .factory("FieldService", FieldService);
 
   function FieldService($http, $q)
@@ -16,83 +16,54 @@
 
     function createFieldForForm(formId, field) {
       var deferred = $q.defer();
-      var request = {
-        method: 'POST',
-        url: '/api/assignment/form/' + formId + '/field',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: field
-      };
-      $http(request)
-        .success(deferred.resolve)
-        .error(deferred.reject);
+      var url = '/api/assignment/form/' + formId + '/field';
+      $http.post(url, field)
+        .success(function(fields) {
+          deferred.resolve(fields);
+        });
 
       return deferred.promise;
     }
 
     function getFieldsForForm(formId) {
       var deferred = $q.defer();
-      var request = {
-        method: 'GET',
-        url: '/api/assignment/form/' + formId + '/field',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
-      console.log(request);
-      $http(request)
-        .success(deferred.resolve)
-        .error(deferred.reject);
+      var url = '/api/assignment/form/' + formId + '/field';
+      $http.get(url)
+        .success(function(fields) {
+          deferred.resolve(fields);
+        });
 
       return deferred.promise;
     }
 
     function getFieldForForm(formId, fieldId) {
       var deferred = $q.defer();
-      var request = {
-        method: 'GET',
-        url: '/api/assignment/form/' + formId + '/field/' + fieldId,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
-      $http(request)
-        .success(deferred.resolve)
-        .error(deferred.reject);
+      var url = '/api/assignment/form/' + formId + '/field/' + fieldId;
+      $http.get(url, fieldId)
+        .success(function(field) {
+          deferred.resolve(field);
+        });
 
       return deferred.promise;
     }
 
     function deleteFieldFromForm(formId, fieldId) {
       var deferred = $q.defer();
-      var request = {
-        method: 'DELETE',
-        url: '/api/assignment/form/' + formId + '/field/' + fieldId,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
-      $http(request)
-        .success(deferred.resolve)
-        .error(deferred.reject);
-
+      var url = '/api/assignment/form/' + formId + '/field/' + fieldId;
+      $http.delete(url)
+        .success(function(field) {
+          deferred.resolve(field);
+        });
       return deferred.promise;
     }
 
     function updateField(formId, fieldId, field) {
       var deferred = $q.defer();
-      var request = {
-        method: 'PUT',
-        url: '/api/assignment/form/' + formId + '/field/' + fieldId,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: field
-      };
-      $http(request)
-        .success(deferred.resolve)
-        .error(deferred.reject);
+      var url = '/api/assignment/form/' + formId + '/field/' + fieldId;
+      $http.put(url, field)
+        .success(function(field) {
+          deferred.resolve(field);
+        });
 
       return deferred.promise;
     }

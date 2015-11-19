@@ -12,7 +12,6 @@ module.exports = function(app) {
     findUserByCredentials: findUserByCredentials,
     Update: Update,
     Delete: Delete
-
   };
 
   return api;
@@ -20,7 +19,7 @@ module.exports = function(app) {
   function Create(user) {
     user.id = uuid.v1();
     users.push(user);
-    return user;
+    return users;
   }
 
   function FindAll() {
@@ -32,9 +31,8 @@ module.exports = function(app) {
       var user = users[index];
       if (user.id == id)
         return user;
-      else
-        return null;
     }
+    return null;
   }
 
   function findUserByUsername(username) {
@@ -42,9 +40,8 @@ module.exports = function(app) {
       var user = users[index];
       if (user.username == username)
         return user;
-      else
-        return null;
     }
+    return null;
   }
 
 
@@ -53,9 +50,8 @@ module.exports = function(app) {
       var user = users[index];
       if (user.username == credentials.username && user.password == credentials.password)
         return user;
-      else
-        return null;
     }
+    return null;
   }
 
   function Update(id, newUser) {
@@ -72,10 +68,10 @@ module.exports = function(app) {
       var user = users[index];
       if (user.id == id) {
         users.splice(index, 1);
-        console.log("User with id "+userId+"succesfully deleted");
-      }
         return users;
+      }
     }
+    return null;
   }
 
 };

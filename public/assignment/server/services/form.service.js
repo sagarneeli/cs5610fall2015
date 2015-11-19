@@ -20,7 +20,7 @@ module.exports = function (app, model) {
 
 
   app.post('/api/assignment/user/:userId/form', function(req, res) {
-    var newForm = req.body || {};
+    var newForm = req.body;
     var userId = req.params.userId;
     newForm.userId = Number(userId);
     res.json(model.Create(newForm));
