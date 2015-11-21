@@ -30,17 +30,11 @@
             templateUrl: "views/form/form.view.html",
             controller: "FormController"
           })
-      /*  .when('/fields', {
-          templateUrl: "views/field/field.view.html",
-          controller: 'FieldController'
-          //controllerAs: 'model'
-        })
-        */
-        .when('/user/:userId/form/:formId/fields', {
-          templateUrl: "views/field/field.view.html",
-          controller: 'FieldController'
-          //controllerAs: 'model'
-        })
+        //.when('/user/:userId/form/:formId/fields', {
+        //  templateUrl: "views/field/field.view.html",
+        //  controller: 'FieldController'
+        //  //controllerAs: 'model'
+        //})
 
         .when("/", {
           redirectTo : "/home"

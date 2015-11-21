@@ -5,14 +5,14 @@
 
   function FieldService($http, $q)
   {
-    var api = {
+    var fieldService = {
       createFieldForForm: createFieldForForm,
       getFieldsForForm: getFieldsForForm,
       getFieldForForm: getFieldForForm,
       deleteFieldFromForm: deleteFieldFromForm,
       updateField: updateField
     };
-    return api;
+    return fieldService;
 
     function createFieldForForm(formId, field) {
       var deferred = $q.defer();
@@ -61,8 +61,8 @@
       var deferred = $q.defer();
       var url = '/api/assignment/form/' + formId + '/field/' + fieldId;
       $http.put(url, field)
-        .success(function(field) {
-          deferred.resolve(field);
+        .success(function(fields) {
+          deferred.resolve(fields);
         });
 
       return deferred.promise;
