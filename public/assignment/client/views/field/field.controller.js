@@ -7,13 +7,18 @@
     .controller("FieldController", ['$scope', '$routeParams', '$location', '$rootScope', 'FormService', 'FieldService', FieldController]);
 
   //FieldController function
-  function FieldController($scope, $routeParams, $location, $rootScope, FieldService){
+  function FieldController($scope, $routeParams, $location, $rootScope, FormService, FieldService){
     $scope.$location = $location;
     $scope.user = $rootScope.loggedInUser;
     $scope.fields = [];
     $scope.newFieldType = "";
     $scope.formID = $routeParams.formId || "";
     $scope.userID = $routeParams.userId || "";
+
+    var options = {
+      "label": "o1",
+      "value": "o1"
+    };
 
     var slt = {
         "id": null,
@@ -88,11 +93,6 @@
       }
     };
     initForms();
-
-    /*$scope.newField = {
-     "options": ["No Fields Selected","Single Line Text Field","Multi Line Text Field","Date Field",
-     "Dropdown Field","Checkboxes Field", "Radio Buttons Field"]
-     };*/
 
     $scope.addField = function(fieldType){
       $scope.error = "";

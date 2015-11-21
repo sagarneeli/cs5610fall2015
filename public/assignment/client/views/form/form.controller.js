@@ -27,22 +27,26 @@
         FormService.findAllFormsForUser($scope.user.id)
           .then(function(forms) {
             $scope.forms = forms;
+            var exists = false;
             for (var index = 0; index < forms.length; index++) {
               var form = forms[index];
               if (form.title == formName) {
-                break;
+                //break;
+                exists = true;
               }
             }
-            var newForm = {
-              title : formName
-            };
-            FormService.createFormForUser($scope.user.id, newForm)
-              .then(function(form) {
-                console.log(forms);
-                $scope.forms.push(form);
-                //$scope.newForm = {};
-                formName = _this.formName = "";
-              });
+            if (!exists){
+              var newForm = {
+                title : formName
+              };
+              FormService.createFormForUser($scope.user.id, newForm)
+                .then(function(form) {
+                  console.log(forms);
+                  $scope.forms.push(form);
+                  //$scope.newForm = {};
+                  formName = _this.formName = "";
+                });
+            }
           });
       }
     };
@@ -68,16 +72,21 @@
     $scope.formFields = function(form){
       $scope.selectedForm = $rootScope.selectedForm = form;
       $rootScope.$broadcast('selectedForm', form);
-      $location.path("/user/"+$scope.user.id+"/form/"+form.id+"/fields");
+      console.log("User ID" + $scope.user.id);
+      $location.path("/user/" + $scope.user.id + "/form/" + form.id + "/fields");
     };
 
     $scope.selectForm = function(currentForm) {
       $scope.updateForm = null;
       for (var i = 0; i < $scope.forms.length; i++) {
         var form = $scope.forms[i];
+        var selectedForm;
         if (form.title == currentForm.title) {
-          $scope.updateForm = form;
+          selectedForm = form;
         }
+      }
+      if (selectedForm) {
+        $scope.updateForm = selectedForm;
       }
     };
 
