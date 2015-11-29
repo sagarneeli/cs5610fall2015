@@ -1,79 +1,65 @@
-// Code for directive taken from this http://plnkr.co/edit/FipgiTUaaymm5Mk6HIfn
+(function(){
+	'use strict';
 
-(function() {
-  'use strict';
+	angular
+	.module("FormBuilderApp")
+	.controller("RegisterController", ['$scope', '$location', '$rootScope', '$q', 'UserService', RegisterController]);
 
-  angular
-    .module("FormBuilderApp")
-    .directive("compareTo", compareTo)
-    .controller("RegisterController", RegisterController);
+	//HeaderController function
+	function RegisterController($scope, $location, $rootScope, $q, UserService ){
+		$scope.$location = $location;
 
-  function RegisterController(UserService, $location, $rootScope, $scope)
-  {
-    $scope.$location = $location;
-    //$scope.register = register;
-    var model = this;
+		//register function : registering a user
+		$scope.register = function(){
+			$scope.error = null;
+			if ($scope.username && $scope.password && $scope.vpassword && $scope.email){
+				UserService.findAllUsers()
+				.then(function(users){
+					if ($scope.password !== $scope.vpassword){
+						$scope.error = "both the password fields should match";
+					} else {
+						var exists = false;
+						var emailExists = false;
+						users.forEach(function(user, index){
+							if (user && user.username===$scope.username && user.password===$scope.password){
+								exists = true;
+							}
+							if (user && user.email === $scope.email){
+								emailExists = true;
+							}
+						});
+						if (emailExists&&exists){
+							$scope.error = "User already exists with that email + username";
+						} else if (exists){
+							$scope.error = "User already exists with that username";
+						} else if (emailExists){
+							$scope.error = "User already exists with that email";
+						} else {
+							var newUserObject = {
+								username: $scope.username,
+								password: $scope.password,
+								email: $scope.email
+							};
+							UserService.createUser(newUserObject)
+							.then(function(newlyCreatedUser){
+								//update rootscope user
+								$rootScope.user = newlyCreatedUser;
+								//broadcast login auth event for listeners to update loggedin user
+								$rootScope.$broadcast('auth', newlyCreatedUser);
+								//Navigate to profile
+								$location.path( "/profile" );
+								})
+							.catch(function(error){
+								$scope.error = error;
+							});
+						}
+					}
+				})
+				.catch(function(error){
+					$scope.error = error;
+				});
+			}
+		};
+	};
 
-    model.register = function(user) {
-      if ($scope.userForm.$valid) {
-        var isUserPresent = false;
-        var isEmailExists = false;
-
-        console.log("In Register function");
-
-        UserService.findAllUsers().then(function(users){
-          for (var x = 0; x < users.length; x++) {
-            var isUser = users[x];
-            if (isUser && isUser.username === user.username && isUser.password === user.password){
-              isUserPresent = true;
-            }
-            if (isUser && isUser.email === user.email){
-              isEmailExists = true;
-            }
-          }
-          console.log("Finding all users");
-          if (isUserPresent && isEmailExists) {
-            console.log("User already present, enter different user name and email id");
-          }
-          else {
-
-            var newUser = {
-              username : user.username,
-              password : user.password,
-              email : user.email
-            };
-
-            console.log("Creating new user " + newUser.username + " " + newUser.password);
-            UserService.createUser(newUser)
-              .then(function (user) {
-                if (user == null) {
-                  return;
-                }
-                console.log("Creating user");
-                $rootScope.loggedInUser = user;
-                //$rootScope.$broadcast('auth', user);
-                $location.url('/profile');
-              });
-          }
-        });
-      }
-    };
-  }
-
-  function compareTo() {
-    return {
-      require: "ngModel",
-      scope: {
-        otherModelValue: "=compareTo"
-      },
-      link: function(scope, element, attributes, ngModel) {
-        ngModel.$validators.compareTo = function(modelValue) {
-          return modelValue == scope.otherModelValue;
-        };
-        scope.$watch("otherModelValue", function() {
-          ngModel.$validate();
-        });
-      }
-    };
-  }
 })();

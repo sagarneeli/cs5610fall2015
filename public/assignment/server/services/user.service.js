@@ -1,38 +1,129 @@
-"use strict"
+"use strict";
 
-module.exports = function (app, model) {
+module.exports = function(app, userModel){
+	app.post("/api/assignment/user", createUser);
 
-  app.post("/api/assignment/user", function(req, res) {
-    res.json(model.Create(req.body));
-  });
+	//		 /api/assignment/user
 
-  app.get('/api/assignment/user', function(req, res) {
-    var username = req.query.username;
-    var password = req.query.password;
+	app.get("/api/assignment/user", handleGetUserRequets);
+	// app.get("/api/assignment/user", getUsers);
+	// app.get("/api/assignment/user/:username", getUserByUsername);
+	// app.get("/api/assignment/user/:username/:password", getUserByUsernameAndPassword);
 
-    if(username == null && password == null) {
-      res.json(model.FindAll());
-    } else if (password == null) {
-      res.json(model.findUserByUsername(username));
-    } else {
-      res.json(model.findUserByCredentials({
-        username: username,
-        password: password
-      }));
-    }
-  });
+	app.get("/api/assignment/user/id/:id", getUserById);
+	app.put("/api/assignment/user/:id", updateUser);
+	app.delete("/api/assignment/user/:id", deleteUserById);
 
-  app.get('/api/assignment/user/:id', function(req, res) {
-    res.json(model.FindById(req.params.id));
-  });
+	function handleGetUserRequets(req, res, next){
+		if (req && req.query && req.query.username && req.query.password){
+			return getUserByUsernameAndPassword(req,res,next);
+		} else if (req && req.query && req.query.username){
+			return getUserByUsername(req,res,next);
+		} else {
+			return getUsers(req,res,next);
+		}
+	}
 
 
-  app.put('/api/assignment/user/:id', function(req, res) {
-    res.json(model.Update(req.params.id, req.body));
-  });
+	function createUser(req, res, next){
+		var user = req.body;
+		userModel.createUser(user)
+		.then(function(newUser){
+			res.json(newUser);
+		})
+		.catch(function(error){
+			console.log('create user error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
+	};
 
-  app.delete('/api/assignment/user/:id', function(req, res){
-    res.json(model.Delete(req.params.id));
-  });
+	function updateUser(req, res, next){
+		var updatedUser = req.body || {};
+		var userId = req.params.id || "";
+		userModel.updateUser(userId, updatedUser)
+		.then(function(userAfterUpdate){
+			res.json(userAfterUpdate);
+		})
+		.catch(function(error){
+			console.log('create user error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
+	}
 
+	function getUsers(req, res, next){
+		var query = req.query || {};
+
+		userModel.findAllUsers()
+		.then(function(users){
+			res.json(users);
+		})
+		.catch(function(error){
+			console.log('getUsers error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
+	}
+
+	function getUserByUsernameAndPassword(req, res, next){
+		//var username = req.params.username, password = req.params.password;
+		var username = req.query.username, password = req.query.password;
+		if (!username){
+			res.status(400).send("Please supply a username");
+		} else if(!password){
+			res.status(400).send("Please supply a password");
+		} else {
+			var credentials = {
+				"username" : username,
+				"password" : password
+			}
+			userModel.findUserByCredentials(credentials)
+			.then(function(user){
+				res.json(user);
+			})
+			.catch(function(error){
+				console.log('getUserByUsernameAndPassword user error', JSON.stringify(error));
+				res.status(400).send(JSON.stringify(error));
+			});
+		}
+	}
+
+	function getUserByUsername(req, res, next){
+		//var username = req.params.username;
+		var username = req.query.username;
+		if (!username){
+			res.status(400).send("Please supply a username");
+		} else {
+			userModel.findUserByUsername(username)
+			.then(function(user){
+				res.json(user);
+			})
+			.catch(function(error){
+				console.log('getUserByUsername user error', JSON.stringify(error));
+				res.status(400).send(JSON.stringify(error));
+			});
+		}
+	}
+
+	function deleteUserById(req, res, next){
+		var userId = req.params.id;
+		userModel.deleteUserById(userId)
+		.then(function(users){
+			res.json(users);
+		})
+		.catch(function(error){
+			console.log('delete user error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
+	}
+
+	function getUserById(req, res, next){
+		var userId = req.params.id;
+		userModel.findUserById(userId)
+		.then(function(user){
+			res.json(user);
+		})
+		.catch(function(error){
+			console.log('delete user error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
+	}
 };

@@ -1,6 +1,9 @@
+'use strict';
+
 module.exports = function (mongoose) {
   var fieldSchema = require("./field.schema.js")(mongoose);
-  var formSchema = mongoose.Schema({
+  var formSchema = new mongoose.Schema({
+    id : mongoose.Schema.Types.ObjectId,
     title : String,
     userId : String,
     fields : [fieldSchema]

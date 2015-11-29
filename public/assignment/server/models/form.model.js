@@ -1,188 +1,209 @@
 "use strict";
 
-module.exports = function (db, mongoose) {
-  var FormSchema = require('./form.schema.js')(mongoose);
-  var FormModel = mongoose.model("FormModel", FormSchema);
-  var uuid = require('node-uuid');
-  var q = require('q');
+var q = require("q"),
+Promise = require('bluebird');
+//mongoose = require("mongoose");
 
-  var api = {
-    Create: Create,
-    FindAll: FindAll,
-    FindById: FindById,
-    FindFormByTitle: FindFormByTitle,
-    FindFormsByUserId: FindFormsByUserId,
-    Update: Update,
-    Delete: Delete,
-    findFieldsByFormAndUser: findFieldsByFormAndUser,
-    findFieldsByFormId: findFieldsByFormId,
-    findField: findField,
-    deleteField: deleteField,
-    createField: createField,
-    updateField: updateField
-  };
+module.exports = function(formBuilderDb, mongoose){
 
-  return api;
+	// Defining UserModel
+	var FormSchema = require('./form.schema.js')(mongoose),
+	FormModel = formBuilderDb.model('FormModel', FormSchema);
 
-  function Create(form) {
-    var deferred = q.defer();
-    FormModel.create(form, function(err, form) {
-      if (!err)
-        deferred.resolve(form);
-      else
-        deferred.reject(err);
-    });
-    return deferred.promise;
-  }
+	//TODO: Add form title duplication check, mebbe later on
+	function createForm(userId, form){
+		try {
+			return new Promise(function(resolve, reject){
+				if (!userId || typeof userId === "undefined"){
+					return callback("please provide a valid userid");
+				} else if (!form || typeof form !== "object") {
+					return reject("please provide a valid form object");
+				} else {
+					form.id = form._id = mongoose.Types.ObjectId();
+					form.userId = userId;
 
-  function FindAll() {
-    var deferred = q.defer();
-    FormModel.find(function(err, forms) {
-      if (!err)
-        deferred.resolve(forms);
-      else
-        deferred.reject(err);
-    });
-    return deferred.promise;
-  }
+					FormModel.create(form, function(err, newlyCreatedForm){
+						if (err){
+							console.log("Error while createForm : ", err);
+							return reject(err);
+						} else {
+							return resolve(newlyCreatedForm);
+						}
+					});
+				}
+			});
+		} catch(error){
+			console.log("catched an Exception in 'createForm' method", error);
+			return Promise.reject(error);
+		}
+	}
 
-  function FindById(id) {
-    var deferred = q.defer();
-    FormModel.findById(id, function(err, form) {
-      if (!err)
-        deferred.resolve(form);
-      else
-        deferred.reject(err);
-    });
-    return deferred.promise;
-  }
+	function findAllForms(){
+		try {
+			return new Promise(function(resolve, reject){
+				FormModel.find({}, function(err, dbForms){
+					if (err){
+						console.log("Error while findAllUsers : ", err);
+						return reject(err);
+					} else {
+						return resolve(dbForms);
+					}
+				});
+			});
+		} catch(error){
+			console.log("catched an Exception in 'findAllForms' method", error);
+			return Promise.reject(error);
+		}
+	}
 
-  function FindFormByTitle(title) {
-    var deferred = q.defer();
-    FormModel.find({title : title}, function(err, forms) {
-      if (!err)
-        deferred.resolve(forms);
-      else
-        deferred.reject(err);
-    });
-    return deferred.promise;
-  }
+	function findAllFormsForUser(userId){
+		try {
+			return new Promise(function(resolve, reject){
+				if (!userId || typeof userId === "undefined"){
+					return reject("please provide a valid userId");
+				} else {
+					FormModel.find({userId: userId}, function(err, userForms){
+						if (err){
+							console.log("Error while findAllFormsForUser : ", err);
+							return reject(err);
+						} else {
+							return resolve(userForms);
+						}
+					});
+				}
+			});
+		} catch(error){
+			console.log("catched an Exception in 'findAllFormsForUser' method", error);
+			return Promise.reject(error);
+		}
+	}
 
-  function FindFormsByUserId(userId) {
-    var deferred = q.defer();
-    FormModel.find({userId : userId}, function(err, forms) {
-      if (!err)
-        deferred.resolve(forms);
-      else
-        deferred.reject(err);
-    });
-    return deferred.promise;
-  }
+	function findFormById(formId){
+		try {
+			return new Promise(function(resolve, reject){
+				if (!formId || typeof formId === "undefined"){
+					return reject("please provide a formId");
+				} else {
+					FormModel.findOne({id: formId}, function(err, userFormsById){
+						if (err){
+							console.log("Error while findFormById : ", err);
+							return reject(err);
+						} else {
+							return resolve(userFormsById);
+						}
+					});
+				}
+			});
+		} catch(error){
+			console.log("catched an Exception in 'findFormById' method", error);
+			return Promise.reject(error);
+		}
+	}
 
-  function Update(id, form) {
-    var deferred = q.defer();
-    FormModel.update({_id : id}, {$set : form}, function(err, newForm) {
-      if (!err)
-        deferred.resolve(newForm);
-      else
-        deferred.reject(err);
-    });
-    return deferred.promise;
-  }
+	function findFormByTitle(title){
+		try {
+			return new Promise(function(resolve, reject){
+				if (!title || typeof title === "undefined"){
+					return reject("Please provide a valid form title");
+				} else {
+					FormModel.findOne({title: title}, function(err, requiredForm){
+						if (err){
+							console.log("Error while findFormByTitle : ", err);
+							return reject(err);
+						} else {
+							return resolve(requiredForm);
+						}
+					});
+				}
+			});
+		} catch(error){
+			console.log("catched an Exception in 'findFormByTitle' method", error);
+			return Promise.reject(error);
+		}
+	}
 
-  function Delete(id) {
-    var deferred = q.defer();
-    FormModel.delete(id, function(err, form) {
-      if (!err)
-        deferred.resolve(form);
-      else
-        deferred.reject(err);
-    });
-    return deferred.promise;
-  }
+	function updateForm(formId, newForm){
+		try {
+			return new Promise(function(resolve, reject){
+				FormModel.findOne({id: formId}, function(err, form){
+					if (err || !form){
+						return reject(err || "no form found for updateForm with id:"+formId);
+					} else {
+		  				//Updating only newly properties from the input updatedUser object
+		  				for(var prop in form){
+		  					if (!(typeof newForm[prop] == 'undefined')){
+		  						form[prop] = newForm[prop];
+		  					}
+		  				}
+		  				form.save(function(error){
+		  					if (error){
+		  						return reject("Error while saving after updating form : "+error);
+		  					} else {
+		  						return resolve(form);
+		  					}
+		  				});
+		  			}
+		  		});
+			});
+		} catch(error){
+			console.log("catched an Exception in 'updateForm' method", error);
+			return Promise.reject(error);
+		}
+	}
 
-  function findFieldsByFormId(formId) {
-    var deferred = q.defer();
-    FormModel.findById(formId, function (err, form) {
-      if (err) {
-        deferred.reject(err);
-      } else {
-        deferred.resolve(form.fields);
-      }
-    });
+	function deleteFormById(formId){
+		try {
+			return new Promise(function(resolve, reject){
+				if (!formId || typeof formId === "undefined"){
+					return callback("please provide a valid formId");
+				} else {
+					findFormById(formId)
+					.then(function(retrievedForm){
+						var userId = retrievedForm.userId || "";
+						FormModel.remove({id: formId}, function(err){
+							if(err){
+								return reject(err || "error deleting formId with id:"+formId+" \n error being "+err);
+							} else {
+								findAllFormsForUser(userId)
+								.then(function(userForms){
+									return resolve(userForms);
+								});
+							}
+						})
+					})
+					.catch(function(error){
+						return reject(error);
+					});
+				}
+			});
+		} catch(error){
+			console.log("catched an Exception in 'deleteFormById' method", error);
+			return Promise.reject(error);
+		}
+	}
 
-    return deferred.promise;
-  };
 
-  function findField(formId, fieldId) {
-    var deferred = q.defer();
-    FormModel.findById(formId, function (err, form) {
-      for (var i = 0; i < form.fields.length; i++){
-        var field = form.fields[i];
-        //for (var field of form.fields) {
-        if (field._id.equals(fieldId)) {
-          deferred.resolve(field);
-        }
-      }
-    });
+	/**
+	 * [guid generates a unique id]
+	 * @return String [a unique id]
+	 */
+	 function guid() {
+	 	function s4() {
+	 		return Math.floor((1 + Math.random()) * 0x10000)
+	 		.toString(16)
+	 		.substring(1);
+	 	}
+	 	return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+	 	s4() + '-' + s4() + s4() + s4();
+	 }
 
-    return deferred.promise;
-  };
-
-  function deleteField(formId, fieldId) {
-    var deferred = q.defer();
-    FormModel.findById(formId, function (err, form) {
-      for (var i = 0; i < form.fields.length; i++) {
-        if (form.fields[i]._id.equals(fieldId)) {
-          form.fields.splice(i, 1);
-
-          form.save(function (err) {
-            deferred.resolve(form.fields);
-          });
-        }
-      }
-    });
-    return deferred.promise;
-  };
-
-  function createField(formId, field) {
-    var deferred = q.defer();
-    FormModel.findById(formId, function (err, form) {
-      field._id = mongoose.Types.ObjectId();
-      form.fields.push(field);
-      form.save(function (err) {
-        deferred.resolve(form.fields);
-      });
-    });
-    return deferred.promise;
-  };
-
-  function updateField(formId, fieldId, field) {
-    var deferred = q.defer();
-    FormModel.findOne({ "_id": formId }, function (err, form) {
-      for (var i = 0; i < form.fields.length; i++) {
-        if (form.fields[i]._id.equals(fieldId)) {
-          form.fields[i] = field;
-          form.fields[i]._id = fieldId;
-
-          form.save(function (err) {
-            deferred.resolve(form.fields);
-          });
-        }
-      }
-    });
-    return deferred.promise;
-  };
-
-  function findFieldsByFormAndUser(formId, userId) {
-    var deferred = q.defer();
-    FormModel.findOne({ "_id": formId, "userId": userId }, function (err, form) {
-      if (err) {
-        deferred.reject(err);
-      } else {
-        deferred.resolve(form.fields);
-      }
-    });
-    return deferred.promise;
-  };
-};
+	 return {
+	 	"createForm": createForm,
+	 	"findAllForms": findAllForms,
+	 	"findAllFormsForUser": findAllFormsForUser,
+	 	"findFormById": findFormById,
+	 	"findFormByTitle": findFormByTitle,
+	 	"updateForm": updateForm,
+	 	"deleteFormById": deleteFormById
+	 };
+	};

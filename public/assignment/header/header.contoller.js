@@ -1,22 +1,22 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    angular
-        .module("FormBuilderApp")
-        .controller("HeaderController", HeaderController);
+  angular
+    .module("FormBuilderApp")
+    .controller("HeaderController", HeaderController);
 
-    function HeaderController($scope, $location, $rootScope)
-    {
-        $scope.$location = $location;
-        $scope.user = $rootScope.loggedInUser;
+  function HeaderController($scope, $location, $rootScope)
+  {
+    $scope.$location = $location;
+    $scope.user = $rootScope.loggedInUser;
 
-        $rootScope.$on("Auth", function(event, user){
-            $scope.user = $rootScope.loggedInUser = user;
-        });
+    $rootScope.$on("Auth", function(event, user){
+      $scope.user = $rootScope.loggedInUser = user;
+    });
 
-        $scope.logout = function(){
-            $scope.user = $rootScope.loggedInUser = null;
-            $location.url( "/home" );
-        };
-    }
+    $scope.logout = function(){
+      $scope.user = $rootScope.loggedInUser = null;
+      $location.url( "/home" );
+    };
+  }
 })();

@@ -1,6 +1,6 @@
-(function(){
-  'use strict';
+'use strict';
 
-    angular
-        .module("FormBuilderApp", ["ngRoute", "ngMessages"]);
+(function(){
+  angular
+    .module("FormBuilderApp", ["ngRoute"]);
 })();

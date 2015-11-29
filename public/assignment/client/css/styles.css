@@ -1,0 +1,26 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+	padding-top: 50px;
+}
+/**
+ * For sidebar
+ */
+ .sidebar li.active a {
+ 	text-decoration: none;
+ 	color: #fff;
+ 	background-color: #428bca;
+ }
+
+ .form-body .error {
+ 	color: #FF0000;
+ }
+
+ .form-body .field .line-break hr{
+ 	border-top: 1px solid #DDDDDD;
+ 	margin: 0;
+ }
+
+ .form-body .field .line-break {
+ 	padding-top: 25px;
+ 	padding-bottom: 10px;
+ }
