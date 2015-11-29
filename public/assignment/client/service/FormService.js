@@ -13,7 +13,8 @@
             createFormForUser : createFormForUser,
             findAllFormsForUser : findAllFormsForUser,
             deleteFormById : deleteFormById,
-            updateFormById : updateFormById
+            updateFormById : updateFormById,
+            findForm : findForm
         };
 
         return formService;
@@ -59,5 +60,17 @@
             });
           return deferred.promise;
         }
+
+        function findForm(formId) {
+          var deferred = $q.defer();
+          var url = "/api/assignment/form/" + formId;
+          $http.get(url)
+            .success(function (response) {
+              deferred.resolve(response);
+            });
+
+          return deferred.promise;
+        };
+
     }
 })();

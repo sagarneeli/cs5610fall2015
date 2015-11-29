@@ -7,155 +7,87 @@
     .controller("FieldController", ['$scope', '$routeParams', '$location', '$rootScope', 'FormService', 'FieldService', FieldController]);
 
   //FieldController function
-  function FieldController($scope, $routeParams, $location, $rootScope, FormService, FieldService){
-    $scope.$location = $location;
-    $scope.user = $rootScope.loggedInUser;
-    $scope.fields = [];
-    $scope.newFieldType = "";
-    $scope.formID = $routeParams.formId || "";
-    $scope.userID = $routeParams.userId || "";
+  function FieldController($routeParams, FieldService) {
+    //Putting the userId in the url shouldn't be necessary since the form associated
+    //with formId contains the userId of the person who's logged in.
+    //The filtering (for forms that belong to the logged in user) is already done on the
+    //form page/view/controller.
+    var userId = $routeParams.userId;
+    var formId = $routeParams.formId;
+    var model = this;
+    model.fieldType = "slt"; //Sets the default drop down value.
 
-    var options = {
-      "label": "o1",
-      "value": "o1"
-    };
+    FieldService
+      .getFieldsForFormAndUser(formId, userId)
+      .then(function (fields) {
+        model.fields = fields;
+      });
 
-    var slt = {
-        "id": null,
-        "label": "New Text Field",
-        "type": "TEXT",
-        "placeholder": "New Field"
-      },
-      mltf = {
-        "id": null,
-        "label": "New Text Field",
-        "type": "TEXTAREA",
-        "placeholder": "New Field"
-      },
-      date = {
-        "id": null,
-        "label": "New Date Field",
-        "type": "DATE"
-      },
-      dropdown = {
-        "id": null,
-        "label": "New Dropdown",
-        "type": "OPTIONS",
-        "options": [{"label": "Option 1", "value": "OPTION_1"}, {"label": "Option 2", "value": "OPTION_2"}, {"label": "Option 3", "value": "OPTION_3"}]
-      },
-      checkboxes = {
-        "id": null,
-        "label": "New Checkboxes",
-        "type": "CHECKBOXES",
-        "options": [{"label": "Option 1", "value": "OPTION_1"}, {"label": "Option 2", "value": "OPTION_2"}, {"label": "Option 3", "value": "OPTION_3"}]
-      },
-      radio = {
-        "id": null,
-        "label": "New Radio Buttons",
-        "type": "RADIOS",
-        "options": [{"label": "Option 1", "value": "OPTION_1"}, {"label": "Option 2", "value": "OPTION_2"}, {"label": "Option 3", "value": "OPTION_3"}]
-      },
-      email = {
-        "id": null,
-        "label": "New Email Field",
-        "type": "EMAIL",
-        "placeholder": "New Email Field"
-      };
+    model.addField = addField;
+    model.removeField = removeField;
 
-    $scope.newField = {
-      "type": $scope.newFieldType,
-      "slt": clone(slt),
-      "mltf": clone(mltf),
-      "date": clone(date),
-      "dropdown": clone(dropdown),
-      "checkboxes": clone(checkboxes),
-      "radio": clone(radio),
-      "email": clone(email)
-    };
-
-    function clone(source){
-      if (source && typeof source === "object"){
-        return JSON.parse(JSON.stringify(source));
-      } else {
-        return null;
-      }
-    }
-
-    var initForms = function(){
-      if ($scope.selectedForm){
-        FieldService.getFieldsForForm($scope.selectedForm.id)
-          .then(function(fields){
-            $scope.fields = fields;
-          })
-          .catch(function(error){
-            $scope.error = error;
-          });
-      }
-    };
-    initForms();
-
-    $scope.addField = function(fieldType){
-      $scope.error = "";
-      if (fieldType){
-        $scope.newField.type = fieldType;
-        var newFieldObject = clone($scope.newField[fieldType]);
-        $scope.fields.push(newFieldObject);
-
-        FieldService.createFieldForForm($scope.selectedForm.id, newFieldObject)
-          .then(function(fields){
-            $scope.fields = fields;
-          })
-          .catch(function(error){
-            $scope.error = error;
-          });
-      } else {
-        $scope.error = "Please select a field type to add";
-      }
-    };
-
-    $scope.deleteField = function(field){
-      $scope.error = "";
-      if (field){
-        FieldService.deleteFieldFromForm($scope.selectedForm.id, field.id)
-          .then(function(remainingFields){
-            $scope.fields = remainingFields;
-          })
-          .catch(function(error){
-            $scope.error = error;
-          });
-      } else {
-        $scope.error = "Please select a field type to delete";
-      }
-    };
-
-    $scope.cloneField = function(field, index){
-      var clonedField = clone(field);
-      FieldService.cloneField(clonedField, index, $scope.selectedForm.id)
+    function removeField(field) {
+      FieldService
+        .deleteFieldFromForm(formId, field._id)
         .then(function(fields){
-          $scope.fields = fields;
-        })
-        .catch(function(error){
-          $scope.error = error;
+          model.fields = fields;
         });
-    }
+    };
 
-    //listen for login/sigin to grab logged in user
-    $rootScope.$on("auth", function(event, user){
-      $scope.error = null;
-      $scope.user = $rootScope.loggedInUser = user;
-    });
-
-    //listen for selectedForm to grab selectedFrom
-    $rootScope.$on("selectedForm", function(event, form){
-      $scope.error = null;
-      $scope.selectedForm = $rootScope.selectedForm = form;
-    });
-
-    // On scope destroy, delete the selectedForm
-    $scope.$on("$destroy", function() {
-      $scope.selectedForm = $rootScope.selectedForm = null;
-    });
-
+    function addField(ft) {
+      var field = {};
+      switch (ft) {
+        case "slt":
+          field.label = "New Text Field";
+          field.fieldType = "TEXT";
+          field.placeholder = "New Field";
+          break;
+        case "date":
+          field.label = "New Date Field";
+          field.fieldType = "DATE";
+          break;
+        case "drdo":
+          field.label = "New Dropdown";
+          field.fieldType = "SELECT";
+          field.options = [
+            { "label": "Option 1", "value": "OPTION_1" },
+            { "label": "Option 2", "value": "OPTION_2" },
+            { "label": "Option 3", "value": "OPTION_3" }
+          ];
+          break;
+        case "chbx":
+          field.label = "New Checkboxes";
+          field.fieldType = "CHECKBOXES";
+          field.options = [
+            { "label": "Option A", "value": "OPTION_A" },
+            { "label": "Option B", "value": "OPTION_B" },
+            { "label": "Option C", "value": "OPTION_C" }
+          ];
+          break;
+        case "rdbu":
+          field.label = "New Radio Buttons";
+          field.fieldType = "RADIOS";
+          field.options = [
+            { "label": "Option X", "value": "OPTION_X" },
+            { "label": "Option Y", "value": "OPTION_Y" },
+            { "label": "Option Z", "value": "OPTION_Z" }
+          ];
+          break;
+        case "mlt":
+          field.label = "New Text Field";
+          field.fieldType = "TEXTAREA";
+          field.placeholder = "New Field";
+          break;
+        default:
+          console.log("UNREACHABLE");
+          console.log(ft);
+      }
+      FieldService
+        .createFieldForForm(formId, field)
+        .then(function(fields){
+          model.fields = fields;
+        });
+    };
   };
 
 })();

@@ -8,17 +8,18 @@
   function LoginController(UserService, $location, $rootScope, $scope)
   {
     console.log("Attempting to login");
+    var model = this;
     $scope.$location = $location;
 
-    $scope.login = function () {
-      console.log("Given username " + $scope.user.username + " Given password " + $scope.user.password);
-      UserService.findUserByUsernameAndPassword($scope.user.username, $scope.user.password)
+    model.login = function (user) {
+      console.log("Given username " + user.username + " Given password " + user.password);
+      UserService.findUserByUsernameAndPassword(user.username, user.password)
         .then(function (user) {
-          //if (user != null) {
-            $scope.user = $rootScope.loggedInUser = user;
-            $rootScope.$broadcast('auth', user);
+          if (user != null) {
+            $rootScope.loggedInUser = user;
+            //$rootScope.$broadcast('auth', user);
             $location.url('/profile');
-          //}
+          }
         });
     };
   }

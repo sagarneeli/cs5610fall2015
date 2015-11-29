@@ -11,9 +11,10 @@
   function RegisterController(UserService, $location, $rootScope, $scope)
   {
     $scope.$location = $location;
-    $scope.register = register;
+    //$scope.register = register;
+    var model = this;
 
-    function register() {
+    model.register = function(user) {
       if ($scope.userForm.$valid) {
         var isUserPresent = false;
         var isEmailExists = false;
@@ -22,11 +23,11 @@
 
         UserService.findAllUsers().then(function(users){
           for (var x = 0; x < users.length; x++) {
-            var user = users[x];
-            if (user && user.username===$scope.user.username && user.password===$scope.user.password){
+            var isUser = users[x];
+            if (isUser && isUser.username === user.username && isUser.password === user.password){
               isUserPresent = true;
             }
-            if (user && user.email === $scope.user.email){
+            if (isUser && isUser.email === user.email){
               isEmailExists = true;
             }
           }
@@ -37,9 +38,9 @@
           else {
 
             var newUser = {
-              username : $scope.user.username,
-              password : $scope.user.password,
-              email : $scope.user.email
+              username : user.username,
+              password : user.password,
+              email : user.email
             };
 
             console.log("Creating new user " + newUser.username + " " + newUser.password);
@@ -50,7 +51,7 @@
                 }
                 console.log("Creating user");
                 $rootScope.loggedInUser = user;
-                $rootScope.$broadcast('auth', user);
+                //$rootScope.$broadcast('auth', user);
                 $location.url('/profile');
               });
           }

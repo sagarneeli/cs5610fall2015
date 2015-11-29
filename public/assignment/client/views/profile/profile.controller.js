@@ -7,20 +7,22 @@
 
   function ProfileController(UserService, $location, $rootScope, $scope)
   {
-    var user = $rootScope.loggedInUser;
+    var model = this;
     $scope.$location = $location;
-    $scope.user = user;
+    model.user = $rootScope.loggedInUser;;
 
-    $rootScope.$on("auth", function(event, user){
-      $scope.user = $rootScope.loggedInUser = user;
-    });
+    //$rootScope.$on("auth", function(event, user){
+    //  $scope.user = $rootScope.loggedInUser = user;
+    //});
 
-    $scope.update = function () {
-      UserService.updateUser($scope.user.id, $scope.user)
-        .then(function (updatedUser) {
-          for(var index in updatedUser) {
-            $scope.user[index] = updatedUser[index];
-          }
+    model.update = function (user) {
+      UserService.updateUser(user.id, user)
+        .then(function (response) {
+          UserService.findUserByUsernameAndPassword(user.username, user.password)
+            .then(function (updatedUser) {
+              $rootScope.loggedInUser = updatedUser;
+              model.user = updatedUser;
+            });
         });
     };
   }

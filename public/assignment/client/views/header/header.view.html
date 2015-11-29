@@ -12,10 +12,10 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <!--<li ng-class="{'active': selectedTab == 'home'}">   <a ng-click="selectedTab = 'home'"    href="#/home">Home</a></li>-->
-                <li ng-if="!user" ng-class="{'active': $location.url() == '/register'}"><a href="#/register" class="active">Register</a></li>
-                <li ng-if="!user" ng-class="{'active': $location.url() == '/login'}"><a href="#/login">Login</a></li>
-                <li ng-if="user"><a href="#/profile">Username</a></li>
-                <li ng-if="user"><a href="#/" ng-click="logout()">Logout</a></li>
+                <li ng-hide="model.registerShow()" ng-class="{'active': $location.url() == '/register'}"><a href="#/register" class="active">Register</a></li>
+                <li ng-hide="model.loginShow()" ng-class="{'active': $location.url() == '/login'}"><a href="#/login">Login</a></li>
+                <li ng-hide="model.isLogin()"><a href="#/profile">{{model.username}}</a></li>
+                <li ng-hide="model.logoutShow()"><a href="#/" ng-click="model.logout()">Logout</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">

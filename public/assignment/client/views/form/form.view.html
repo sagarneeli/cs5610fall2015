@@ -1,12 +1,12 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <!-- if user exists -->
-    <div ng-if="user">
+    <!--<div ng-if="user">-->
         <h1 class="page-header">Forms</h1>
         <ul class="nav nav-tabs">
             <li id="formsTab" class="active"><a href="#/forms">Forms</a></li>
-            <li id="fieldsTab" ><a ng-href="#/user/{{user.id}}/form/null/fields" ng->Fields</a></li>
+            <!--<li id="fieldsTab" ><a ng-href="#/user/{{user.id}}/form/null/fields" ng->Fields</a></li>-->
             <!--<li role="presentation"><a href="form-fields.html">Fields</a>-->
-            <!--<li role="presentation">Fields</li>-->
+            <li role="presentation" class=active><a href="forms/form-fields.view.html">Fields</a></li>
         </ul>
         <br/> <br/>
         <div id="Forms" class="table-responsive">
@@ -20,28 +20,29 @@
                 <tbody>
                 <tr>
                     <td>
-                        <input type="text" class="form-control" placeholder="name" ng-model="newForm.name"/>
+                        <input type="text" class="form-control" placeholder="name" ng-model="model.form.title"/>
                     </td>
                     <td>
-                        <a ng-click="addForm(newForm.name)">
+                        <a href="#/forms" ng-click="model.addForm(model.form)">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>
                         </a>
-                        <a ng-click="updateForm(newForm.name)">
+                        <a href="#/forms" ng-click="model.updateForm(model.form)">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         </a>
                     </td>
                 </tr>
-                <tr ng-repeat="form in forms">
+                <tr ng-repeat="form in model.forms">
                     <!--<td onclick="location.href='form-fields.html'"> {{form.name}} </td>-->
                     <!--<td> {{form.name}} </td>-->
+                    <!--<td>-->
+                    <!--<a ng-click="formFields(form)">{{form.title}}</a>-->
+                    <!--</td>-->
+                    <td><a href="#/user/{{ model.userId }}/form/{{ form._id }}/fields">{{ form.title }}</a></td>
                     <td>
-                    <a ng-click="formFields(form)">{{form.title}}</a>
-                    </td>
-                    <td>
-                        <a ng-click="deleteForm(form.id)">
+                        <a href="#/forms" ng-click="model.deleteForm(form)">
                             <span class="glyphicon glyphicon-remove">&nbsp;</span>
                         </a>
-                        <a ng-click="selectForm(form)">
+                        <a href="#/forms" ng-click="model.selectForm(form)">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
                     </td>
@@ -49,12 +50,12 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    <!--</div>-->
 
     <!-- if user doesn't exists -->
-    <div class="container" ng-if="!user">
-        <div class="jumbotron">
-            <p>You must <a href="#/login">login</a> to access this page.</p>
-        </div>
-    </div>
+    <!--<div class="container" ng-if="!user">-->
+        <!--<div class="jumbotron">-->
+            <!--<p>You must <a href="#/login">login</a> to access this page.</p>-->
+        <!--</div>-->
+    <!--</div>-->
 </div>
