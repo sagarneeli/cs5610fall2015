@@ -1,8 +1,8 @@
-<div class="panel-group sidebar" ng-controller="SidebarController">
-	<ul class="nav nav-sidebar">
-		<li ng-class="{'active' : $location.url().indexOf('home') != -1 ||  $location.url().length === 1}"><a href="#/home">Home</a></li>
-		<li ng-class="{'active' : $location.url().indexOf('profile') != -1}"><a href="#/profile">Profile</a></li>
-		<li ng-class="{'active' : $location.url().indexOf('admin') != -1}"><a href="#/admin">Admin</a></li>
-		<li ng-class="{'active' : $location.url().indexOf('form') != -1 || $location.url().indexOf('user') != -1 }"><a href="#/form">Forms</a></li>
-	</ul>
+<div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar" ng-controller="SidebarController">
+        <li ng-class="{'active': $location.url() == '/home' || $location.url().length === 1}"><a href="#/home">Home</a></li>
+        <li ng-class="{'active': $location.url() == '/profile'}"><a href="#/profile">Profile</a></li>
+        <li ng-class="{'active': $location.url() == '/admin'}"><a href="#/admin">Admin</a></li>
+        <li ng-class="{'active': $location.url() == '/forms' || $location.url().indexOf('user') != -1}"><a href="#/form">Forms</a></li>
+    </ul>
 </div>

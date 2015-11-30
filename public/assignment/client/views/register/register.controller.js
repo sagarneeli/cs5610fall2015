@@ -3,6 +3,7 @@
 (function() {
   angular
     .module("FormBuilderApp")
+    .directive("compareTo", compareTo)
     .controller("RegisterController", RegisterController);
 
   function RegisterController(UserService, $location, $rootScope, $scope) {
@@ -47,5 +48,22 @@
           });
       }
     }
-  };
+  }
+
+  function compareTo() {
+    return {
+      require: "ngModel",
+      scope: {
+        otherModelValue: "=compareTo"
+      },
+      link: function(scope, element, attributes, ngModel) {
+        ngModel.$validators.compareTo = function(modelValue) {
+          return modelValue == scope.otherModelValue;
+        };
+        scope.$watch("otherModelValue", function() {
+          ngModel.$validate();
+        });
+      }
+    };
+  }
 })();

@@ -1,6 +1,6 @@
-(function(){
-	'use strict';
+'use strict';
 
+(function(){
 	angular
 	.module("FormBuilderApp")
 	.controller("FieldController", ['$scope', '$routeParams', '$location', '$rootScope', 'FormService', 'FieldService', FieldController]);
@@ -14,10 +14,6 @@
 		$scope.formID = $routeParams.formId || "";
 		$scope.userID = $routeParams.userId || "";
 
-		var options = {
-			"label": "o1",
-			"value": "o1"
-		};
 
 		var slt = {
 			"id": null,
@@ -80,25 +76,21 @@
 			}
 		}
 
-		var initForms = function(){
-			if ($scope.selectedForm){
+		function init() {
+			if ($scope.selectedForm) {
 				FieldService.getFieldsForForm($scope.selectedForm.id)
 				.then(function(fields){
 					$scope.fields = fields;
-				})
-				.catch(function(error){
-					$scope.error = error;
 				});
 			}
-		};
-		initForms();
+		}
+		init();
 
-		/*$scope.newField = {
-			"options": ["No Fields Selected","Single Line Text Field","Multi Line Text Field","Date Field",
-			"Dropdown Field","Checkboxes Field", "Radio Buttons Field"]
-		};*/
+		$scope.addField = addField;
+    $scope.deleteField = deleteField;
+    $scope.cloneField = cloneField;
 
-		$scope.addField = function(fieldType){
+    function addField(fieldType) {
 			$scope.error = "";
 			if (fieldType){
 				$scope.newField.fieldType = fieldType;
@@ -108,58 +100,42 @@
 				FieldService.createFieldForForm($scope.selectedForm.id, newFieldObject)
 				.then(function(fields){
 					$scope.fields = fields;
-				})
-				.catch(function(error){
-					$scope.error = error;
 				});
 			} else {
 				$scope.error = "Please select a field type to add";
 			}
 		};
 
-		$scope.deleteField = function(field){
+    function deleteField(field) {
 			$scope.error = "";
 			if (field){
 				FieldService.deleteFieldFromForm($scope.selectedForm.id, field.id)
 				.then(function(remainingFields){
 					$scope.fields = remainingFields;
-				})
-				.catch(function(error){
-					$scope.error = error;
 				});
 			} else {
 				$scope.error = "Please select a field type to delete";
 			}
-		};
+		}
 
-		$scope.cloneField = function(field, index){
+    function cloneField(field, index){
 			var clonedField = clone(field);
 			FieldService.cloneField(clonedField, index, $scope.selectedForm.id)
 				.then(function(fields){
 					$scope.fields = fields;
-				})
-				.catch(function(error){
-					$scope.error = error;
 				});
 		}
 
-		//listen for login/sigin to grab logged in user
 		$rootScope.$on("auth", function(event, user){
-			$scope.error = null;
 			$scope.user = $rootScope.loggedInUser = user;
 		});
 
-		//listen for selectedForm to grab selectedFrom
 		$rootScope.$on("selectedForm", function(event, form){
-			$scope.error = null;
 			$scope.selectedForm = $rootScope.selectedForm = form;
 		});
 
-		// On scope destroy, delete the selectedForm
 		$scope.$on("$destroy", function() {
 			$scope.selectedForm = $rootScope.selectedForm = null;
 		});
-
 	};
-
 })();

@@ -1,40 +1,54 @@
-<div class="" ng-controller="RegisterController">
-	<h1 class="page-header">Register</h1>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Register</h1>
 
-	<!-- FORM STARTS -->
-	<form class="form-horizontal">
-		<div class="form-group">
-			<label for="inputEmail3" class="col-sm-2">Username:</label>
-			<div class="col-sm-10">
-				<input type="text" data-ng-model="username" class="form-control" id="inputEmail3" placeholder="Username" required>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2">Password:</label>
-			<div class="col-sm-10">
-				<input type="password" data-ng-model="password" class="form-control" id="inputPassword3" placeholder="Password" required>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword4" class="col-sm-2">Verify Password:</label>
-			<div class="col-sm-10">
-				<input type="password" data-ng-model="vpassword" class="form-control" id="inputPassword4" placeholder="Verify Password" required>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="email4" class="col-sm-2">Email:</label>
-			<div class="col-sm-10">
-				<input type="email" data-ng-model="email" class="form-control" id="email4" placeholder="Email" required>
-			</div>
-		</div>
-		<div class="error not-found" ng-if="error">
-			<span>{{error}}</span>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" ng-click="register()" class="btn btn-default">Register</button>
-			</div>
-		</div>
-	</form>
+    <form name="userForm" class="form-horizontal" novalidate>
+        <div class="form-group" ng-class="{ 'has-error': userForm.name.$touched && userForm.name.$invalid }">
+            <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
+            <div class="col-sm-10">
+                <input name="name" type="text" class="form-control" id="inputEmail3" ng-model="username" ng-minlength="3"
+                       ng-maxlength="10" placeholder="Username" required>
+                <div class="help-block" ng-messages="userForm.name.$error" ng-if="userForm.name.$touched">
+                    <div ng-messages-include="messages.html"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" name="password" class="form-control" id="inputPassword3" ng-model="password"
+                       placeholder="Password" required>
+                <div class="help-block" ng-messages="userForm.password.$error" ng-if="userForm.password.$touched">
+                    <div ng-messages-include="messages.html"></div>
+                </div>
 
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">Verify Password</label>
+            <div class="col-sm-10">
+                <input type="password" name="confirmPassword" class="form-control" id="inputPassword3"
+                       ng-model="vpassword" placeholder="Verify Password" required compare-to="password">
+                <div class="help-block" ng-messages="userForm.confirmPassword.$error" ng-if="userForm.confirmPassword.$touched">
+                    <div ng-messages-include="messages.html"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <input name="email" type="email" class="form-control" id="inputEmail3" ng-model="email" placeholder="Email"
+                       ng-minlength="5" ng-maxlength="25" required>
+                <div class="help-block" ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
+                    <div ng-messages-include="messages.html"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default" ng-disabled="userForm.$invalid"
+                        ng-click="register()">Register</button>
+            </div>
+        </div>
+    </form>
+    <!--<pre>userForm.name.$error = {{ userForm.name.$error | json }}</pre>-->
 </div>
