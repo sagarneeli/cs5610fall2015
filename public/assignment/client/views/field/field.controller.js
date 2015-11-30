@@ -8,7 +8,7 @@
 	//FieldController function
 	function FieldController($scope, $routeParams, $location, $rootScope, FormService, FieldService){
 		$scope.$location = $location;
-		$scope.user = $rootScope.user;
+		$scope.user = $rootScope.loggedInUser;
 		$scope.fields = [];
 		$scope.newFieldType = "";
 		$scope.formID = $routeParams.formId || "";
@@ -146,7 +146,7 @@
 		//listen for login/sigin to grab logged in user
 		$rootScope.$on("auth", function(event, user){
 			$scope.error = null;
-			$scope.user = $rootScope.user = user;
+			$scope.user = $rootScope.loggedInUser = user;
 		});
 
 		//listen for selectedForm to grab selectedFrom
