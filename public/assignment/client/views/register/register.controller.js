@@ -26,11 +26,11 @@
                   isEmailExists = true;
               }
               if (isEmailExists && isUserPresent) {
-                $scope.error = "User already isUserPresent with that email + username";
+                console.log("Already Present");
               } else if (isUserPresent) {
-                $scope.error = "User already isUserPresent with that username";
+                console.log("Already Present");
               } else if (isEmailExists) {
-                $scope.error = "User already isUserPresent with that email";
+                console.log("Already Present");
               } else {
                 var newUser = {
                   username: $scope.username,
