@@ -19,7 +19,7 @@
         "fieldType": "TEXT",
         "placeholder": "New Field"
       },
-      "mltf": {
+      "mlt": {
         "label": "Text Field",
         "fieldType": "TEXTAREA",
         "placeholder": "New Field"
@@ -37,7 +37,7 @@
           {"label": "Option 2", "value": "OPTION_2"},
           {"label": "Option 3", "value": "OPTION_3"}]
       },
-      "checkboxes": {
+      "checkbox": {
         "label": "Checkboxes",
         "fieldType": "CHECKBOXES",
         "options": [

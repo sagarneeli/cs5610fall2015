@@ -94,7 +94,7 @@
           }
         }
         if (selectedForm){
-          var inputElement = document.getElementById("searchName");
+          var inputElement = document.getElementById("title");
           inputElement.value = selectedForm.title;
           $scope.formToUpdate = selectedForm;
         }

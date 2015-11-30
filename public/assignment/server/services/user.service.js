@@ -3,7 +3,7 @@
 module.exports = function(app, userModel) {
 	app.post("/api/assignment/user", function(req, res) {
     var user = req.body;
-    userModel.createUser(user)
+    userModel.Create(user)
       .then(function(newUser) {
         res.json(newUser);
       });
@@ -38,7 +38,7 @@ module.exports = function(app, userModel) {
           });
       }
     } else {
-      userModel.findAllUsers()
+      userModel.FindAll()
         .then(function(users) {
           res.json(users);
         });
@@ -47,7 +47,7 @@ module.exports = function(app, userModel) {
 
 	app.get("/api/assignment/user/id/:id", 	function(req, res) {
     var userId = req.params.id;
-    userModel.findUserById(userId)
+    userModel.FindById(userId)
       .then(function(user){
         res.json(user);
       });
@@ -56,7 +56,7 @@ module.exports = function(app, userModel) {
 	app.put("/api/assignment/user/:id", function(req, res) {
     var updatedUser = req.body;
     var userId = req.params.id;
-    userModel.updateUser(userId, updatedUser)
+    userModel.Update(userId, updatedUser)
       .then(function(user){
         res.json(user);
       });
@@ -64,7 +64,7 @@ module.exports = function(app, userModel) {
 
 	app.delete("/api/assignment/user/:id", function(req, res) {
     var userId = req.params.id;
-    userModel.deleteUserById(userId)
+    userModel.Delete(userId)
       .then(function(users) {
         res.json(users);
       });

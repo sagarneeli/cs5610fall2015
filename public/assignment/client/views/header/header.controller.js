@@ -9,7 +9,18 @@
   {
     $scope.$location = $location;
     $scope.user = $rootScope.loggedInUser;
+    $scope.isLogin = isLogin;
     $scope.logout = logout;
+
+    function isLogin() {
+      if($rootScope.loggedInUser == null) {
+        return true;
+      }
+      else {
+        var loggedInUserName = $rootScope.loggedInUser.username;
+        $scope.username = loggedInUserName[0].toUpperCase() + loggedInUserName.slice(1);
+      }
+    }
 
     function logout() {
       $scope.user = $rootScope.loggedInUser = null;

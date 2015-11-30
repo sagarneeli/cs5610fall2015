@@ -9,18 +9,18 @@ module.exports = function(db, mongoose) {
     UserModel = db.model('UserModel', UserSchema);
 
   var api = {
-    "createUser": createUser,
-    "findAllUsers": findAllUsers,
-    "findUserById": findUserById,
-    "updateUser": updateUser,
-    "deleteUserById": deleteUserById,
-    "findUserByUsername": findUserByUsername,
-    "findUserByCredentials": findUserByCredentials
+    Create: Create,
+    FindAll: FindAll,
+    FindById: FindById,
+    findUserByUsername: findUserByUsername,
+    findUserByCredentials: findUserByCredentials,
+    Update: Update,
+    Delete: Delete
   };
 
   return api;
 
-  function createUser(user){
+  function Create(user){
     var deferred = q.defer();
     user.id = user._id = mongoose.Types.ObjectId();
     UserModel.create(user, function(err, newUser) {
@@ -32,7 +32,7 @@ module.exports = function(db, mongoose) {
     return deferred.promise;
   }
 
-  function findAllUsers(){
+  function FindAll(){
     var deferred = q.defer();
     UserModel.find(function(err, users) {
       if (err)
@@ -43,7 +43,7 @@ module.exports = function(db, mongoose) {
     return deferred.promise;
   }
 
-  function findUserById(id){
+  function FindById(id){
     var deferred = q.defer();
     UserModel.findOne({id : id}, function(err, user) {
       if (err)
@@ -79,7 +79,7 @@ module.exports = function(db, mongoose) {
   }
 
 
-  function updateUser(userId, newUser){
+  function Update(userId, newUser){
     var deferred = q.defer();
     UserModel.findOne({id: userId}, function(err, user){
       if (err || !user){
@@ -102,13 +102,13 @@ module.exports = function(db, mongoose) {
     return deferred.promise;
   }
 
-  function deleteUserById(userId){
+  function Delete(userId){
     var deferred = q.defer();
     UserModel.remove({id: userId}, function(err){
       if(err){
         deferred.reject(err);
       } else {
-        findAllUsers()
+        FindAll()
           .then(function(users){
             deferred.resolve(users);
           });

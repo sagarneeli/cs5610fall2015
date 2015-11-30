@@ -19,7 +19,7 @@ module.exports = function(app, formModel){
 
   app.delete("/api/assignment/form/:formId", function(req, res) {
     var formId = req.params.formId;
-    formModel.deleteFormById(formId)
+    formModel.Delete(formId)
       .then(function(forms){
         res.json(forms);
       });
@@ -28,17 +28,17 @@ module.exports = function(app, formModel){
   app.post("/api/assignment/user/:userId/form", function(req, res) {
     var form = req.body;
     var userId = req.params.userId;
-    formModel.createForm(userId, form)
+    formModel.Create(userId, form)
       .then(function(newForm){
         res.json(newForm);
       });
   });
 
   app.put("/api/assignment/form/:formId", function(req, res) {
-    var form = req.body || {};
+    var form = req.body;
     var formId = req.params.formId;
-    formModel.updateForm(formId, form)
-      .then(function(newForm){
+    formModel.Update(formId, form)
+      .then(function(newForm) {
         res.json(newForm);
       });
   });

@@ -1,24 +1,25 @@
 "use strict";
 
-var q = require("q");
+var q = require("q"),
+  Promise = require('bluebird');
 
 module.exports = function(db, mongoose) {
   var FormSchema = require('./form.schema.js')(mongoose),
     FormModel = db.model('FormModel', FormSchema);
 
   var api = {
-    "createForm": createForm,
-    "findAllForms": findAllForms,
-    "findAllFormsForUser": findAllFormsForUser,
-    "findFormById": findFormById,
-    "findFormByTitle": findFormByTitle,
-    "updateForm": updateForm,
-    "deleteFormById": deleteFormById
+    Create: Create,
+    findAllForms: findAllForms,
+    findAllFormsForUser: findAllFormsForUser,
+    findFormById: findFormById,
+    findFormByTitle: findFormByTitle,
+    Update: Update,
+    Delete: Delete
   };
 
   return api;
 
-  function createForm(userId, form) {
+  function Create(userId, form) {
     var deferred = q.defer();
     form.id = form._id = mongoose.Types.ObjectId();
     form.userId = userId;
@@ -26,7 +27,7 @@ module.exports = function(db, mongoose) {
       if (!err)
         deferred.resolve(form);
       else {
-        console.log("Error while createForm : ", err);
+        console.log("Error while Create : ", err);
         deferred.reject(err);
       }
     });
@@ -78,7 +79,7 @@ module.exports = function(db, mongoose) {
     return deferred.promise;
   }
 
-  function updateForm(formId, newForm){
+  function Update(formId, newForm){
     var deferred = q.defer();
     FormModel.findOne({id : formId}, function(err, form) {
       if (!err){
@@ -101,11 +102,11 @@ module.exports = function(db, mongoose) {
     return deferred.promise;
   }
 
-  function deleteFormById(formId){
+  function Delete(formId){
     var deferred = q.defer();
     findFormById(formId)
       .then(function(form){
-        var userId = form.userId || "";
+        var userId = form.userId;
         FormModel.remove({id: formId}, function(err){
           if(err){
             deferred.reject(err);

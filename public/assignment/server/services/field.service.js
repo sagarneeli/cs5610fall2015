@@ -44,7 +44,7 @@ module.exports = function(app, formModel) {
             fields.splice(index, 1);
           }
         });
-        formModel.updateForm(formId, requiredForm)
+        formModel.Update(formId, requiredForm)
           .then(function(form) {
             res.json(requiredForm.fields);
           });
@@ -60,26 +60,10 @@ module.exports = function(app, formModel) {
         requiredForm = requiredForm || {};
         requiredForm.fields = requiredForm.fields || [];
         requiredForm.fields.push(field);
-        formModel.updateForm(formId, requiredForm)
+        formModel.Update(formId, requiredForm)
           .then(function(updatedForm) {
             var newFields = updatedForm.fields || [];
             res.json(newFields);
-          });
-      });
-  });
-
-	app.post("/api/assignment/form/:formId/field/:index", function(req, res) {
-    var clonedField = req.body || {};
-    clonedField.id = clonedField._id = mongoose.Types.ObjectId();
-    var index = req.params.index;
-    var formId = req.params.formId;
-    formModel.findFormById(formId)
-      .then(function(form) {
-        var fields = form.fields;
-        fields.splice(index, 0, clonedField);
-        formModel.updateForm(formId, form)
-          .then(function(updatedForm) {
-            res.json(updatedForm.fields);
           });
       });
   });
@@ -98,7 +82,7 @@ module.exports = function(app, formModel) {
           }
         });
         requiredForm.fields = fields || [];
-        formModel.updateForm(formId, requiredForm)
+        formModel.Update(formId, requiredForm)
           .then(function(form) {
             res.json(inputField);
           });
