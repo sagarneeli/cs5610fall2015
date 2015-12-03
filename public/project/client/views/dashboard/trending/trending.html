@@ -1,0 +1,25 @@
+<div class="container" ng-controller="MainCtrl">
+    <div class="main">
+        <p class="lead">Get the latest trends on Twitter for your location.</p>
+        <div class="alert alert-danger alert-dismissable" ng-show="error">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span ng-show="errorMsg">{{ errorMsg }}</span>
+        </div>
+        <span ng-show="trendForm.city.$error.required" class="error">Please enter a city.</span>
+        <form class="form-inline" name="trendForm">
+            <div class="form-group" ng-class="{'has-error': trendForm.city.$invalid}">
+                <input type="text" name="city" ng-model="city" value="{{ city }}" ng-focus="reset()" class="form-control input-lg" required>
+            </div>
+            <button ng-click="getTrends()" ng-disabled="!detected" type="button" class="btn btn-info btn-lg">Get Trends</button>
+        </form>
+        <div class="alert alert-warning" ng-show="multicity">Multiple cities matched - Please select one.</div>
+        <div ng-show="multicity">
+            <ul class="list-unstyled">
+                <li ng-repeat="city in cities" class="select"><button ng-click="select(city.line2)" class="btn btn-success">{{ city.line2 }}</button></li>
+            </ul>
+        </div>
+        <ul class="list-unstyled">
+            <li ng-repeat="trend in trends"><a target="_blank" href="{{ trend.url }}">{{trend.name}}</li>
+        </ul>
+    </div>
+</div>

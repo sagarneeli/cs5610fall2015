@@ -22,7 +22,10 @@ angular
     'angular-loading-bar',
     'angular-progress-button-styles',
     'pascalprecht.translate',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'geolocation',
+    'ngResource',
+    'ngSanitize'
   ])
   .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.latencyThreshold = 5;
@@ -78,5 +81,15 @@ angular
         url: '/calendar',
         parent: 'dashboard',
         templateUrl: 'views/dashboard/calender/calendar.html'
+      })
+      .state('trending', {
+        url: '/trending',
+        parent: 'dashboard',
+        templateUrl: 'views/dashboard/trending/trending.html'
+      })
+      .state('tweets', {
+        url: '/tweets',
+        parent: 'dashboard',
+        templateUrl: 'views/dashboard/tweets/tweets.html'
       })
   });

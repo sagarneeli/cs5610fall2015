@@ -104,70 +104,71 @@
 			</li>
 		</ul>
 		<ul class="nav navbar-nav pull-right navbar-right">
-			<li class="dropdown color-picker" dropdown on-toggle="toggled(open)">
-	            <a href class="dropdown-toggle notoggle" dropdown-toggle>
-	                <span><i class="fa fa-circle"></i></span>
-	            </a>
-	            <ul class="dropdown-menu pull-right animated fadeIn" role="menu">
-	                <li class="padder-h-xs">
-	                    <table class="table color-swatches-table text-center no-m-b">
-	                        <tr>
-	                            <td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('blue')" class="theme-picker">
-	                                    <i class="fa fa-circle blue-base"></i>
-	                                </a>
-	                            </td>
-	                            <td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('green')" class="theme-picker">
-	                                    <i class="fa fa-circle green-base"></i>
-	                                </a>
-	                            </td>
-	                            <td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('red')" class="theme-picker">
-	                                    <i class="fa fa-circle red-base"></i>
-	                                </a>
-	                            </td>
-	                        </tr>
-	                        <tr>
-	                         	<td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('purple')" class="theme-picker">
-	                                    <i class="fa fa-circle purple-base"></i>
-	                                </a>
-	                            </td>
-	                            <td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('midnight-blue')" class="theme-picker">
-	                                    <i class="fa fa-circle midnight-blue-base"></i>
-	                                </a>
-	                            </td>
-	                            <td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('lynch')" class="theme-picker">
-	                                    <i class="fa fa-circle lynch-base"></i>
-	                                </a>
-	                            </td>
-	                        </tr>
-	                    </table>
-	                </li>
-	            </ul>
-	        </li>
-	       <li>
-	       		<a href="" ng-click="rightToLeft()" >
-	                <span> LTR/RTL </span>
-	            </a>
-	        </li>
-	        <li class="dropdown" dropdown on-toggle="toggled(open)">
-	        	<a href class="dropdown-toggle notoggle" dropdown-toggle>
-	                <span>{{ 'lang' }}</span>
-	            </a>
-	        	<ul class="dropdown-menu lang pull-right animated fadeIn">
-					<li><a href="" ng-click="changeLanguage('en')">English</a></li>
-					<li><a href="" ng-click="changeLanguage('de')">Dutch</a></li>
-					<li><a href="" ng-click="changeLanguage('ur')">اردو</a></li>
-					<li><a href="" ng-click="changeLanguage('hn')">हिन्दी</a></li>
-				</ul>
-	        </li>
+			<!--<li class="dropdown color-picker" dropdown on-toggle="toggled(open)">-->
+	            <!--<a href class="dropdown-toggle notoggle" dropdown-toggle>-->
+	                <!--<span><i class="fa fa-circle"></i></span>-->
+	            <!--</a>-->
+	            <!--<ul class="dropdown-menu pull-right animated fadeIn" role="menu">-->
+	                <!--<li class="padder-h-xs">-->
+	                    <!--<table class="table color-swatches-table text-center no-m-b">-->
+	                        <!--<tr>-->
+	                            <!--<td class="text-center colorr">-->
+	                                <!--<a href="javascript:;" ng-click="changeTheme('blue')" class="theme-picker">-->
+	                                    <!--<i class="fa fa-circle blue-base"></i>-->
+	                                <!--</a>-->
+	                            <!--</td>-->
+	                            <!--<td class="text-center colorr">-->
+	                                <!--<a href="javascript:;" ng-click="changeTheme('green')" class="theme-picker">-->
+	                                    <!--<i class="fa fa-circle green-base"></i>-->
+	                                <!--</a>-->
+	                            <!--</td>-->
+	                            <!--<td class="text-center colorr">-->
+	                                <!--<a href="javascript:;" ng-click="changeTheme('red')" class="theme-picker">-->
+	                                    <!--<i class="fa fa-circle red-base"></i>-->
+	                                <!--</a>-->
+	                            <!--</td>-->
+	                        <!--</tr>-->
+	                        <!--<tr>-->
+	                         	<!--<td class="text-center colorr">-->
+	                                <!--<a href="javascript:;" ng-click="changeTheme('purple')" class="theme-picker">-->
+	                                    <!--<i class="fa fa-circle purple-base"></i>-->
+	                                <!--</a>-->
+	                            <!--</td>-->
+	                            <!--<td class="text-center colorr">-->
+	                                <!--<a href="javascript:;" ng-click="changeTheme('midnight-blue')" class="theme-picker">-->
+	                                    <!--<i class="fa fa-circle midnight-blue-base"></i>-->
+	                                <!--</a>-->
+	                            <!--</td>-->
+	                            <!--<td class="text-center colorr">-->
+	                                <!--<a href="javascript:;" ng-click="changeTheme('lynch')" class="theme-picker">-->
+	                                    <!--<i class="fa fa-circle lynch-base"></i>-->
+	                                <!--</a>-->
+	                            <!--</td>-->
+	                        <!--</tr>-->
+	                    <!--</table>-->
+	                <!--</li>-->
+	            <!--</ul>-->
+	        <!--</li>-->
+	       <!--<li>-->
+	       		<!--<a href="" ng-click="rightToLeft()" >-->
+	                <!--<span> LTR/RTL </span>-->
+	            <!--</a>-->
+	        <!--</li>-->
+	        <!--<li class="dropdown" dropdown on-toggle="toggled(open)">-->
+	        	<!--<a href class="dropdown-toggle notoggle" dropdown-toggle>-->
+	                <!--<span>{{ 'lang' }}</span>-->
+	            <!--</a>-->
+	        	<!--<ul class="dropdown-menu lang pull-right animated fadeIn">-->
+					<!--<li><a href="" ng-click="changeLanguage('en')">English</a></li>-->
+					<!--<li><a href="" ng-click="changeLanguage('de')">Dutch</a></li>-->
+					<!--<li><a href="" ng-click="changeLanguage('ur')">اردو</a></li>-->
+					<!--<li><a href="" ng-click="changeLanguage('hn')">हिन्दी</a></li>-->
+				<!--</ul>-->
+	        <!--</li>-->
 			<li class="dropdown admin-dropdown" dropdown on-toggle="toggled(open)">
-				<a href class="dropdown-toggle" dropdown-toggle><img src="images/flat-avatar.png" class="topnav-img" alt=""> <span class="hidden-sm">Ani Pascal</span></a>
-				<ul class="dropdown-menu pull-right animated fadeIn">
+				<!--<a href class="dropdown-toggle" dropdown-toggle><img src="/images/flat-avatar.png" class="topnav-img" alt=""> <span class="hidden-sm">Twitter User</span></a>-->
+                <a href class="dropdown-toggle" dropdown-toggle><span class="hidden-sm">Twitter User</span></a>
+                <ul class="dropdown-menu pull-right animated fadeIn">
 					<li><a ui-sref="profile">{{ 'profilee' }}</a></li>
 					<li><a ui-sref="login">{{ 'logout' }}</a></li>
 				</ul>
@@ -175,13 +176,13 @@
 		</ul>
 
 	</div>
-	<ul class="nav navbar-nav pull-right hidd">
-		<li class="dropdown admin-dropdown" dropdown on-toggle="toggled(open)">
-			<a href class="dropdown-toggle animated fadeIn" dropdown-toggle><img src="images/flat-avatar.png" class="topnav-img" alt=""></a>
-			<ul class="dropdown-menu pull-right">
-				<li><a ui-sref="profile">{{ 'profilee' }}</a></li>
-				<li><a ui-sref="login">{{ 'logout' }}</a></li>
-			</ul>
-		</li>
-	</ul>
+	<!--<ul class="nav navbar-nav pull-right hidd">-->
+		<!--<li class="dropdown admin-dropdown" dropdown on-toggle="toggled(open)">-->
+			<!--<a href class="dropdown-toggle animated fadeIn" dropdown-toggle><img src="../../images/twitter.png" class="topnav-img" alt=""></a>-->
+			<!--<ul class="dropdown-menu pull-right">-->
+				<!--<li><a ui-sref="profile">{{ 'profilee' }}</a></li>-->
+				<!--<li><a ui-sref="login">{{ 'logout' }}</a></li>-->
+			<!--</ul>-->
+		<!--</li>-->
+	<!--</ul>-->
 </nav>
