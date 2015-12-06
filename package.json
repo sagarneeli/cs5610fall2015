@@ -27,6 +27,7 @@
     "body-parser": "^1.14.1",
     "ejs": "^2.3.4",
     "express": "~3.4.4",
+    "express-session": "^1.12.1",
     "method-override": "latest",
     "mongoose": "^4.2.4",
     "multer": "^1.1.0",

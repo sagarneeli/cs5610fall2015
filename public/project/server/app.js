@@ -1,4 +1,5 @@
 "use strict";
+
 var Twit = require('twit'),
   config = require('../../../config'),
   T = new Twit(config);
@@ -11,20 +12,22 @@ var MAX_WIDTH = 305;
 var OEMBED_URL = 'statuses/oembed';
 var USER_TIMELINE_URL = 'statuses/user_timeline';
 
-module.exports = function(app) {
+//var passport = require('passport');
 
-  //app.get('/', routes.index);
+module.exports = function(app, passport) {
 
-  app.get('/api/trends/:woeid', function(req, res) {
-    var woeid = req.params.woeid;
-    T.get('trends/place', {id: woeid}, function(err, data) {
-      if (typeof data === "undefined") {
-        res.json({status: false});
-      } else {
-        res.json({trends: data, status: true});
-      }
-    });
-  });
+  require("./services/geotrend.service.js")(app);
+
+  //app.get('/api/trends/:woeid', function(req, res) {
+  //  var woeid = req.params.woeid;
+  //  T.get('trends/place', {id: woeid}, function(err, data) {
+  //    if (typeof data === "undefined") {
+  //      res.json({status: false});
+  //    } else {
+  //      res.json({trends: data, status: true});
+  //    }
+  //  });
+  //});
 
   app.get('/tweets/user_timeline/:user', function(req, res) {
 
@@ -77,6 +80,7 @@ module.exports = function(app) {
         }
       });
     }
+
   });
 
 };

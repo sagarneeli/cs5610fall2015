@@ -25,7 +25,7 @@ angular.module('AniTheme')
     		defer.resolve();
 
     		$timeout(function(){
-    		   	$location.path('dashboard');
+    		   	//$location.path('dashboard');
     		}, 600);
 
     	}, 1100);

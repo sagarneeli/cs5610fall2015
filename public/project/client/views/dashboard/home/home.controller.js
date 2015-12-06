@@ -7,6 +7,10 @@
  * # HomeCtrl
  * Controller of AniTheme
  */
-angular.module('AniTheme').controller('HomeCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+angular.module('AniTheme').controller('HomeCtrl', ['$scope', '$timeout', '$http', function ($scope, $timeout, $http) {
 
+  //$http.get('project/client/index.html#/dashboard/home')
+  //  .success(function(data) {
+  //    $scope.user = data.name;
+  //  });
 }]);

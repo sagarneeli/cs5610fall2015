@@ -1,105 +1,95 @@
 #!/bin/env node
 //  OpenShift sample Node application
+var fs = require('fs');
 var express = require('express');
 var mongoose = require('mongoose');
+var path = require('path');
 var multer  = require('multer')
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-var app = express();
-//var routes = require('./routes');
-
+var session = require('express-session');
+var mongoose = require('mongoose');
 var passport = require('passport');
+var config = require('./config.js');
+var User = require('./models/user.model.js');
 var TwitterStrategy = require('passport-twitter').Strategy;
-var twitterAuthn;
-var twitterAuthz;
-var user = { id: "abc" };
+var app = express();
 var OAuth= require('oauth').OAuth;
-var oa;
-var config = require('./config');
-var domain = "localhost";
 
-
-function initTwitterOauth() {
-  oa = new OAuth(
-    "https://twitter.com/oauth/request_token"
-    , "https://twitter.com/oauth/access_token"
-    , config.consumer_key
-    , config.consumer_secret
-    , "1.0A"
-    , "http://" + domain + ":" + port + "/twitter/authn/callback"
-    , "HMAC-SHA1"
-  );
-}
-
-function makeTweet(cb) {
-  oa.post(
-    "https://api.twitter.com/1.1/statuses/update.json"
-    , user.token
-    , user.tokenSecret
-    , {"status": "How to Tweet & Direct Message using NodeJS http://blog.coolaj86.com/articles/how-to-tweet-from-nodejs.html via @coolaj86" }
-    , cb
-  );
-}
-
-function makeDm(sn, cb) {
-  oa.post(
-    "https://api.twitter.com/1.1/direct_messages/new.json"
-    , user.token
-    , user.tokenSecret
-    , {"screen_name": sn, text: "test message via nodejs twitter api. pulled your sn at random, sorry."}
-    , cb
-  );
-}
-
-passport.serializeUser(function(_user, done) {
-  done(null, user.id);
+// serialize and deserialize
+passport.serializeUser(function(user, done) {
+  console.log('serializeUser: ' + user._id);
+  done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-  done(null, user);
+  User.findById(id, function(err, user){
+    //console.log(user);
+    if(!err)
+      done(null, user);
+    else
+      done(err, null);
+  });
 });
 
-twitterAuthn = new TwitterStrategy({
-    consumerKey: config.consumer_key
-    , consumerSecret: config.consumer_secret
-    //, callbackURL: "http://" + domain + ":" + port + "/twitter/authn/callback"
+
+passport.use(new TwitterStrategy({
+    consumerKey     : config.consumer_key,
+    consumerSecret  : config.consumer_secret,
+    callbackURL     : "http://127.0.0.1:3000/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
-    user.token = token;
-    user.tokenSecret = tokenSecret;
-    user.profile = profile;
-    done(null, user);
-  }
-);
-twitterAuthn.name = 'twitterAuthn';
 
-twitterAuthz = new TwitterStrategy({
-    consumerKey: config.consumer_key
-    , consumerSecret: config.consumer_secret
-    //, callbackURL: "http://" + domain + ":" + port + "/twitter/authz/callback"
-    , userAuthorizationURL: 'https://api.twitter.com/oauth/authorize'
-  },
-  function(token, tokenSecret, profile, done) {
-    user.token = token;
-    user.tokenSecret = tokenSecret;
-    user.profile = profile;
-    user.authorized = true;
-    initTwitterOauth();
-    done(null, user);
-  }
-);
-twitterAuthz.name = 'twitterAuthz';
+    // make the code asynchronous
+    // User.findOne won't fire until we have all our data back from Twitter
+    process.nextTick(function() {
+      console.log(token);
+      console.log(tokenSecret);
+      console.log(profile);
+      User.findOne({ 'id' : profile.id }, function(err, user) {
 
-passport.use(twitterAuthn);
-passport.use(twitterAuthz);
+        // if there is an error, stop everything and return that
+        // ie an error connecting to the database
+        if (err) {
+          console.log(err);
+          return done(err);
+        }
+        // if the user is found then log them in
+        if (user) {
+          return done(null, user); // user found, return that user
+        } else {
+          // if there is no user, create them
+          var newUser = new User();
+          // set all of the user data that we need
+          newUser.id          = profile.id;
+          newUser.token       = token;
+          newUser.username = profile.username;
+          newUser.displayName = profile.displayName;
+          newUser.lastStatus = profile._json.status.text;
+          // save our user into the database
+          newUser.save(function(err) {
+            if (err)
+              throw err;
+            console.log("saving user....")
+            return done(null, newUser);
+          });
+        }
+      });
 
+    });
+
+  }));
+
+
+app.use(express.logger());
 app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(multer());
 app.use(express.static(__dirname + '/public'));
+app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 app.use(express.cookieParser());
-app.use(express.session({ secret: "blahhnsnhoaeunshtoe" }));
+app.use(session({secret: 'mySecretKey'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -115,88 +105,64 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 
 var db = mongoose.connect(connectionString);
 
-
 require("./public/assignment/server/app.js")(app, db, mongoose);
 
-require("./public/project/server/app.js")(app);
+require("./public/project/server/app.js")(app, passport);
+
+//require("./public/project/server/app.js")(app, passport, mongoose);
 
 
+app.get('/auth/twitter',
+  passport.authenticate('twitter'),
+  function(req, res){
 
-app.get('/twitter/authn', passport.authenticate('twitterAuthn'));
-
-app.get(
-  '/twitter/authn/callback'
-  , passport.authenticate(
-    'twitterAuthn'
-    , { failureRedirect: '/nfailure' }
-  )
-  , function (req, res) {
-    // TODO if a direct message fails, remove this and try again
-    // the user may have unauthorized the app
-    if (!user.authorized) {
-      res.redirect('/twitter/authz');
-      return;
-    }
-    res.redirect('/auth-callback');
   }
 );
-app.get('/twitter/authz', passport.authenticate('twitterAuthz'))
 
-app.get(
-  '/twitter/authz/callback'
-  , passport.authenticate(
-    'twitterAuthz'
-    , { successRedirect: '/project/client/views/dashboard/home/home.view.html'
-      , failureRedirect: '/zfailure'
+app.get('project/client/index.html#/dashboard/home', ensureAuthenticated, function(req, res){
+  User.findById(req.session.passport.user, function(err, user) {
+    if(err) {
+      console.log(err);  // handle errors
     }
-  )
-);
-
-app.get('/twitter/tweet', function (req, res) {
-  makeTweet(function (error, data) {
-    if(error) {
-      console.log(require('sys').inspect(error));
-      res.end('bad stuff happened');
-    } else {
-      console.log(data);
-      res.end('go check your tweets!');
-    }
+    res.json(user);
+    //else {
+    //  //res.render('dashboard', { user: user});
+    //  res.redirect('dashboard', { user: user});
+    //}
   });
 });
 
-app.get('/twitter/direct/:sn', function (req, res) {
-  makeDm(req.params.sn, function (error, data) {
-    if(error) {
-      console.log(require('sys').inspect(error));
-      res.end('bad stuff happened (dm)');
-    } else {
-      console.log(data);
-      res.end("the message sent (but you can't see it!");
-    }
+app.get('/auth/twitter/callback',
+  passport.authenticate('twitter', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('project/client/index.html#/dashboard/home');
   });
-});
-
-app.get('/auth-callback', function(req, res){
-  console.log('auth-callback,user', req.user);
-  //res.render('auth-callback', { user: JSON.stringify(req.user) });
-  res.json({ user: JSON.stringify(req.user) });
-});
-
-app.post('/auth-callback', function(req, res){
-  console.log('auth-callback,user', req.user);
-  //res.render('auth-callback', { user: JSON.stringify(req.user) });
-  res.json({ user: JSON.stringify(req.user) });
-});
-
-initTwitterOauth();
-
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
+
+function initTwitterOauth() {
+  oa = new OAuth(
+    "https://twitter.com/oauth/request_token"
+    , "https://twitter.com/oauth/access_token"
+    , config.consumer_key
+    , config.consumer_secret
+    , "1.0A"
+    , "http://" + ipaddress + ":" + port + "/twitter/authn/callback"
+    , "HMAC-SHA1"
+  );
+}
+
+
 app.listen(port, ipaddress, function() {
   console.log('Listening at http://%s:%s', ipaddress, port);
 });
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/');
+}
 
 //app.get('/', routes.index);
 //app.get('/api/trends/:woeid', api.trends);

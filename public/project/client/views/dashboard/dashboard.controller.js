@@ -9,9 +9,7 @@
  */
 angular.module('AniTheme')
   .controller('DashboardCtrl', function($scope, $state, $rootScope) {
-
     $scope.$state = $state;
-
     $scope.date = new Date();
     $scope.layoutToggler = function(y){
 
@@ -35,10 +33,9 @@ angular.module('AniTheme')
 			}
 		});
 	});
+
 	$scope.changeLanguage = (function (l) {
-
 		$translate.use(l);
-
 	});
 
 });

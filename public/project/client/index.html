@@ -6,63 +6,76 @@
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css">
-    <link rel="stylesheet" href="css/angular-chart.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.0.2/css/hover.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.8.0/loading-bar.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.4.6/textAngular.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css" />
+    <link rel="stylesheet" href="/bower_components/fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet" href="/bower_components/angular-chart.js/dist/angular-chart.css" />
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/bower_components/hover/css/hover.css" />
+    <link rel="stylesheet" href="/bower_components/c3/c3.css" />
+    <link rel="stylesheet" href="/bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="/bower_components/textAngular/src/textAngular.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.7/css/perfect-scrollbar.css">
-    <link rel="stylesheet" type="text/css" href="css/angular-progress-button-styles.css">
+    <link rel="stylesheet" href="/bower_components/perfect-scrollbar/css/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/bower_components/angular-progress-button-styles/dist/angular-progress-button-styles.min.css" />
     <link rel="stylesheet" type="text/css" href="css/app-blue.css">
     <link rel='stylesheet' href='css/TweetList.css' />
     <!-- build:js scripts/vendor.js -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="/bower_components/jquery/jquery.min.js"></script>
     <script src="js/extras/modernizr.custom.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
-    <script type="text/javascript" src="js/angular-mocks.js"></script>
-    <script type="text/javascript" src="js/angular-ui-router.min.js"></script>
-    <script type="text/javascript" src="js/angular-animate.min.js"></script>
-    <script src="js/moment.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-calendar/1.0.0/calendar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
-    <script src="js/angular-chart.js"></script>
-    <script src="js/d3.js"></script>
-    <script src="js/c3.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="/bower_components/ui-router/release/angular-ui-router.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <!--<script src="js/moment.js"></script>-->
+    <script src="/bower_components/fullcalendar/fullcalendar.js"></script>
+    <script src="/bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script src="/bower_components/Chart.js/Chart.js"></script>
+    <script src="/bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <script src="/bower_components/d3/d3.js"></script>
+    <script src="/bower_components/c3/c3.js"></script>
+    <script src="/bower_components/c3-angular/c3js-directive.js"></script>
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.js"></script>-->
-    <!--<script src="js/c3chart-directive.js"></script>-->
-    <script type="text/javascript" src="js/angular-growl.js"></script>
-    <script type="text/javascript" src="js/loading-bar.js"></script>
-    <script type="text/javascript" src="js/angular-growl-notifications.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-core.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-classapplier.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-highlighter.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-selectionsaverestore.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-serializer.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rangy/1.3.0/rangy-textrange.js"></script>
+    <script src="/bower_components/angular-growl/build/angular-growl.js"></script>
+    <script src="/bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="/bower_components/angular-growl-notifications/dist/angular-growl-notifications.js"></script>
+    <script src="/bower_components/rangy/rangy-core.js"></script>
+    <script src="/bower_components/rangy/rangy-classapplier.js"></script>
+    <script src="/bower_components/rangy/rangy-highlighter.js"></script>
+    <script src="/bower_components/rangy/rangy-selectionsaverestore.js"></script>
+    <script src="/bower_components/rangy/rangy-serializer.js"></script>
+    <script src="/bower_components/rangy/rangy-textrange.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-sanitize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.4.6/textAngular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.4.6/textAngular-sanitize.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.4.6/textAngularSetup.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.7/js/perfect-scrollbar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.js"></script>
-    <script type="text/javascript" src="js/angular-progress-button-styles.js"></script>
-    <script type="text/javascript" src="js/angular-translate.js"></script>
-    <script type="text/javascript" src="js/angular-translate-loader-url.js"></script>
-    <script type="text/javascript" src="js/angular-translate-loader-static-files.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.7/js/perfect-scrollbar.jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
+    <script src="/bower_components/textAngular/src/textAngular.js"></script>
+    <script src="/bower_components/textAngular/src/textAngular-sanitize.js"></script>
+    <script src="/bower_components/textAngular/src/textAngularSetup.js"></script>
+    <script src="/bower_components/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <script src="/bower_components/classie/classie.js"></script>
+    <script src="/bower_components/angular-progress-button-styles/dist/angular-progress-button-styles.min.js"></script>
+    <script src="/bower_components/angular-translate/angular-translate.js"></script>
+    <script src="/bower_components/angular-translate-loader-url/angular-translate-loader-url.js"></script>
+    <script src="/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="/bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+
     <script src="app.js"></script>
     <script src="js/extras/map.min.js"></script>
     <script src="js/extras/worldmap.js"></script>
     <script src="js/extras/progressButton.js"></script>
     <script src="views/login/login.controller.js"></script>
+    <script src="views/dashboard/ui-elements/alert/alertCtrl.js"></script>
+    <script src="views/dashboard/ui-elements/button/btnCtrl.js"></script>
+    <script src="views/dashboard/ui-elements/collapse/collapseCtrl.js"></script>
+    <!--dateCtrl-->
+    <script src="views/dashboard/ui-elements/dropdown/dropdownCtrl.js"></script>
+    <script src="views/dashboard/ui-elements/modal/modalCtrl.js"></script>
+    <script src="views/dashboard/ui-elements/pagination/paginationCtrl.js"></script>
+    <script src="views/dashboard/ui-elements/progressbar/progressCtrl.js"></script>
+    <!--popOver
+    <!--toolstip-->
+    <!--tabsCtrl-->
     <script src="views/dashboard/dashboard.controller.js"></script>
     <script src="views/dashboard/home/home.controller.js"></script>
     <script src="views/dashboard/calender/clndrCtrl.js"></script>
@@ -84,16 +97,13 @@
     <!--<script src="services/services.js"></script>-->
 </head>
 <body ng-app="AniTheme">
-
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 <!-- Add your site or application content here -->
-<p>Welcome</p>
 <div>
     <div ui-view ></div>
 </div>
-
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script> /*
  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -103,15 +113,12 @@
 
  ga('create', 'UA-XXXXX-X');
  ga('send', 'pageview'); */
-
 </script>
-
 <!-- build:js scripts/oldieshim.js -->
 <!--[if lt IE 9]>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.2.0/es5-shim.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.js"></script>
 <![endif]-->
 <!-- endbuild -->
-
 </body>
 </html>
