@@ -39,7 +39,7 @@
     "q": "^1.4.1",
     "twit": "latest"
   },
-  "devDependencies": {},
+  "devDependencies": {"bower": "1.2.x"},
   "bundleDependencies": [],
   "private": true,
   "main": "server.js"
