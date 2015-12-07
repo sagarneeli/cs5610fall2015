@@ -91,7 +91,7 @@ app.get('project/client/index.html#/dashboard/home', ensureAuthenticated, functi
 app.get('/auth/twitter/callback',
   passport.authenticate('twitter', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('project/client/index.html#/dashboard/home1');
+    res.redirect('project/client/index.html#/dashboard/home');
   });
 
 //function initTwitterOauth() {
