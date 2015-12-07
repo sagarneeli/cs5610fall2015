@@ -87,7 +87,7 @@ app.use(methodOverride());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(multer());
 app.use(express.static(__dirname + '/public'));
-app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+app.use('/bower_components',  express.static(__dirname + '/public/bower_components'));
 app.use(express.cookieParser());
 app.use(session({secret: 'mySecretKey'}));
 app.use(passport.initialize());
