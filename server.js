@@ -141,23 +141,23 @@ app.listen(port, ipaddress, function() {
 
 app.get('/auth/twitter', passport.authenticate('twitter'));
 
-app.get('account', ensureAuthenticated, function(req, res){
+app.get('project/client/index.html#/dashboard/home', ensureAuthenticated, function(req, res){
   User.findById(req.session.passport.user, function(err, user) {
     if(err) {
       console.log(err);  // handle errors
     }
-    //res.json(user);
-    else {
-      //res.render('dashboard', { user: user});
-      res.redirect('project/client/index.html#/dashboard/home');
-    }
+    res.json(user);
+    //else {
+    //  //res.render('dashboard', { user: user});
+    //  res.redirect('project/client/index.html#/dashboard/home');
+    //}
   });
 });
 
 app.get('/auth/twitter/callback',
   passport.authenticate('twitter', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('account');
+    res.redirect('project/client/index.html#/dashboard/home');
   });
 
 function ensureAuthenticated(req, res, next) {
