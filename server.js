@@ -16,6 +16,7 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var app = express();
 var OAuth= require('oauth').OAuth;
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var domain = "http://cs5610-neelisagar.rhcloud.com/" || '127.0.0. 1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 // serialize and deserialize
@@ -73,26 +74,6 @@ require("./public/project/server/app.js")(app, passport);
 //);
 
 
-app.get('/auth/twitter', passport.authenticate('twitter'));
-
-app.get('project/client/index.html#/dashboard/home', ensureAuthenticated, function(req, res){
-  User.findById(req.session.passport.user, function(err, user) {
-    if(err) {
-      console.log(err);  // handle errors
-    }
-    res.json(user);
-    //else {
-    //  //res.render('dashboard', { user: user});
-    //  res.redirect('dashboard', { user: user});
-    //}
-  });
-});
-
-app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', { failureRedirect: '/' }),
-  function(req, res) {
-    res.redirect('project/client/index.html#/dashboard/home');
-  });
 
 //function initTwitterOauth() {
 //  oa = new OAuth(
@@ -109,7 +90,7 @@ app.get('/auth/twitter/callback',
 passport.use(new TwitterStrategy({
     consumerKey     : config.consumer_key,
     consumerSecret  : config.consumer_secret,
-    callbackURL     : "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
+    callbackURL     : "http://" + domain + ":" + port + "/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
 
@@ -155,11 +136,31 @@ app.listen(port, ipaddress, function() {
   console.log('Listening at http://%s:%s', ipaddress, port);
 });
 
+//app.get('/', routes.index);
+//app.get('/api/trends/:woeid', api.trends);
+
+app.get('/auth/twitter', passport.authenticate('twitter'));
+
+app.get('account', ensureAuthenticated, function(req, res){
+  User.findById(req.session.passport.user, function(err, user) {
+    if(err) {
+      console.log(err);  // handle errors
+    }
+    //res.json(user);
+    else {
+      //res.render('dashboard', { user: user});
+      res.redirect('project/client/index.html#/dashboard/home', { user: user});
+    }
+  });
+});
+
+app.get('/auth/twitter/callback',
+  passport.authenticate('twitter', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('account');
+  });
+
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/');
 }
-
-//app.get('/', routes.index);
-//app.get('/api/trends/:woeid', api.trends);
-
