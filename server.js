@@ -16,7 +16,7 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var app = express();
 var OAuth= require('oauth').OAuth;
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var domain = "http://cs5610-neelisagar.rhcloud.com/" || '127.0.0. 1';
+var domain = "http://cs5610-neelisagar.rhcloud.com";
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 // serialize and deserialize
