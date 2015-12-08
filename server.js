@@ -149,7 +149,7 @@ app.get('account', ensureAuthenticated, function(req, res){
     //res.json(user);
     else {
       //res.render('dashboard', { user: user});
-      res.redirect('project/client/index.html#/dashboard/home', { user: user});
+      res.redirect('project/client/index.html#/dashboard/home');
     }
   });
 });
