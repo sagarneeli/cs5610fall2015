@@ -90,7 +90,7 @@ require("./public/project/server/app.js")(app, passport);
 passport.use(new TwitterStrategy({
     consumerKey     : config.consumer_key,
     consumerSecret  : config.consumer_secret,
-    callbackURL     : "http://" + domain + ":" + port + "/auth/twitter/callback"
+    callbackURL     : "http://" + domain + "/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
 
