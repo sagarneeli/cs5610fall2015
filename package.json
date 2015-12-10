@@ -23,6 +23,12 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
+    "Sentimental": "^1.0.1",
+    "angular": "^1.4.8",
+    "angular-animate": "^1.4.8",
+    "angular-aria": "^1.4.8",
+    "angular-material": "^0.11.4",
+    "async": "^1.5.0",
     "bluebird": "^3.0.5",
     "body-parser": "^1.14.1",
     "ejs": "^2.3.4",
@@ -37,11 +43,10 @@
     "passport": "^0.3.2",
     "passport-twitter": "^1.0.3",
     "q": "^1.4.1",
+    "serve-favicon": "^2.3.0",
     "twit": "latest"
   },
-  "devDependencies": {
-
-  },
+  "devDependencies": {},
   "bundleDependencies": [],
   "private": true,
   "main": "server.js"

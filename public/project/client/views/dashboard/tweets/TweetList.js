@@ -1,4 +1,4 @@
-var app = angular.module('AniTheme');
+ var app = angular.module('AniTheme');
 
 app.controller('TweetList', function($scope, $resource, $timeout) {
 

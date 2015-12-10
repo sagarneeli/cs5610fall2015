@@ -170,7 +170,11 @@
                 <a href class="dropdown-toggle" dropdown-toggle><span class="hidden-sm">Twitter User</span></a>
                 <ul class="dropdown-menu pull-right animated fadeIn">
 					<li><a ui-sref="profile">{{ 'profilee' }}</a></li>
-					<li><a ui-sref="login">{{ 'logout' }}</a></li>
+					<li><a ui-sref="login">{{ 'logout' }}</a>
+                    <li><a href="/twitter/tweet">Tweet</a></li>
+                    <li><a href="/twitter/direct/NeeliSagar">Send direct message</a>
+                        <span>(will probably fail as he may not be following you)</span>
+                    </li>
 				</ul>
 			</li>
 		</ul>

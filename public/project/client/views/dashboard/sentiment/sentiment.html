@@ -1,0 +1,85 @@
+<!--<div class="container">-->
+    <!--<div class="jumbotron">-->
+        <!--<h1>Need to make a decision?</h1>-->
+        <!--<p class="lead">Use Twitter sentiment analysis.</p>-->
+        <!--<div class="form-container">-->
+            <!--<form action="" method="post" data-bind="submit: formSubmit">-->
+                <!--<input id="choice1" type="text" data-choice="1" placeholder="Choice #1..." name="choice1" data-bind="value: inputOne" class="choice">-->
+                <!--<input id="choice2" type="text" data-choice="2" placeholder="Choice #2..." name="choice2" data-bind="value: inputTwo" class="choice">-->
+                <!--<input id="decision" type="submit" value="Submit" data-bind="enable: !hasResults()" class="btn btn-success btn-lg">-->
+            <!--</form>-->
+        <!--</div>-->
+        <!--<div class="decision-container">-->
+            <!--<p data-bind="visible: error, text: error" class="alert alert-danger"></p>-->
+            <!--<div data-bind="visible: isProcessing()" class="progress progress-striped active">-->
+                <!--<div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar-primary"><span class="sr-only"></span></div>-->
+            <!--</div>-->
+            <!--<div data-bind="visible: hasResults()" class="panel panel-lg panel-success">-->
+                <!--<div class="panel-heading">-->
+                    <!--<h3 class="panel-title">Decision Results</h3>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<p data-bind="html: results" class="decision-text"></p>-->
+                    <!--<div class="text-center">-->
+                        <!--<input id="decision" type="button" value="Again?" data-bind="click: tryAgain" class="btn btn-success btn-sm text-center">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="conter-wrapper" ng-controller="SentimentCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Use Twitter sentiment analysis
+                        <div class="panel-control pull-right">
+                            <a class="panelButton"><i class="fa fa-refresh"></i></a>
+                            <a class="panelButton"><i class="fa fa-minus"></i></a>
+                            <a class="panelButton"><i class="fa fa-remove"></i></a>
+                        </div>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <hr>
+                        <div class="form-group">
+                            <label for="inputtext" class="col-sm-2 control-label">Choice 1</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control underline" ng-model="choice1" id="underline1" placeholder="Enter your sentence or word">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="inputtext" class="col-sm-2 control-label">Choice 2</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control underline" ng-model="choice2" id="underline2" placeholder="Enter your sentence or word">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-sm-10 text-center">
+                                <button type="button" ng-click="getDecision(); show = !show" class="btn btn-info btn-rounded">Info</button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group" ng-show="show">
+                            <label class="col-sm-2 control-label">Result</label>
+                            <div class="col-sm-10">
+                                <span class="badge infob">
+                                    <p class="form-control-static">{{result.choice}}</p>
+                                    <p class="form-control-static">{{result.score}}</p>
+                                </span>
+                            </div>
+                            <div class="col-sm-10 text-center">
+                                <button type="button" ng-click="reset(); show = !show" class="btn btn-info btn-rounded">Again?</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

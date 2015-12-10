@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css"/>
     <link rel="stylesheet" href="/bower_components/fullcalendar/fullcalendar.css" />
     <link rel="stylesheet" href="/bower_components/angular-chart.js/dist/angular-chart.css" />
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css" />
@@ -19,13 +19,17 @@
     <link rel="stylesheet" href="/bower_components/angular-progress-button-styles/dist/angular-progress-button-styles.min.css" />
     <link rel="stylesheet" type="text/css" href="css/app-blue.css">
     <link rel='stylesheet' href='css/TweetList.css' />
+    <!--<link rel='stylesheet' href='css/sentiment.css' />-->
+    <!--<link href="css/sentiment.css" rel="stylesheet" media="screen">-->
     <!-- build:js scripts/vendor.js -->
     <script src="/bower_components/jquery/jquery.min.js"></script>
     <script src="js/extras/modernizr.custom.js"></script>
-    <script src="/bower_components/angular/angular.js"></script>
+    <!--<script src="/bower_components/angular/angular.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
     <script src="/bower_components/angular-mocks/angular-mocks.js"></script>
     <script src="/bower_components/ui-router/release/angular-ui-router.js"></script>
-    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="js/angular-animate.min.js"></script>
     <script src="/bower_components/angular-ui-calendar/src/calendar.js"></script>
     <!--<script src="js/moment.js"></script>-->
     <script src="/bower_components/fullcalendar/fullcalendar.js"></script>
@@ -94,7 +98,14 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <script src="//platform.twitter.com/widgets.js"></script>
     <script src="views/dashboard/tweets/TweetList.js"></script>
+    <script src="views/dashboard/sentiment/sentiment.js"></script>
     <!--<script src="services/services.js"></script>-->
+    <!-- Compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">-->
+
+    <!-- Compiled and minified JavaScript -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>-->
+    <link rel='shortcut icon' href='favicon.ico' type='image/x-icon' />
 </head>
 <body ng-app="AniTheme">
 <!--[if lt IE 7]>
@@ -120,5 +131,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.js"></script>
 <![endif]-->
 <!-- endbuild -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.0.0/knockout-min.js"></script>
 </body>
 </html>
