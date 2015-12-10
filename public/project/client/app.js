@@ -136,6 +136,11 @@ angular
         parent: 'dashboard',
         templateUrl: 'views/dashboard/tweets/tweets.html'
       })
+      .state('profile', {
+        url: '/profile',
+        parent: 'dashboard',
+        templateUrl: 'views/dashboard/profile/profile.html'
+      })
       .state('sentiment', {
         url: '/sentiment',
         parent: 'dashboard',

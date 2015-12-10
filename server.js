@@ -83,7 +83,8 @@ function initTwitterOauth() {
     , config.consumer_key
     , config.consumer_secret
     , "1.0A"
-    , "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
+    //, "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
+    , "http://" + domain + "/auth/twitter/callback"
     , "HMAC-SHA1"
   );
 }
@@ -91,7 +92,8 @@ function initTwitterOauth() {
 passport.use(new TwitterStrategy({
     consumerKey     : config.consumer_key,
     consumerSecret  : config.consumer_secret,
-    callbackURL     : "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
+    callbackURL     : "http://" + domain + "/auth/twitter/callback"
+    //callbackURL     : "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
 
@@ -118,9 +120,11 @@ passport.use(new TwitterStrategy({
           // set all of the user data that we need
           newUser.id = profile.id;
           newUser.token = token;
+          newUser.tokenSecret = tokenSecret;
           newUser.username = profile.username;
           newUser.displayName = profile.displayName;
           newUser.lastStatus = profile._json.status.text;
+          newUser.image = profile._json.profile_image_url;
           // save our user into the database
           newUser.save(function(err) {
             if (err)
@@ -133,6 +137,8 @@ passport.use(new TwitterStrategy({
     });
 
   }));
+
+initTwitterOauth();
 
 app.listen(port, ipaddress, function() {
   console.log('Listening at http://%s:%s', ipaddress, port);
@@ -152,20 +158,6 @@ app.get('/account', ensureAuthenticated, function(req, res){
   });
 });
 
-//app.get('/account', function(req, res){
-//  if (req.isAuthenticated()) {
-//    User
-//    //.findById(req.user.id)
-//      .findById(req.session.passport.user)
-//      .then(function(err, user) {
-//        res.json(user);
-//      });
-//  } else {
-//    res.send('0');
-//  }
-//});
-
-
 app.get('/auth/twitter/callback',
   passport.authenticate('twitter', { failureRedirect: '/#/login' }),
   function(req, res) {
@@ -173,8 +165,62 @@ app.get('/auth/twitter/callback',
     //res.redirect('project/client/index.html#/home');
   });
 
+app.get('/twitter/tweet', function (req, res) {
+  User.findById(req.session.passport.user, function(err, user) {
+    if(err) {
+      console.log(err);  // handle errors
+    }
+    makeTweet(user, function (error, data) {
+      if(error) {
+        console.log(require('sys').inspect(error));
+        res.end('bad stuff happened');
+      } else {
+        console.log(data);
+        res.end('go check your tweets!');
+      }
+    });
+  });
+
+
+});
+
+app.get('/twitter/direct/:sn', function (req, res) {
+  makeDm(req.params.sn, req.session.passport.user, function (error, data) {
+    if(error) {
+      console.log(require('sys').inspect(error));
+      res.end('bad stuff happened (dm)');
+    } else {
+      console.log(data);
+      res.end("the message sent (but you can't see it!");
+    }
+  });
+});
+
+
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.send('0');
   //res.redirect('/');
+}
+
+function makeTweet(user, cb) {
+  console.log("Make tweet " + user.token);
+  console.log("Make tweet " + user.tokenSecret);
+  oa.post(
+    "https://api.twitter.com/1.1/statuses/update.json"
+    , user.token
+    , user.tokenSecret
+    , {"status": "This is how you tweet and direct message" }
+    , cb
+  );
+}
+
+function makeDm(sn, user, cb) {
+  oa.post(
+    "https://api.twitter.com/1.1/direct_messages/new.json"
+    , user.token
+    , user.tokenSecret
+    , {"screen_name": sn, text: "test message via nodejs twitter api. pulled your sn at random, sorry."}
+    , cb
+  );
 }

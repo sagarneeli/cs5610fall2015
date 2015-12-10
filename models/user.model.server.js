@@ -4,9 +4,11 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User', {
   id: String,
   token: String,
+  tokenSecret: String,
   username: String,
   displayName: String,
   lastStatus: String,
+  image: String,
   created: Date
 });
 

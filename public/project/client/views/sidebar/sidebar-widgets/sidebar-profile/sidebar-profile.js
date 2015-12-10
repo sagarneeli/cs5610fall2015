@@ -8,4 +8,16 @@ angular.module('AniTheme')
         restrict: 'E',
         replace: true,
     	}
-	});
+	})
+  .controller("SideBarProfileCtrl", SideBarProfileCtrl);
+
+function SideBarProfileCtrl(UserService, $scope) {
+
+  UserService.findProfileImage()
+    .then(function (user) {
+      console.log(user);
+      $scope.image = user.image;
+      $scope.username = user.displayName;
+    });
+
+}
