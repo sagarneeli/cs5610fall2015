@@ -180,8 +180,6 @@ app.get('/twitter/tweet', function (req, res) {
       }
     });
   });
-
-
 });
 
 app.get('/twitter/direct/:sn', function (req, res) {
@@ -204,8 +202,8 @@ function ensureAuthenticated(req, res, next) {
 }
 
 function makeTweet(user, cb) {
-  console.log("Make tweet " + user.token);
-  console.log("Make tweet " + user.tokenSecret);
+  //console.log("Make tweet " + user.token);
+  //console.log("Make tweet " + user.tokenSecret);
   oa.post(
     "https://api.twitter.com/1.1/statuses/update.json"
     , user.token

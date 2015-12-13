@@ -68,10 +68,12 @@
                         <div class="form-group" ng-show="show">
                             <label class="col-sm-2 control-label">Result</label>
                             <div class="col-sm-10">
-                                <span class="badge infob">
-                                    <p class="form-control-static">{{result.choice}}</p>
-                                    <p class="form-control-static">{{result.score}}</p>
-                                </span>
+                                <!--<span class="badge infob">-->
+                                    <!--<p class="form-control-static">{{result.choice}}</p>-->
+                                    <!--<p class="form-control-static">{{result.score}}</p>-->
+                                <!--</span>-->
+                                <svg id="fillgauge3" width="19%" height="200"></svg>
+                                <p class="form-control-static">{{result.choice}}</p>
                             </div>
                             <div class="col-sm-10 text-center">
                                 <button type="button" ng-click="reset(); show = !show" class="btn btn-info btn-rounded">Again?</button>

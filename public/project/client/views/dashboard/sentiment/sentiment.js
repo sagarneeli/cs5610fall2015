@@ -35,6 +35,15 @@
           console.log(data.choice + " " + data.score);
           //self.results(self.RESULTS_START_HTML + results.choice + self.RESULTS_END_HTML + results.score);
           //console.log(results.choice + " " + results.score);
+            var config2 = liquidFillGaugeDefaultSettings();
+            config2.circleThickness = 0.1;
+            config2.circleFillGap = 0.2;
+            config2.textVertPosition = 0.8;
+            config2.waveAnimateTime = 2000;
+            config2.waveHeight = 0.3;
+            config2.waveCount = 1;
+            var score = $scope.result.score * 10;
+            loadLiquidFillGauge("fillgauge3", score, config2);
         });
       //}
     };

@@ -9,6 +9,11 @@ var OEMBED_URL = 'statuses/oembed';
 var USER_TIMELINE_URL = 'statuses/user_timeline';
 var sentimental = require('Sentimental');
 var async = require('async');
+var util = require('util');
+var debug = require('debug')('explorer');
+
+
+var io = require('socket.io');
 
 module.exports = function(app) {
   app.get('/api/trends/:woeid', function(req, res) {

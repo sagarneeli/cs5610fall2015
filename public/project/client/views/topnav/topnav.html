@@ -171,22 +171,22 @@
                 <ul class="dropdown-menu pull-right animated fadeIn">
 					<li><a ui-sref="profile">{{ 'profilee' }}</a></li>
 					<li><a ui-sref="login">{{ 'logout' }}</a>
-                    <li><a href="/twitter/tweet">Tweet a test message to @coolaj86</a></li>
-                    <li><a href="/twitter/direct/NeeliSagar">Send direct message</a>
-                        <span>(will probably fail as he may not be following you)</span>
-                    </li>
+                    <!--<li><a href="/twitter/tweet">Tweet a test message to @coolaj86</a></li>-->
+                    <!--<li><a href="/twitter/direct/NeeliSagar">Send direct message</a>-->
+                        <!--<span>(will probably fail as he may not be following you)</span>-->
+                    <!--</li>-->
 				</ul>
 			</li>
 		</ul>
 
 	</div>
-	<!--<ul class="nav navbar-nav pull-right hidd">-->
-		<!--<li class="dropdown admin-dropdown" dropdown on-toggle="toggled(open)">-->
-			<!--<a href class="dropdown-toggle animated fadeIn" dropdown-toggle><img src="../../images/twitter.png" class="topnav-img" alt=""></a>-->
-			<!--<ul class="dropdown-menu pull-right">-->
-				<!--<li><a ui-sref="profile">{{ 'profilee' }}</a></li>-->
-				<!--<li><a ui-sref="login">{{ 'logout' }}</a></li>-->
-			<!--</ul>-->
-		<!--</li>-->
-	<!--</ul>-->
+	<ul class="nav navbar-nav pull-right hidd">
+		<li class="dropdown admin-dropdown" dropdown on-toggle="toggled(open)">
+			<a href class="dropdown-toggle animated fadeIn" dropdown-toggle><img ng-src="{{image}}" class="topnav-img" alt=""></a>
+			<ul class="dropdown-menu pull-right">
+				<li><a ui-sref="profile">{{ 'profilee' }}</a></li>
+				<li><a ui-sref="login">{{ 'logout' }}</a></li>
+			</ul>
+		</li>
+	</ul>
 </nav>

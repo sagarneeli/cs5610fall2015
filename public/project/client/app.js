@@ -19,7 +19,7 @@ angular
     'ui.calendar',
     'chart.js',
     'textAngular',
-    //'gridshore.c3js.chart',
+    'gridshore.c3js.chart',
     'angular-growl',
     'growlNotifications',
     'angular-loading-bar',
@@ -28,7 +28,9 @@ angular
     'ui.bootstrap',
     'ngResource',
     'geolocation',
-    'ngSanitize'
+    'ngSanitize',
+    'ngMaterial',
+    'angular-jqcloud'
   ])
   .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.latencyThreshold = 5;

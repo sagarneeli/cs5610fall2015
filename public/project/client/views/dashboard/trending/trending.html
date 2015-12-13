@@ -1,25 +1,47 @@
-<div class="container" ng-controller="MainCtrl">
-    <div class="main">
-        <p class="lead">Get the latest trends on Twitter for your location.</p>
-        <div class="alert alert-danger alert-dismissable" ng-show="error">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <span ng-show="errorMsg">{{ errorMsg }}</span>
-        </div>
-        <span ng-show="trendForm.city.$error.required" class="error">Please enter a city.</span>
-        <form class="form-inline" name="trendForm">
-            <div class="form-group" ng-class="{'has-error': trendForm.city.$invalid}">
-                <input type="text" name="city" ng-model="city" value="{{ city }}" ng-focus="reset()" class="form-control input-lg" required>
+<div class="conter-wrapper" ng-controller="MainCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Get the latest trends on Twitter for your location
+                        <div class="panel-control pull-right">
+                            <a class="panelButton"><i class="fa fa-refresh"></i></a>
+                            <a class="panelButton"><i class="fa fa-minus"></i></a>
+                            <a class="panelButton"><i class="fa fa-remove"></i></a>
+                        </div>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="alert alert-danger alert-dismissable" ng-show="error">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <span ng-show="errorMsg">{{ errorMsg }}</span>
+                    </div>
+                    <span ng-show="trendForm.city.$error.required" class="error">Please enter a city.</span>
+                    <form class="form-inline" name="trendForm">
+                        <div class="form-group" ng-class="{'has-error': trendForm.city.$invalid}">
+                            <!--<input type="text" name="city" ng-model="city" value="{{ city }}" ng-focus="reset()" class="form-control input-lg" required>-->
+                            <md-input-container class="md-block" flex-gt-sm>
+                            <input type="text" name="city" ng-model="city" value="{{ city }}" ng-focus="reset()" class="form-control input-lg" required>
+                            </md-input-container>
+                        </div>
+                        <!--<button ng-click="getTrends()" ng-disabled="!detected" type="button" class="btn btn-info btn-lg">Get Trends</button>-->
+                        <!--<md-button ng-click="getTrends()" ng-disabled="!detected" type="button" class="btn btn-info btn-md" class="md-accent">Get Trends</md-button>-->
+                        <md-button md-no-ink class="md-raised md-primary" ng-click="getTrends()" ng-disabled="!detected" type="button">Get Trends</md-button>
+                    </form>
+                    <hr/>
+                    <div class="alert alert-warning" ng-show="multicity">Multiple cities matched - Please select one.</div>
+                    <div ng-show="multicity">
+                        <ul class="list-unstyled">
+                            <li ng-repeat="city in cities" class="select"><button ng-click="select(city.line2)" class="btn btn-success">{{ city.line2 }}</button></li>
+                        </ul>
+                    </div>
+                    <!--<ul class="list-unstyled">-->
+                    <!--<li ng-repeat="trend in trends"><a target="_blank" href="{{ trend.url }}">{{trend.name}}</a></li>-->
+                    <!--</ul>-->
+                    <!--<jqcloud words="words" width="500" height="350" steps="7" font-size="{from:0.09, to:0.04}"></jqcloud>-->
+                    <jqcloud words="words" id="cloud-dynamic" auto-resize="true" steps="7" font-size="{from:0.09, to:0.04}"></jqcloud>
+                </div>
             </div>
-            <button ng-click="getTrends()" ng-disabled="!detected" type="button" class="btn btn-info btn-lg">Get Trends</button>
-        </form>
-        <div class="alert alert-warning" ng-show="multicity">Multiple cities matched - Please select one.</div>
-        <div ng-show="multicity">
-            <ul class="list-unstyled">
-                <li ng-repeat="city in cities" class="select"><button ng-click="select(city.line2)" class="btn btn-success">{{ city.line2 }}</button></li>
-            </ul>
         </div>
-        <ul class="list-unstyled">
-            <li ng-repeat="trend in trends"><a target="_blank" href="{{ trend.url }}">{{trend.name}}</li>
-        </ul>
     </div>
 </div>

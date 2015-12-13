@@ -1,3 +1,6 @@
+#cloud-dynamic {
+  width: 80%; height: 400px;
+}
 
 blockquote.twitter-tweet {
 	display: none;
@@ -43,4 +46,9 @@ blockquote.twitter-tweet {
 	width: auto;
 	height: 32px;
 	float: right;
+}
+
+.liquidFillGaugeText {
+  font-family: Helvetica;
+  font-weight: bold;
 }
