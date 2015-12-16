@@ -65,14 +65,6 @@ require("./public/assignment/server/app.js")(app, db, mongoose);
 
 require("./public/project/server/app.js")(app, passport, oa);
 
-//app.get('/auth/twitter',
-//  passport.authenticate('twitter'),
-//  function(req, res){
-//
-//  }
-//);
-
-
 
 function initTwitterOauth() {
   oa = new OAuth(
