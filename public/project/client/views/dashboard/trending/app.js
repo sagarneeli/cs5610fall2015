@@ -67,7 +67,7 @@ angular.module('AniTheme')
                             console.log("I am in trending part data " + data.trends[0]);
                             //console.log("I am in trending actual data - Name " + data.trends[0].trends[0].name + " URL " + data.trends[0].trends[0].url + " Random " + Math.floor(Math.random() * (20 - 3 + 1)) + 3);
                             //$scope.words = data;
-                          if (data.trends[0] != null) {
+                          //if (data.trends[0] != null) {
                             console.log("Here");
                             $scope.trends = data.trends[0].trends;
                             for (var i = 0; i < data.trends[0].trends.length; i++)
@@ -78,17 +78,18 @@ angular.module('AniTheme')
                                   link: data.trends[0].trends[i].url
                                 }
                               );
-                          } else {
-                            console.log("In else");
-                            $scope.words = [];
-                            $scope.words.push(
-                              {
-                                text: "Nothing is Trending",
-                                weight: Math.floor(Math.random() * (20 - 3 + 1)) + 3,
-                                link: " "
-                              }
-                            );
-                          }
+                          //}
+                          //else {
+                          //  console.log("In else");
+                          //  $scope.words = [];
+                          //  $scope.words.push(
+                          //    {
+                          //      text: "Nothing is Trending",
+                          //      weight: Math.floor(Math.random() * (20 - 3 + 1)) + 3,
+                          //      link: " "
+                          //    }
+                          //  );
+                          //}
 
 
                         } else {

@@ -1,4 +1,4 @@
-<div class="conter-wrapper" ng-controller="ProfileCtrl">
+<div class="conter-wrapper" ng-controller="ProfileCtrl" ng-show="currentUser">
 	<div class="cover-wrapper">
 		<div class="cover-photo" style="background-image: url( 'images/profile-cover.jpg ') ;">
 			<div class="name-desg">
@@ -12,9 +12,10 @@
 			<img class="profile-photo img-responsive img-circle" src="{{currentUser.image}}" alt="">
 		</div>
 		<div class="foobar">
-			<a href=""><i class="fa fa-heart text-danger"></i> 443</a> &nbsp;&nbsp;&nbsp; <i class="fa fa-users"></i> 443
-			<span class="probutton"> <button type="button" class="btn btn-primary  btn-bordered" >
-				Follow</button>
+			<a href=""><i class="fa fa-heart text-danger"></i></a> &nbsp;&nbsp;&nbsp; <i class="fa fa-users"></i>
+			<span class="probutton">
+                <a href="https://twitter.com/intent/tweet?screen_name=" class="btn btn-primary  btn-bordered" role="button">Tweet</a>
+                <!--<button type="button" class="btn btn-primary  btn-bordered" >Follow</button>-->
 			</span>
 			<span class="links pull-right"><a href=""><i class="fa fa-twitter"></i></a> <a href=""><i class="fa fa-facebook"></i></a> <a href=""><i class="fa fa-google-plus"></i></a> <a href=""><i class="fa fa-github"></i></a></span>
 		</div>
@@ -45,7 +46,7 @@
 
 								<div class="panel-heading">
 									<h3 class="panel-title"><img class="panel-photo img-responsive img-circle" src="{{ currentUser.image }}" alt="">
-										{{ currentUser.displayName }} <br><span class="text-muted">Posted on 3rd March 2014</span>
+										{{ currentUser.displayName }} <br>
 									</h3>
 								</div>
 								<div class="panel-body">
@@ -53,7 +54,7 @@
 									    {{tweet.text}}
                                     </div>
 									<div class="comment-links clearfix">
-										<a href=""><i class="fa fa-share-alt"></i>22</a><a href=""><i class="fa fa-comments-o"></i>106</a><a href=""><i class="fa fa-heart text-danger"></i>862</a>
+										<a href="https://twitter.com/share" data-via="{{currentUser.displayName}}"><i class="fa fa-share-alt"></i></a>
 									</div>
 								</div>
 							</div>

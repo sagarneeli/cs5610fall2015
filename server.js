@@ -148,7 +148,7 @@ app.get('/account', ensureAuthenticated, function(req, res){
 app.get('/auth/twitter/callback',
   passport.authenticate('twitter', { failureRedirect: '/#/login' }),
   function(req, res) {
-    res.redirect('project/client/index.html#/dashboard/home')
+    res.redirect('project/client/index.html#/dashboard/profile');
     //res.redirect('project/client/index.html#/home');
   });
 

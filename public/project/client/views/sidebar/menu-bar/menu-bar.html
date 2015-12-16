@@ -1,12 +1,12 @@
 <div class="side-menu">
 	<div class="menu-body">
 		<ul class="nav nav-pills nav-stacked sidenav">
-			<li ng-class="{active: $state.includes('home')}">
-				<a ui-sref="home">
+			<li ng-class="{active: $state.includes('tweets')}">
+				<a ui-sref="tweets">
 				<span class="glyphicon glyphicon-home"></span>
 				</a>
 				<ul class="nested-dropdown animated fadeIn">
-					<li><a ng-class="{active: $state.includes('home')}" ui-sref="home">{{ 'dashboard' }}</a></li>
+					<li><a ng-class="{active: $state.includes('tweets')}" ui-sref="tweets">{{ 'dashboard' }}</a></li>
 				</ul>
 			</li>
 			<!--<li ng-class="{active: $state.includes('typography')}">-->
@@ -17,30 +17,21 @@
 					<!--<li><a ng-class="{active: $state.includes('typography')}" ui-sref="typography">{{ 'typography' }}</a></li>-->
 				<!--</ul>-->
 			<!--</li>-->
-            <!--<li ng-class="{active: $state.includes('trending')}">-->
-                <!--<a ui-sref="table">-->
-                    <!--<span class="glyphicon glyphicon-list"></span>-->
-                <!--</a>-->
-                <!--<ul class="nested-dropdown animated fadeIn">-->
-                    <!--<li><a ng-class="{active: $state.includes('trending')}" ui-sref="table">{{ 'trending' }}</a></li>-->
-                <!--</ul>-->
-            <!--</li>-->
-			<li ng-class="{active: $state.includes('mail')}">
+			<li ng-class="{active: $state.includes('inbox')}">
 				<a ui-sref="inbox">
 				<span class="glyphicon glyphicon-envelope"></span>
 				</a>
 				<ul class="nested-dropdown animated fadeIn">
 					<li class="sidemenu-header">{{ 'ToDo' }}</li>
 					<li><a ui-sref="inbox">{{ 'Tasks' }}</a></li>
-					<li><a ui-sref="compose">{{ 'Set Reminders' }}</a></li>
 				</ul>
 			</li>
-			<li ng-class="{active: $state.includes('invoice')}">
-				<a ui-sref="invoice">
+			<li ng-class="{active: $state.includes('trending')}">
+				<a ui-sref="trending">
 				<span class="glyphicon glyphicon-list-alt"></span>
 				</a>
 				<ul class="nested-dropdown animated fadeIn">
-					<li><a ui-sref="invoice">{{ 'invoice' }}</a></li>
+					<li><a ui-sref="trending">{{ 'trending' }}</a></li>
 				</ul>
 			</li>
 			<li ng-class="{active: $state.includes('pages')}">
@@ -49,11 +40,9 @@
 				</a>
 				<ul class="nested-dropdown animated fadeIn">
 					<li class="sidemenu-header">{{ 'pages' }}</li>
-					<li><a ui-sref="trending">{{ 'trending' }}</a></li>
+					<!--<li><a ui-sref="trending">{{ 'trending' }}</a></li>-->
                     <li><a ui-sref="tweets">{{ 'tweets' }}</a></li>
                     <li><a ui-sref="sentiment">{{ 'sentiment' }}</a></li>
-					<li><a ui-sref="login">{{ 'login' }}</a></li>
-					<li><a ui-sref="404-page">{{ '404page' }}</a></li>
 				</ul>
 			</li>
 		</ul>

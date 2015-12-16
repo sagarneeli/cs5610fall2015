@@ -73,12 +73,18 @@
         .state('trending', {
           url: '/trending',
           parent: 'dashboard',
-          templateUrl: 'views/dashboard/trending/trending.html'
+          templateUrl: 'views/dashboard/trending/trending.html',
+          resolve: {
+            loggedin: checkCurrentUser
+          }
         })
         .state('tweets', {
           url: '/tweets',
           parent: 'dashboard',
-          templateUrl: 'views/dashboard/tweets/tweets.html'
+          templateUrl: 'views/dashboard/tweets/tweets.html',
+          resolve: {
+            loggedin: checkCurrentUser
+          }
         })
         .state('profile', {
           url: '/profile',
@@ -93,15 +99,18 @@
         //  parent: 'dashboard',
         //  templateUrl: 'views/dashboard/typography/typography.html'
         //})
-        .state('invoice', {
-          url: '/invoice',
-          parent: 'dashboard',
-          templateUrl: 'views/dashboard/invoice.html'
-        })
         .state('sentiment', {
           url: '/sentiment',
           parent: 'dashboard',
-          templateUrl: 'views/dashboard/sentiment/sentiment.html'
+          templateUrl: 'views/dashboard/sentiment/sentiment.html',
+          resolve: {
+            loggedin: checkCurrentUser
+          }
+        })
+        .state('inbox', {
+          url: '/mail/todo',
+          parent: 'dashboard',
+          templateUrl: 'views/dashboard/mail/inbox.html'
         })
     });
 
@@ -140,7 +149,6 @@
       }
       deferred.resolve();
     });
-
     return deferred.promise;
   };
 
