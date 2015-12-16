@@ -81,8 +81,8 @@ function initTwitterOauth() {
     , config.consumer_key
     , config.consumer_secret
     , "1.0A"
-    , "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
-    //, "http://" + domain + "/auth/twitter/callback"
+    //, "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
+    , "http://" + domain + "/auth/twitter/callback"
     , "HMAC-SHA1"
   );
 }
@@ -90,8 +90,8 @@ function initTwitterOauth() {
 passport.use(new TwitterStrategy({
     consumerKey     : config.consumer_key,
     consumerSecret  : config.consumer_secret,
-    //callbackURL     : "http://" + domain + "/auth/twitter/callback"
-    callbackURL     : "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
+    callbackURL     : "http://" + domain + "/auth/twitter/callback"
+    //callbackURL     : "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
 
