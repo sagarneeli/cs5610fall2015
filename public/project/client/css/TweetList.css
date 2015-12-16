@@ -52,3 +52,12 @@ blockquote.twitter-tweet {
   font-family: Helvetica;
   font-weight: bold;
 }
+
+.navbar-tweet
+{
+  position: absolute;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  margin: auto;
+}

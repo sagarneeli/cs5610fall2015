@@ -1,192 +1,104 @@
-<nav class="navbar topnav-navbar navbar-fixed-top" role="navigation">
+<nav class="navbar topnav-navbar navbar-fixed-top" role="navigation" ng-show="currentUser">
 
-	<div class="navbar-header text-center">
-		<button type="button" class="navbar-toggle" ng-click="showMenu();" >
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	    </button>
-		<a class="navbar-brand" ui-sref="home">TrendsCaster</a>
-	</div>
-	<div class="collapse navbar-collapse">
-		<form class="navbar-form navbar-left" role="search">
-			<span class="glyphicon glyphicon-search"></span>
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="">
-			</div>
-		</form>
-		<ul class="nav navbar-nav">
-			<li class="dropdown" dropdown on-toggle="toggled(open)">
-				<a href class="dropdown-toggle" dropdown-toggle><span class="glyphicon glyphicon-envelope"></span><span class="badge badge-green">5</span></a>
-				<ul class="dropdown-menu animated fadeIn">
-					<li class="messages-top text-center">
-						{{ 'topnav1' }}
-					</li>
-					<li class="dropdown-messages">
-						<a href="#">
-							<div class="message-sender">
-								{{ 'lucy' }}
-							</div>
-							<div class="message-header">
-								{{ 'topnavheader1' }}
-							</div>
-						</a>
-					</li>
-					<li class="dropdown-messages">
-						<a href="#">
-							<div class="message-sender">
-								{{ 'diptesh' }}
-							</div>
-							<div class="message-header">
-								{{ 'topnavheader2' }}
-							</div>
-						</a>
-					</li>
-					<li class="dropdown-messages">
-						<a href="#">
-							<div class="message-sender">
-								{{ 'weng' }}
-							</div>
-							<div class="message-header">
-								{{ 'topnavheader3' }}
-
-							</div>
-						</a>
-					</li>
-					<li class="dropdown-messages">
-						<a href="#">
-							<div class="message-sender">
-								{{ 'jade' }}
-							</div>
-							<div class="message-header">
-								{{ 'topnavheader4' }}
-							</div>
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li class="dropdown" dropdown on-toggle="toggled(open)">
-				<a href class="dropdown-toggle" dropdown-toggle><span class="glyphicon glyphicon-bell"></span><span class="badge badge-red">13</span></a>
-				<ul class="dropdown-menu animated fadeIn">
-					<li class="notification-header text-center">
-						{{ 'threenotifications' }}
-					</li>
-					<li class="dropdown-notifications">
-						<a href="#">
-							<div class="notification">
-								<i class="fa fa-thumbs-up"></i> {{ 'runuma' }}
-							</div>
-						</a>
-					</li>
-					<li class="dropdown-notifications">
-						<a href="#">
-							<div class="notification">
-								<i class="fa fa-thumbs-up"></i>{{ 'harshita' }}
-							</div>
-						</a>
-					</li>
-					<li class="dropdown-notifications">
-						<a href="#">
-							<div class="notification">
-								<i class="fa fa-user-plus"></i>{{ 'archana' }}
-							</div>
-						</a>
-					</li>
-					<li class="dropdown-notifications">
-						<a href="#">
-							<div class="notification">
-								<i class="fa fa-user-times"></i>{{ 'animesh' }}
-							</div>
-						</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
-		<ul class="nav navbar-nav pull-right navbar-right">
-			<li class="dropdown color-picker" dropdown on-toggle="toggled(open)">
-	            <a href class="dropdown-toggle notoggle" dropdown-toggle>
-	                <span><i class="fa fa-circle"></i></span>
-	            </a>
-	            <ul class="dropdown-menu pull-right animated fadeIn" role="menu">
-	                <li class="padder-h-xs">
-	                    <table class="table color-swatches-table text-center no-m-b">
-	                        <tr>
-	                            <td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('blue')" class="theme-picker">
-	                                    <i class="fa fa-circle blue-base"></i>
-	                                </a>
-	                            </td>
-	                            <td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('green')" class="theme-picker">
-	                                    <i class="fa fa-circle green-base"></i>
-	                                </a>
-	                            </td>
-	                            <td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('red')" class="theme-picker">
-	                                    <i class="fa fa-circle red-base"></i>
-	                                </a>
-	                            </td>
-	                        </tr>
-	                        <tr>
-	                         	<td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('purple')" class="theme-picker">
-	                                    <i class="fa fa-circle purple-base"></i>
-	                                </a>
-	                            </td>
-	                            <td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('midnight-blue')" class="theme-picker">
-	                                    <i class="fa fa-circle midnight-blue-base"></i>
-	                                </a>
-	                            </td>
-	                            <td class="text-center colorr">
-	                                <a href="javascript:;" ng-click="changeTheme('lynch')" class="theme-picker">
-	                                    <i class="fa fa-circle lynch-base"></i>
-	                                </a>
-	                            </td>
-	                        </tr>
-	                    </table>
-	                </li>
-	            </ul>
-	        </li>
-	       <li>
-	       		<a href="" ng-click="rightToLeft()" >
-	                <span> LTR/RTL </span>
-	            </a>
-	        </li>
-	        <li class="dropdown" dropdown on-toggle="toggled(open)">
-	        	<a href class="dropdown-toggle notoggle" dropdown-toggle>
-	                <span>{{ 'lang' }}</span>
-	            </a>
-	        	<ul class="dropdown-menu lang pull-right animated fadeIn">
-					<li><a href="" ng-click="changeLanguage('en')">English</a></li>
-					<li><a href="" ng-click="changeLanguage('de')">Dutch</a></li>
-					<li><a href="" ng-click="changeLanguage('ur')">اردو</a></li>
-					<li><a href="" ng-click="changeLanguage('hn')">हिन्दी</a></li>
-				</ul>
-	        </li>
-			<li class="dropdown admin-dropdown" dropdown on-toggle="toggled(open)">
-				<a href class="dropdown-toggle" dropdown-toggle><img ng-src="{{image}}" class="topnav-img" alt=""> <span class="hidden-sm">{{username}}</span></a>
-                <!--<a href class="dropdown-toggle" dropdown-toggle><span class="hidden-sm">Twitter User</span></a>-->
+    <div class="navbar-header text-center">
+        <button type="button" class="navbar-toggle" ng-click="showMenu();" >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" ui-sref="home">TrendsCaster</a>
+    </div>
+    <div class="collapse navbar-collapse">
+        <form class="navbar-form navbar-left" role="search">
+            <span class="glyphicon glyphicon-search"></span>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="">
+            </div>
+        </form>
+        <!--<ul class="navbar-tweet">-->
+            <!--<li>-->
+                <!--<a href="https://twitter.com/intent/tweet?screen_name="><img src="images/tweet.png" class="topnav-img" alt=""><span class="hidden-sm">Tweet</span></a>-->
+            <!--</li>-->
+        <!--</ul>-->
+        <ul class="nav navbar-nav pull-right navbar-right">
+            <!--<li class="padder-h-xs"><button class="btn btn-primary btn-rounded" ng-click="open()">Tweet</button></li>-->
+            <li class="dropdown color-picker" dropdown on-toggle="toggled(open)">
+                <a href class="dropdown-toggle notoggle" dropdown-toggle>
+                    <span><i class="fa fa-circle"></i></span>
+                </a>
+                <ul class="dropdown-menu pull-right animated fadeIn" role="menu">
+                    <li class="padder-h-xs">
+                        <table class="table color-swatches-table text-center no-m-b">
+                            <tr>
+                                <td class="text-center colorr">
+                                    <a href="javascript:;" ng-click="changeTheme('blue')" class="theme-picker">
+                                        <i class="fa fa-circle blue-base"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center colorr">
+                                    <a href="javascript:;" ng-click="changeTheme('green')" class="theme-picker">
+                                        <i class="fa fa-circle green-base"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center colorr">
+                                    <a href="javascript:;" ng-click="changeTheme('red')" class="theme-picker">
+                                        <i class="fa fa-circle red-base"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center colorr">
+                                    <a href="javascript:;" ng-click="changeTheme('purple')" class="theme-picker">
+                                        <i class="fa fa-circle purple-base"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center colorr">
+                                    <a href="javascript:;" ng-click="changeTheme('midnight-blue')" class="theme-picker">
+                                        <i class="fa fa-circle midnight-blue-base"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center colorr">
+                                    <a href="javascript:;" ng-click="changeTheme('lynch')" class="theme-picker">
+                                        <i class="fa fa-circle lynch-base"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="" ng-click="rightToLeft()" >
+                    <span> LTR/RTL </span>
+                </a>
+            </li>
+            <li class="dropdown admin-dropdown" dropdown on-toggle="toggled(open)">
+                <a href class="dropdown-toggle" dropdown-toggle><img ng-src="{{image}}" class="topnav-img" alt=""> <span class="hidden-sm">{{username}}</span></a>
                 <ul class="dropdown-menu pull-right animated fadeIn">
-					<li><a ui-sref="profile">{{ 'profilee' }}</a></li>
-					<li><a ui-sref="login">{{ 'logout' }}</a>
-                    <!--<li><a href="/twitter/tweet">Tweet a test message to @coolaj86</a></li>-->
-                    <!--<li><a href="/twitter/direct/NeeliSagar">Send direct message</a>-->
+                    <li><a ui-sref="profile">{{ 'profilee' }}</a></li>
+                    <li><a ui-sref="login" ng-click="logout()">{{ 'logout' }}</a></li>
+                        <!--<li><a href="/twitter/tweet">Tweet a test message to @coolaj86</a></li>-->
+                        <!--<li><a href="/twitter/direct/NeeliSagar">Send direct message</a>-->
                         <!--<span>(will probably fail as he may not be following you)</span>-->
-                    <!--</li>-->
-				</ul>
-			</li>
-		</ul>
+                        <!--</li>-->
+                </ul>
+            </li>
+        </ul>
 
-	</div>
-	<ul class="nav navbar-nav pull-right hidd">
-		<li class="dropdown admin-dropdown" dropdown on-toggle="toggled(open)">
-			<a href class="dropdown-toggle animated fadeIn" dropdown-toggle><img ng-src="{{image}}" class="topnav-img" alt=""></a>
-			<ul class="dropdown-menu pull-right">
-				<li><a ui-sref="profile">{{ 'profilee' }}</a></li>
-				<li><a ui-sref="login">{{ 'logout' }}</a></li>
-			</ul>
-		</li>
-	</ul>
+    </div>
+    <ul class="nav navbar-nav pull-right hidd">
+        <li class="dropdown admin-dropdown" dropdown on-toggle="toggled(open)">
+            <a href class="dropdown-toggle animated fadeIn" dropdown-toggle><img src="{{image}}" class="topnav-img" alt=""></a>
+            <ul class="dropdown-menu pull-right">
+                <li><a ui-sref="profile">{{ 'profilee' }}</a></li>
+                <li><a ui-sref="login" ng-click="logout()">{{ 'logout' }}</a></li>
+            </ul>
+        </li>
+    </ul>
+    <!--<ul class="navbar-tweet hidd">-->
+        <!--<li>-->
+            <!--<a href="https://twitter.com/intent/tweet?screen_name="><img src="images/twitter-icon.png" class="topnav-img" alt=""></a>-->
+        <!--</li>-->
+    <!--</ul>-->
 </nav>

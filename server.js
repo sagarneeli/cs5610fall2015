@@ -42,6 +42,7 @@ app.use(express.cookieParser());
 app.use(methodOverride());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(multer());
+//app.use(session({secret: 'mySecretKey', cookie: { secure: true }}));
 app.use(session({secret: 'mySecretKey'}));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -64,9 +65,6 @@ require("./public/assignment/server/app.js")(app, db, mongoose);
 
 require("./public/project/server/app.js")(app, passport, oa);
 
-//require("./public/project/server/app.js")(app, passport, mongoose);
-
-
 //app.get('/auth/twitter',
 //  passport.authenticate('twitter'),
 //  function(req, res){
@@ -83,8 +81,8 @@ function initTwitterOauth() {
     , config.consumer_key
     , config.consumer_secret
     , "1.0A"
-    //, "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
-    , "http://" + domain + "/auth/twitter/callback"
+    , "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
+    //, "http://" + domain + "/auth/twitter/callback"
     , "HMAC-SHA1"
   );
 }
@@ -92,8 +90,8 @@ function initTwitterOauth() {
 passport.use(new TwitterStrategy({
     consumerKey     : config.consumer_key,
     consumerSecret  : config.consumer_secret,
-    callbackURL     : "http://" + domain + "/auth/twitter/callback"
-    //callbackURL     : "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
+    //callbackURL     : "http://" + domain + "/auth/twitter/callback"
+    callbackURL     : "http://" + ipaddress + ":" + port + "/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
 
@@ -129,7 +127,7 @@ passport.use(new TwitterStrategy({
           newUser.save(function(err) {
             if (err)
               throw err;
-            console.log("saving user....")
+            console.log("saving user....");
             return done(null, newUser);
           });
         }
@@ -143,9 +141,6 @@ initTwitterOauth();
 app.listen(port, ipaddress, function() {
   console.log('Listening at http://%s:%s', ipaddress, port);
 });
-
-//app.get('/', routes.index);
-//app.get('/api/trends/:woeid', api.trends);
 
 app.get('/auth/twitter', passport.authenticate('twitter'));
 
@@ -164,6 +159,12 @@ app.get('/auth/twitter/callback',
     res.redirect('project/client/index.html#/dashboard/home')
     //res.redirect('project/client/index.html#/home');
   });
+
+app.post('/logout', function(req, res) {
+  req.logOut();
+  res.send(200);
+  //res.redirect('/');
+});
 
 app.get('/twitter/tweet', function (req, res) {
   User.findById(req.session.passport.user, function(err, user) {

@@ -67,6 +67,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 
     <script src="app.js"></script>
+    <script src="config.js"></script>
     <script src="js/extras/map.min.js"></script>
     <script src="js/extras/worldmap.js"></script>
     <script src="js/extras/progressButton.js"></script>
@@ -87,7 +88,6 @@
     <script src="views/dashboard/calender/clndrCtrl.js"></script>
     <script src="views/topnav/topnav.controller.js"></script>
     <script src="views/sidebar/sidebar.controller.js"></script>
-    <script src="views/dashboard/tabs/tabs.controller.js"></script>
     <script src="views/sidebar/sidebar-widgets/sidebar-widgets.js"></script>
     <script src="views/sidebar/sidebar-widgets/sidebar-calendar/sidebar-calendar.js"></script>
     <script src="views/sidebar/sidebar-widgets/sidebar-newsfeed/sidebar-newsfeed.js"></script>
@@ -101,12 +101,15 @@
     <script src="//platform.twitter.com/widgets.js"></script>
     <script src="views/dashboard/tweets/TweetList.js"></script>
     <script src="views/dashboard/sentiment/sentiment.js"></script>
-    <script src="services/UserService.js"></script>
+    <script src="views/to-do-list/to-do.js"></script>
+    <script src="views/to-do-list/todoCtrl.js"></script>
+    <script src="views/login/progressCtrl.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc7/angular-material.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
     <script src="js/liquidFillGauge.js" language="JavaScript"></script>
+    <script src="views/dashboard/profile/profileCtrl.js"></script>
     <!--<script src="services/services.js"></script>-->
     <!-- Compiled and minified CSS -->
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">-->
@@ -114,6 +117,25 @@
     <!-- Compiled and minified JavaScript -->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>-->
     <link rel='shortcut icon' href='favicon.ico' type='image/x-icon' />
+
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700|Share+Tech+Mono' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/c3/0.1.29/c3.css' />
+    <!--<link rel='stylesheet' href='css/style.css' />-->
+    <link rel='shortcut icon' href='images/Twitter_logo_blue_small.png' />
+
+
+    <script src="//platform.twitter.com/widgets.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pubnub/3.6.3/pubnub.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/three.js/r68/three.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/stats.js/r11/Stats.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="/bower_components/pubnub-angular/lib/pubnub-angular.js"></script>
+    <script src="//js.leapmotion.com/leap-0.6.3.min.js"></script>
+    <script src="//js.leapmotion.com/leap-plugins-0.1.9.js"></script>
+    <script src="services/UserService.js"></script>
+    <script src="js/shareLink.js"></script>
+    <script src="js/tweet.js"></script>
 </head>
 <body ng-app="AniTheme">
 <!--[if lt IE 7]>
@@ -135,6 +157,10 @@
 </script>
 <script src="/bower_components/jqcloud2/dist/jqcloud.min.js"></script>
 <script src="js/angular-jqcloud.js"></script>
+<script src="views/dashboard/typography/shaders.js"></script>
+<script src="views/dashboard/typography/TweetBeacon.js"></script>
+<!--<script src="views/dashboard/typography/TwitterStreamGlobe.js"></script>-->
+<script src="views/dashboard/typography/TweetHud.js"></script>
 <!-- build:js scripts/oldieshim.js -->
 <!--[if lt IE 9]>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.2.0/es5-shim.js"></script>
@@ -142,5 +168,8 @@
 <![endif]-->
 <!-- endbuild -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.0.0/knockout-min.js"></script>
+<script>
+    window.getSelection().removeAllRanges();
+</script>
 </body>
 </html>

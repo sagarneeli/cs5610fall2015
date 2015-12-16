@@ -6,7 +6,7 @@ angular.module('AniTheme')
       templateUrl:'views/topnav/topnav.html',
       restrict: 'E',
       replace: true,
-      controller: function($scope, UserService){
+      controller: function($scope, UserService, $location, $http, $rootScope){
 
         $scope.showMenu = function(){
 
@@ -37,9 +37,20 @@ angular.module('AniTheme')
 
         }
 
+        $scope.logout = function()
+        {
+          $http.post("/logout")
+            .success(function()
+            {
+              $rootScope.currentUser = null;
+              $location.path("home");
+              //$location.path('project/client/index.html');
+            });
+        }
+
         UserService.findProfileImage()
           .then(function (user) {
-            console.log(user);
+            //console.log(user);
             $scope.image = user.image;
             $scope.username = user.displayName;
           });

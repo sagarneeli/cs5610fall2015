@@ -1,0 +1,104 @@
+<!--<div class="conter-wrapper">-->
+	<!--<div class="row">-->
+		<!--<div class="col-lg-12">-->
+			<!--<div class="panel panel-primary">-->
+				<!--<div class="panel-heading">-->
+					<!--<h3 class="panel-title">Typography-->
+						<!--<div class="panel-control pull-right">-->
+							<!--<a class="panelButton"><i class="fa fa-refresh"></i></a>-->
+							<!--<a class="panelButton"><i class="fa fa-minus"></i></a>-->
+							<!--<a class="panelButton"><i class="fa fa-remove"></i></a>-->
+						<!--</div>-->
+					<!--</h3>-->
+				<!--</div>-->
+				<!--&lt;!&ndash;<div class="panel-body">&ndash;&gt;-->
+                    <!--&lt;!&ndash; Container for the Three.js scene &ndash;&gt;-->
+                    <!--<div id="globe-holder"></div>-->
+
+                    <!--&lt;!&ndash; Container for the Angular application &ndash;&gt;-->
+                    <!--<div id="tweet-hud" ng-controller="TweetHud">-->
+
+                        <!--<div id="left-panel" class="hud-panel">-->
+                            <!--<div>-->
+
+                                <!--&lt;!&ndash; Repeats for every Tweet in the $scope.tweets model &ndash;&gt;-->
+                                <!--<div ng-repeat="tweet in tweets" class="tweet-item {{tweet.sentiment.state}}">-->
+                                    <!--<img ng-src="{{tweet.user.profile_image_url}}" />-->
+                                    <!--<span class="text"><a href="{{tweet.user.profile_image_url}}" target="_blank">@{{tweet.user.screen_name}}</a></span>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div id="right-panel" class="hud-panel">-->
+                            <!--<div id="sentiment-panel" class="sub-panel">-->
+                                <!--<h2>Tweet Sentiment</h2>-->
+
+                                <!--&lt;!&ndash; Bind to $scope.avgSentiment model &ndash;&gt;-->
+                                <!--<span id="sentiment-value" class="{{sentimentState}}">{{avgSentiment}}</span>-->
+
+                            <!--</div>-->
+
+                            <!--<div id="trends-panel" class="sub-panel">-->
+                                <!--<h2>Trends</h2>-->
+                                <!--<ul>-->
+
+                                    <!--&lt;!&ndash; Repeats for every trend in the $scope.trends model &ndash;&gt;-->
+                                    <!--<li ng-repeat="trend in trends" class="trend-item">-->
+                                        <!--<a href="{{trend.url}}" target="_blank">{{trend.name}}</a>-->
+                                    <!--</li>-->
+
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+				<!--&lt;!&ndash;</div>&ndash;&gt;-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+<!--</div>-->
+
+<!-- Container for the Three.js scene -->
+<!--<div id="globe-holder"></div>-->
+
+<!-- Container for the Angular application -->
+<div id="tweet-hud" ng-controller="TweetHud">
+
+    <div id="left-panel" class="hud-panel">
+        <div>
+
+            <!-- Repeats for every Tweet in the $scope.tweets model -->
+            <div ng-repeat="tweet in tweets" class="tweet-item {{tweet.sentiment.state}}">
+                <img ng-src="{{tweet.user.profile_image_url}}" />
+                <span class="text"><a href="{{tweet.user.profile_image_url}}" target="_blank">@{{tweet.user.screen_name}}</a></span>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="right-panel" class="hud-panel">
+        <div id="sentiment-panel" class="sub-panel">
+            <h2>Tweet Sentiment</h2>
+
+            <!-- Bind to $scope.avgSentiment model -->
+            <span id="sentiment-value" class="{{sentimentState}}">{{avgSentiment}}</span>
+
+        </div>
+
+        <div id="trends-panel" class="sub-panel">
+            <h2>Trends</h2>
+            <ul>
+
+                <!-- Repeats for every trend in the $scope.trends model -->
+                <li ng-repeat="trend in trends" class="trend-item">
+                    <a href="{{trend.url}}" target="_blank">{{trend.name}}</a>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+

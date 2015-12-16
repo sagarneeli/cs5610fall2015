@@ -11,7 +11,9 @@ var sentimental = require('Sentimental');
 var async = require('async');
 var util = require('util');
 var debug = require('debug')('explorer');
-
+var moment = require('moment');
+var Pubnub = require('pubnub');
+var sentiment = require('sentiment');
 
 var io = require('socket.io');
 
@@ -154,5 +156,141 @@ module.exports = function(app) {
     results = results / tweetSet.length;
     return results
   }
+
+
+  TweetPublisher = { };
+  var stream, cachedTweet, publishInterval;
+  var tweetPublisher = TweetPublisher;
+  var pubnub = TweetPublisher.pubnub = Pubnub({
+    publish_key: config.PUBNUB_PUBLISH_KEY,
+    subscribe_key: config.PUBNUB_SUBSCRIBE_KEY
+  });
+
+  TweetPublisher.start = function () {
+    var response = { };
+    // If the stream does not exist create it
+    if (!stream) {
+      // Connect to stream and filter by a geofence that is the size of the Earth
+      stream = twitter.stream('statuses/filter', { locations: '-180,-90,180,90' });
+      // When Tweet is received only process it if it has geo data
+      stream.on('tweet', function (tweet) {
+        // calculate sentiment with "sentiment" module
+        tweet.sentiment = sentiment(tweet.text);
+        // save the Tweet so that the very latest Tweet is available and can be published
+        cachedTweet = tweet
+      });
+
+      response.message = 'Stream created and started.'
+    }
+    // If the stream exists start it
+    else {
+      stream.start();
+      response.message = 'Stream already exists and started.'
+    }
+
+    // Clear publish interval just be sure they don't stack up (probably not necessary)
+    if (publishInterval) {
+      clearInterval(publishInterval);
+    }
+
+    // Only publish a Tweet every 100 millseconds so that the browser view is not overloaded
+    // This will provide a predictable and consistent flow of real-time Tweets
+    publishInterval = setInterval(function () {
+      if (cachedTweet) {
+        publishTweet(cachedTweet);
+      }
+    }, 100); // Adjust the interval to increase or decrease the rate at which Tweets sent to the clients
+    return response;
+  }
+
+  /**
+   * Stops the stream and publish interval
+   **/
+  TweetPublisher.stop = function () {
+    var response = { };
+    if (stream) {
+      stream.stop();
+      clearInterval(publishInterval);
+      response.message = 'Stream stopped.'
+    }
+    else {
+      response.message = 'Stream does not exist.'
+    }
+    return response;
+  }
+
+  var lastPublishedTweetId;
+
+  /**
+   * Publishes Tweet object through PubNub to all clients
+   **/
+  function publishTweet (tweet) {
+    if (tweet.id == lastPublishedTweetId) {
+      return;
+    }
+    lastPublishedTweetId = tweet.id;
+    pubnub.publish({
+      post: false,
+      channel: 'tweet_stream',
+      message: tweet,
+      callback: function (details) {
+        // success
+      }
+    });
+  }
+
+  app.get('/stream', function (req, res) {
+    // start stream and publishing
+    tweetPublisher.start();
+    // Render PubNub config for client-side javascript to reference
+    //res.render('index', {
+    //  subscribe_key: config.PUBNUB_SUBSCRIBE_KEY,
+    //  channel: 'tweet_stream'
+    //});
+
+    res.send({
+      subscribe_key: config.PUBNUB_SUBSCRIBE_KEY,
+      channel: 'tweet_stream'
+    });
+
+  });
+
+  /**
+   * GET Starts stream
+   */
+  app.get('/stream/start', function (req, res) {
+    res.send( tweetPublisher.start() );
+  });
+
+  /**
+   * GET Stops stream
+   */
+  app.get('/stream/stop', function (req, res) {
+    res.send( tweetPublisher.stop() );
+  });
+
+  var trends, trendsTimestamp;
+
+  /**
+   * GET Returns trends from Twitter trends API
+   */
+  app.get('/trends', function (req, res) {
+    var now = moment();
+    // Only allow request to trends API every 2 minutes to stay within rate limits
+    if (trends && trendsTimestamp.diff(now, 'minutes') < 2 ) {
+      // return trends from memory
+      res.send(trends);
+      return;
+    }
+    twitter.get('trends/place', { id: 1 }, function(err, data, response) {
+      if (err) {
+        res.send(err);
+        return;
+      }
+      trends = data[0].trends;
+      trendsTimestamp = moment();
+      res.send(trends);
+    });
+  });
 
 };
